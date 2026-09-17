@@ -1,0 +1,2007 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ankhorage/game • Paradox</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f5f7fb;
+        color: #11203b;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      a { color: #2459d3; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      button { font: inherit; }
+      code, pre { font-family: "SFMono-Regular", ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+        min-height: 100vh;
+      }
+      .sidebar {
+        padding: 1.5rem;
+        border-right: 1px solid #d8dfec;
+        background: #ffffff;
+        position: sticky;
+        top: 0;
+        max-height: 100vh;
+        overflow: auto;
+      }
+      .content { padding: 2rem; }
+      .panel, .item {
+        background: #ffffff;
+        border: 1px solid #d8dfec;
+        border-radius: 0.9rem;
+        padding: 1rem 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 24px rgba(17, 32, 59, 0.06);
+      }
+      .summary {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+      }
+      .summary strong {
+        display: block;
+        font-size: 1.5rem;
+      }
+      .search {
+        width: 100%;
+        padding: 0.75rem 0.9rem;
+        border-radius: 0.75rem;
+        border: 1px solid #c7d2e5;
+        margin: 1rem 0 1.5rem;
+      }
+      .nav-list, .meta-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .nav-list li + li { margin-top: 0.5rem; }
+      .nav-button {
+        width: 100%;
+        display: block;
+        border: 0;
+        border-radius: 0.7rem;
+        background: transparent;
+        color: #24427a;
+        cursor: pointer;
+        padding: 0.55rem 0.7rem;
+        text-align: left;
+      }
+      .nav-button:hover, .nav-button[aria-current="page"] {
+        background: #e8eefb;
+        text-decoration: none;
+      }
+      .nav-button small {
+        display: block;
+        color: #5e6d8c;
+        margin-top: 0.15rem;
+      }
+      .view[hidden] { display: none; }
+      .muted { color: #5e6d8c; }
+      .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; list-style: none; }
+      .chip {
+        border-radius: 999px;
+        background: #e8eefb;
+        color: #24427a;
+        padding: 0.25rem 0.65rem;
+        font-size: 0.85rem;
+      }
+      table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; }
+      th, td { padding: 0.6rem; border-bottom: 1px solid #e2e7f2; text-align: left; vertical-align: top; }
+      pre {
+        overflow: auto;
+        border-radius: 0.75rem;
+        background: #0f1729;
+        color: #e7edf7;
+        padding: 1rem;
+      }
+      .empty { font-style: italic; color: #6f7f9c; }
+      .mermaid { margin: 1rem 0; overflow: auto; }
+      details > summary { cursor: pointer; color: #5e6d8c; font-size: 0.9rem; margin-top: 0.5rem; user-select: none; }
+      @media (max-width: 900px) {
+        .layout { grid-template-columns: 1fr; }
+        .sidebar { position: static; max-height: none; border-right: 0; border-bottom: 1px solid #d8dfec; }
+        .content { padding: 1rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <p class="muted">Generated with Paradox</p>
+        <h1>@ankhorage/game</h1>
+        <p>Platform-neutral config-driven game semantics and runtime primitives for Ankhorage apps.</p>
+        <input id="search" class="search" type="search" placeholder="Search current view" />
+        <nav aria-label="Documentation sections">
+          <ul class="nav-list">
+            <li>
+              <button class="nav-button" type="button" data-target="home" aria-current="page">
+                Home
+                <small>Overview, CLI, public API, diagrams</small>
+              </button>
+            </li>
+            <li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/advanceGameTime.ts">
+      src/features/session/application/use-cases/advanceGameTime.ts
+      <small>2 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/applyGameEvent.test.ts">
+      src/features/session/application/use-cases/applyGameEvent.test.ts
+      <small>4 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/applyGameEvent.ts">
+      src/features/session/application/use-cases/applyGameEvent.ts
+      <small>1 function</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/arcadeCollision.test.ts">
+      src/features/session/application/use-cases/arcadeCollision.test.ts
+      <small>1 function</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/arcadeMechanics.definition.ts">
+      src/features/session/application/use-cases/arcadeMechanics.definition.ts
+      <small>2 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/arcadeMechanics.fixture.ts">
+      src/features/session/application/use-cases/arcadeMechanics.fixture.ts
+      <small>8 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/application/use-cases/createGameSession.ts">
+      src/features/session/application/use-cases/createGameSession.ts
+      <small>1 function</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/applyEntityEffect.ts">
+      src/features/session/domain/applyEntityEffect.ts
+      <small>7 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/applyGameEffects.ts">
+      src/features/session/domain/applyGameEffects.ts
+      <small>5 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/applyLifecycleEffect.ts">
+      src/features/session/domain/applyLifecycleEffect.ts
+      <small>6 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/applyStateEffect.ts">
+      src/features/session/domain/applyStateEffect.ts
+      <small>10 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/evaluateGameCondition.ts">
+      src/features/session/domain/evaluateGameCondition.ts
+      <small>4 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/evaluateGameExpression.ts">
+      src/features/session/domain/evaluateGameExpression.ts
+      <small>10 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/domain/refreshGamePool.ts">
+      src/features/session/domain/refreshGamePool.ts
+      <small>11 functions</small>
+    </button>
+  </li><li>
+    <button class="nav-button" type="button" data-target="src/features/session/utils/gamePath.ts">
+      src/features/session/utils/gamePath.ts
+      <small>7 functions</small>
+    </button>
+  </li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="content">
+        <section id="view-home" class="view" data-view="home">
+          
+    <section class="panel">
+      <h2>Package overview</h2>
+      <div class="summary">
+        <div><strong>22</strong><span class="muted">public exports</span></div>
+        <div><strong>0</strong><span class="muted">components</span></div>
+        <div><strong>20</strong><span class="muted">modules</span></div>
+        <div><strong>1</strong><span class="muted">entrypoints</span></div>
+      </div>
+      <h3>Entrypoints</h3>
+      <ul class="meta-list">
+        <li><code>src/game.ts</code></li>
+      </ul>
+    </section>
+    
+    <section class="panel">
+      <h2>Modules</h2>
+      <article class="item" data-search="examples/basic-usage/index.ts src/game.ts">
+    <h3>examples/basic-usage/index.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/game.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/advanceGameTime.ts src/features/session/domain/applyGameEffects.ts src/types/game.ts advanceGameTime">
+    <h3>src/features/session/application/use-cases/advanceGameTime.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/applyGameEffects.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>advanceGameTime</code></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/applyGameEvent.test.ts src/features/session/application/use-cases/advanceGameTime.ts src/features/session/application/use-cases/applyGameEvent.ts src/features/session/application/use-cases/createGameSession.ts src/types/game.ts">
+    <h3>src/features/session/application/use-cases/applyGameEvent.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/application/use-cases/advanceGameTime.ts</code>, <code>src/features/session/application/use-cases/applyGameEvent.ts</code>, <code>src/features/session/application/use-cases/createGameSession.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/applyGameEvent.ts src/features/session/domain/applyGameEffects.ts src/features/session/domain/evaluateGameCondition.ts src/types/game.ts applyGameEvent">
+    <h3>src/features/session/application/use-cases/applyGameEvent.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/applyGameEffects.ts</code>, <code>src/features/session/domain/evaluateGameCondition.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>applyGameEvent</code></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/arcadeBoard.test.ts src/features/session/application/use-cases/applyGameEvent.ts src/features/session/application/use-cases/arcadeMechanics.definition.ts src/features/session/application/use-cases/arcadeMechanics.fixture.ts">
+    <h3>src/features/session/application/use-cases/arcadeBoard.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/application/use-cases/applyGameEvent.ts</code>, <code>src/features/session/application/use-cases/arcadeMechanics.definition.ts</code>, <code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/arcadeCollision.test.ts src/features/session/application/use-cases/advanceGameTime.ts src/features/session/application/use-cases/applyGameEvent.ts src/features/session/application/use-cases/arcadeMechanics.definition.ts src/features/session/application/use-cases/arcadeMechanics.fixture.ts src/types/game.ts">
+    <h3>src/features/session/application/use-cases/arcadeCollision.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/application/use-cases/advanceGameTime.ts</code>, <code>src/features/session/application/use-cases/applyGameEvent.ts</code>, <code>src/features/session/application/use-cases/arcadeMechanics.definition.ts</code>, <code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/arcadeMechanics.definition.ts src/types/game.ts arcadeDefinition arcadeInput">
+    <h3>src/features/session/application/use-cases/arcadeMechanics.definition.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>arcadeDefinition</code>, <code>arcadeInput</code></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/arcadeMechanics.fixture.ts src/features/session/application/use-cases/applyGameEvent.ts src/features/session/application/use-cases/arcadeMechanics.definition.ts src/features/session/application/use-cases/createGameSession.ts src/types/game.ts actorByTag actorDataIds collisionEvent projectileEntities resolveActorEvent resolvePenaltyActor startArcadeGame">
+    <h3>src/features/session/application/use-cases/arcadeMechanics.fixture.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/application/use-cases/applyGameEvent.ts</code>, <code>src/features/session/application/use-cases/arcadeMechanics.definition.ts</code>, <code>src/features/session/application/use-cases/createGameSession.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>actorByTag</code>, <code>actorDataIds</code>, <code>collisionEvent</code>, <code>projectileEntities</code>, <code>resolveActorEvent</code>, <code>resolvePenaltyActor</code>, <code>startArcadeGame</code></p>
+  </article><article class="item" data-search="src/features/session/application/use-cases/createGameSession.ts src/features/session/application/use-cases/applyGameEvent.ts src/types/game.ts createGameSession">
+    <h3>src/features/session/application/use-cases/createGameSession.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/application/use-cases/applyGameEvent.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>createGameSession</code></p>
+  </article><article class="item" data-search="src/features/session/domain/applyEntityEffect.ts src/features/session/domain/evaluateGameExpression.ts src/types/game.ts applyEntityEffect">
+    <h3>src/features/session/domain/applyEntityEffect.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>applyEntityEffect</code></p>
+  </article><article class="item" data-search="src/features/session/domain/applyGameEffects.ts src/features/session/domain/applyEntityEffect.ts src/features/session/domain/applyLifecycleEffect.ts src/features/session/domain/applyStateEffect.ts src/features/session/domain/evaluateGameExpression.ts src/types/game.ts applyGameEffects">
+    <h3>src/features/session/domain/applyGameEffects.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/applyEntityEffect.ts</code>, <code>src/features/session/domain/applyLifecycleEffect.ts</code>, <code>src/features/session/domain/applyStateEffect.ts</code>, <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>applyGameEffects</code></p>
+  </article><article class="item" data-search="src/features/session/domain/applyLifecycleEffect.ts src/features/session/domain/evaluateGameExpression.ts src/types/game.ts applyLifecycleEffect">
+    <h3>src/features/session/domain/applyLifecycleEffect.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>applyLifecycleEffect</code></p>
+  </article><article class="item" data-search="src/features/session/domain/applyStateEffect.ts src/features/session/domain/evaluateGameExpression.ts src/features/session/domain/refreshGamePool.ts src/features/session/utils/gamePath.ts src/types/game.ts applyStateEffect">
+    <h3>src/features/session/domain/applyStateEffect.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/features/session/domain/refreshGamePool.ts</code>, <code>src/features/session/utils/gamePath.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>applyStateEffect</code></p>
+  </article><article class="item" data-search="src/features/session/domain/evaluateGameCondition.ts src/features/session/domain/evaluateGameExpression.ts src/types/game.ts evaluateGameCondition">
+    <h3>src/features/session/domain/evaluateGameCondition.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>evaluateGameCondition</code></p>
+  </article><article class="item" data-search="src/features/session/domain/evaluateGameExpression.ts src/features/session/utils/gamePath.ts src/types/game.ts evaluateGameExpression GameExpressionContext">
+    <h3>src/features/session/domain/evaluateGameExpression.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/utils/gamePath.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>evaluateGameExpression</code>, <code>GameExpressionContext</code></p>
+  </article><article class="item" data-search="src/features/session/domain/refreshGamePool.ts src/features/session/domain/evaluateGameCondition.ts src/features/session/domain/evaluateGameExpression.ts src/features/session/utils/gamePath.ts src/types/game.ts refreshGamePool">
+    <h3>src/features/session/domain/refreshGamePool.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/domain/evaluateGameCondition.ts</code>, <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/features/session/utils/gamePath.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>refreshGamePool</code></p>
+  </article><article class="item" data-search="src/features/session/utils/gamePath.ts src/types/game.ts readGamePath writeGamePath">
+    <h3>src/features/session/utils/gamePath.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <code>readGamePath</code>, <code>writeGamePath</code></p>
+  </article><article class="item" data-search="src/game.ts advanceGameTime applyGameEvent createGameSession GameCondition GameDefinition GameEffect GameEntity GameEntityPoolDefinition GameEntityTemplate GameEvent GameExecutionResult GameExpression GameInput GameOutput GamePoolPlacement GamePoolSelector GameRecord GameRuleDefinition GameSession GameSessionInitialization GameStageDefinition GameValue">
+    <h3>src/game.ts</h3>
+    <p class="muted">Configured entrypoint</p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Exports:</strong> <code>advanceGameTime</code>, <code>applyGameEvent</code>, <code>createGameSession</code>, <code>GameCondition</code>, <code>GameDefinition</code>, <code>GameEffect</code>, <code>GameEntity</code>, <code>GameEntityPoolDefinition</code>, <code>GameEntityTemplate</code>, <code>GameEvent</code>, <code>GameExecutionResult</code>, <code>GameExpression</code>, <code>GameInput</code>, <code>GameOutput</code>, <code>GamePoolPlacement</code>, <code>GamePoolSelector</code>, <code>GameRecord</code>, <code>GameRuleDefinition</code>, <code>GameSession</code>, <code>GameSessionInitialization</code>, <code>GameStageDefinition</code>, <code>GameValue</code></p>
+  </article><article class="item" data-search="src/types/game.ts GameCondition GameDefinition GameEffect GameEntity GameEntityPoolDefinition GameEntityTemplate GameEvent GameExecutionContextSnapshot GameExecutionResult GameExpression GameInput GameOutput GamePoolPlacement GamePoolSelector GamePrimitive GameRecord GameReferenceSource GameRuleDefinition GameScheduledEffects GameSession GameSessionInitialization GameStageDefinition GameValue">
+    <h3>src/types/game.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Exports:</strong> <code>GameCondition</code>, <code>GameDefinition</code>, <code>GameEffect</code>, <code>GameEntity</code>, <code>GameEntityPoolDefinition</code>, <code>GameEntityTemplate</code>, <code>GameEvent</code>, <code>GameExecutionContextSnapshot</code>, <code>GameExecutionResult</code>, <code>GameExpression</code>, <code>GameInput</code>, <code>GameOutput</code>, <code>GamePoolPlacement</code>, <code>GamePoolSelector</code>, <code>GamePrimitive</code>, <code>GameRecord</code>, <code>GameReferenceSource</code>, <code>GameRuleDefinition</code>, <code>GameScheduledEffects</code>, <code>GameSession</code>, <code>GameSessionInitialization</code>, <code>GameStageDefinition</code>, <code>GameValue</code></p>
+  </article><article class="item" data-search="src/types/public.ts GameCondition GameDefinition GameEffect GameEntity GameEntityPoolDefinition GameEntityTemplate GameEvent GameExecutionContextSnapshot GameExecutionResult GameExpression GameInput GameOutput GamePoolPlacement GamePoolSelector GamePrimitive GameRecord GameReferenceSource GameRuleDefinition GameScheduledEffects GameSession GameSessionInitialization GameStageDefinition GameValue">
+    <h3>src/types/public.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
+    <p><strong>Exports:</strong> <code>GameCondition</code>, <code>GameDefinition</code>, <code>GameEffect</code>, <code>GameEntity</code>, <code>GameEntityPoolDefinition</code>, <code>GameEntityTemplate</code>, <code>GameEvent</code>, <code>GameExecutionContextSnapshot</code>, <code>GameExecutionResult</code>, <code>GameExpression</code>, <code>GameInput</code>, <code>GameOutput</code>, <code>GamePoolPlacement</code>, <code>GamePoolSelector</code>, <code>GamePrimitive</code>, <code>GameRecord</code>, <code>GameReferenceSource</code>, <code>GameRuleDefinition</code>, <code>GameScheduledEffects</code>, <code>GameSession</code>, <code>GameSessionInitialization</code>, <code>GameStageDefinition</code>, <code>GameValue</code></p>
+  </article>
+    </section>
+    <section class="panel">
+      <h2>Public API</h2>
+      
+            <section>
+              <h3>src/features/session/application/use-cases/advanceGameTime.ts</h3>
+              <article class="item" id="symbol-advancegametime" data-search="advanceGameTime function src/features/session/application/use-cases/advanceGameTime.ts Advance explicit elapsed time and execute due scheduled game effects without owning a timer. GameDefinition GameExecutionResult GameSession GameValue (definition: GameDefinition, session: GameSession, elapsedMs: number, input?: Readonly&lt;Record&lt;string, import(&quot;../../../../game&quot;).GameValue&gt;&gt;) =&gt; GameExecutionResult">
+    <h4>advanceGameTime</h4>
+    <p class="muted">function • <code>src/features/session/application/use-cases/advanceGameTime.ts:11:1</code></p>
+    <p>Advance explicit elapsed time and execute due scheduled game effects without owning a timer.</p>
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameDefinition</li><li class="chip">GameExecutionResult</li><li class="chip">GameSession</li><li class="chip">GameValue</li></ul></div>
+    <div>
+        <h5>Signature</h5>
+        <pre>(definition: GameDefinition, session: GameSession, elapsedMs: number, input?: Readonly&lt;Record&lt;string, import(&quot;../../../../game&quot;).GameValue&gt;&gt;) =&gt; GameExecutionResult</pre>
+        <table>
+                <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr>
+                        <td><code>definition</code></td>
+                        <td><code>GameDefinition</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>elapsedMs</code></td>
+                        <td><code>number</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>input</code></td>
+                        <td><code>Readonly&lt;Record&lt;string, import(&quot;../../../../game&quot;).GameValue&gt;&gt;</code></td>
+                        <td>no</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>session</code></td>
+                        <td><code>GameSession</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr>
+                </tbody>
+              </table>
+        <p><strong>Returns:</strong> <code>GameExecutionResult</code></p>
+      </div>
+    
+  </article>
+            </section>
+            <section>
+              <h3>src/features/session/application/use-cases/applyGameEvent.ts</h3>
+              <article class="item" id="symbol-applygameevent" data-search="applyGameEvent function src/features/session/application/use-cases/applyGameEvent.ts Apply every matching declarative rule for one explicit game event. GameDefinition GameEvent GameExecutionResult GameSession GameValue (definition: GameDefinition, session: GameSession, event: GameEvent, input?: Readonly&lt;Record&lt;string, import(&quot;../../../../game&quot;).GameValue&gt;&gt;) =&gt; GameExecutionResult">
+    <h4>applyGameEvent</h4>
+    <p class="muted">function • <code>src/features/session/application/use-cases/applyGameEvent.ts:12:1</code></p>
+    <p>Apply every matching declarative rule for one explicit game event.</p>
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameDefinition</li><li class="chip">GameEvent</li><li class="chip">GameExecutionResult</li><li class="chip">GameSession</li><li class="chip">GameValue</li></ul></div>
+    <div>
+        <h5>Signature</h5>
+        <pre>(definition: GameDefinition, session: GameSession, event: GameEvent, input?: Readonly&lt;Record&lt;string, import(&quot;../../../../game&quot;).GameValue&gt;&gt;) =&gt; GameExecutionResult</pre>
+        <table>
+                <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr>
+                        <td><code>definition</code></td>
+                        <td><code>GameDefinition</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>event</code></td>
+                        <td><code>GameEvent</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>input</code></td>
+                        <td><code>Readonly&lt;Record&lt;string, import(&quot;../../../../game&quot;).GameValue&gt;&gt;</code></td>
+                        <td>no</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>session</code></td>
+                        <td><code>GameSession</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr>
+                </tbody>
+              </table>
+        <p><strong>Returns:</strong> <code>GameExecutionResult</code></p>
+      </div>
+    
+  </article>
+            </section>
+            <section>
+              <h3>src/features/session/application/use-cases/createGameSession.ts</h3>
+              <article class="item" id="symbol-creategamesession" data-search="createGameSession function src/features/session/application/use-cases/createGameSession.ts Create and initialize one deterministic platform-neutral game session. GameDefinition GameExecutionResult GameSessionInitialization (definition: GameDefinition, initialization?: GameSessionInitialization) =&gt; GameExecutionResult">
+    <h4>createGameSession</h4>
+    <p class="muted">function • <code>src/features/session/application/use-cases/createGameSession.ts:10:1</code></p>
+    <p>Create and initialize one deterministic platform-neutral game session.</p>
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameDefinition</li><li class="chip">GameExecutionResult</li><li class="chip">GameSessionInitialization</li></ul></div>
+    <div>
+        <h5>Signature</h5>
+        <pre>(definition: GameDefinition, initialization?: GameSessionInitialization) =&gt; GameExecutionResult</pre>
+        <table>
+                <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr>
+                        <td><code>definition</code></td>
+                        <td><code>GameDefinition</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>initialization</code></td>
+                        <td><code>GameSessionInitialization</code></td>
+                        <td>no</td>
+                        <td></td>
+                      </tr>
+                </tbody>
+              </table>
+        <p><strong>Returns:</strong> <code>GameExecutionResult</code></p>
+      </div>
+    
+  </article>
+            </section>
+            <section>
+              <h3>src/types/game.ts</h3>
+              <article class="item" id="symbol-gamecondition" data-search="GameCondition unknown src/types/game.ts ">
+    <h4>GameCondition</h4>
+    <p class="muted">unknown • <code>src/types/game.ts:31:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article><article class="item" id="symbol-gamedefinition" data-search="GameDefinition type src/types/game.ts  GameEntityPoolDefinition GameEntityTemplate GameRuleDefinition GameStageDefinition GameValue">
+    <h4>GameDefinition</h4>
+    <p class="muted">type • <code>src/types/game.ts:139:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameEntityPoolDefinition</li><li class="chip">GameEntityTemplate</li><li class="chip">GameRuleDefinition</li><li class="chip">GameStageDefinition</li><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>entityTemplates</code></td>
+            <td>property</td>
+            <td><code>readonly GameEntityTemplate[]</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>id</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>initialPhase</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>initialState</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>pools</code></td>
+            <td>property</td>
+            <td><code>readonly GameEntityPoolDefinition[]</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>rules</code></td>
+            <td>property</td>
+            <td><code>readonly GameRuleDefinition[]</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>stages</code></td>
+            <td>property</td>
+            <td><code>readonly GameStageDefinition[]</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gameeffect" data-search="GameEffect unknown src/types/game.ts ">
+    <h4>GameEffect</h4>
+    <p class="muted">unknown • <code>src/types/game.ts:80:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article><article class="item" id="symbol-gameentity" data-search="GameEntity type src/types/game.ts  GameValue">
+    <h4>GameEntity</h4>
+    <p class="muted">type • <code>src/types/game.ts:149:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>id</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>poolId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>state</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>templateId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gameentitypooldefinition" data-search="GameEntityPoolDefinition type src/types/game.ts  GameExpression GamePoolPlacement GamePoolSelector">
+    <h4>GameEntityPoolDefinition</h4>
+    <p class="muted">type • <code>src/types/game.ts:68:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameExpression</li><li class="chip">GamePoolPlacement</li><li class="chip">GamePoolSelector</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>entityState</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameExpression&gt;&gt;</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>entityTemplateId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>excludeIdsFromStatePaths</code></td>
+            <td>property</td>
+            <td><code>readonly string[]</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>id</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>idPath</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>placement</code></td>
+            <td>property</td>
+            <td><code>GamePoolPlacement</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>selectors</code></td>
+            <td>property</td>
+            <td><code>readonly GamePoolSelector[]</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>size</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>source</code></td>
+            <td>property</td>
+            <td><code>GameExpression</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gameentitytemplate" data-search="GameEntityTemplate type src/types/game.ts  GameValue">
+    <h4>GameEntityTemplate</h4>
+    <p class="muted">type • <code>src/types/game.ts:48:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>id</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>initialState</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>no</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gameevent" data-search="GameEvent type src/types/game.ts  GameValue">
+    <h4>GameEvent</h4>
+    <p class="muted">type • <code>src/types/game.ts:179:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>entityId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>payload</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>seed</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>type</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gameexecutionresult" data-search="GameExecutionResult type src/types/game.ts  GameOutput GameSession">
+    <h4>GameExecutionResult</h4>
+    <p class="muted">type • <code>src/types/game.ts:191:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameOutput</li><li class="chip">GameSession</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>outputs</code></td>
+            <td>property</td>
+            <td><code>readonly GameOutput[]</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>session</code></td>
+            <td>property</td>
+            <td><code>GameSession</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gameexpression" data-search="GameExpression unknown src/types/game.ts ">
+    <h4>GameExpression</h4>
+    <p class="muted">unknown • <code>src/types/game.ts:9:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article><article class="item" id="symbol-gameinput" data-search="GameInput unknown src/types/game.ts ">
+    <h4>GameInput</h4>
+    <p class="muted">unknown • <code>src/types/game.ts:202:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article><article class="item" id="symbol-gameoutput" data-search="GameOutput type src/types/game.ts  GameValue">
+    <h4>GameOutput</h4>
+    <p class="muted">type • <code>src/types/game.ts:186:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>payload</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>type</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamepoolplacement" data-search="GamePoolPlacement type src/types/game.ts ">
+    <h4>GamePoolPlacement</h4>
+    <p class="muted">type • <code>src/types/game.ts:58:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>minimumDistance</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>xMax</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>xMin</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>xStatePath</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>yMax</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>yMin</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>yStatePath</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamepoolselector" data-search="GamePoolSelector type src/types/game.ts  GameCondition">
+    <h4>GamePoolSelector</h4>
+    <p class="muted">type • <code>src/types/game.ts:53:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameCondition</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>count</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>where</code></td>
+            <td>property</td>
+            <td><code>GameCondition</code></td>
+            <td>no</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamerecord" data-search="GameRecord unknown src/types/game.ts ">
+    <h4>GameRecord</h4>
+    <p class="muted">unknown • <code>src/types/game.ts:6:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article><article class="item" id="symbol-gameruledefinition" data-search="GameRuleDefinition type src/types/game.ts  GameCondition GameEffect">
+    <h4>GameRuleDefinition</h4>
+    <p class="muted">type • <code>src/types/game.ts:126:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameCondition</li><li class="chip">GameEffect</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>effects</code></td>
+            <td>property</td>
+            <td><code>readonly GameEffect[]</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>event</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>id</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>when</code></td>
+            <td>property</td>
+            <td><code>GameCondition</code></td>
+            <td>no</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamesession" data-search="GameSession type src/types/game.ts  GameEntity GameValue">
+    <h4>GameSession</h4>
+    <p class="muted">type • <code>src/types/game.ts:168:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameEntity</li><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>definitionId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>elapsedMs</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>entities</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameEntity&gt;&gt;</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>phase</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>scheduled</code></td>
+            <td>property</td>
+            <td><code>readonly GameScheduledEffects[]</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>sequence</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>stageId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>state</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamesessioninitialization" data-search="GameSessionInitialization type src/types/game.ts  GameValue">
+    <h4>GameSessionInitialization</h4>
+    <p class="muted">type • <code>src/types/game.ts:163:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>input</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>seed</code></td>
+            <td>property</td>
+            <td><code>number</code></td>
+            <td>no</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamestagedefinition" data-search="GameStageDefinition type src/types/game.ts  GameValue">
+    <h4>GameStageDefinition</h4>
+    <p class="muted">type • <code>src/types/game.ts:133:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    
+    <table>
+    <thead><tr><th>Member</th><th>Kind</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr>
+            <td><code>id</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>yes</td>
+            <td></td>
+          </tr><tr>
+            <td><code>initialState</code></td>
+            <td>property</td>
+            <td><code>Readonly&lt;Record&lt;string, GameValue&gt;&gt;</code></td>
+            <td>no</td>
+            <td></td>
+          </tr><tr>
+            <td><code>nextStageId</code></td>
+            <td>property</td>
+            <td><code>string</code></td>
+            <td>no</td>
+            <td></td>
+          </tr>
+    </tbody>
+  </table>
+  </article><article class="item" id="symbol-gamevalue" data-search="GameValue unknown src/types/game.ts ">
+    <h4>GameValue</h4>
+    <p class="muted">unknown • <code>src/types/game.ts:3:1</code></p>
+    
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <span class="empty">None</span></div>
+    
+    
+  </article>
+            </section>
+    </section>
+    <section class="panel">
+      <h2>Component registry</h2>
+      <p class="empty">No components were detected.</p>
+    </section>
+    <section class="panel">
+      <h2>Diagrams</h2>
+      <article class="item" data-search="Architecture overview diagrams/architecture-overview.mmd">
+    <h3>Architecture overview</h3>
+    <p class="muted"><code>diagrams/architecture-overview.mmd</code></p>
+    <div class="mermaid">graph TD
+  package__ankhorage_game[&quot;@ankhorage/game&quot;]
+  entrypoint_src_game_ts[&quot;src/game.ts&quot;]
+  package__ankhorage_game --&gt; entrypoint_src_game_ts
+  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
+  package__ankhorage_game -.-&gt; module_examples_basic_usage_index_ts
+  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_applyGameEvent_test_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts[&quot;src/features/session/application/use-cases/arcadeBoard.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeBoard_test_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts[&quot;src/features/session/application/use-cases/arcadeCollision.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeCollision_test_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.definition.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.fixture.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_createGameSession_ts[&quot;src/features/session/application/use-cases/createGameSession.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyEntityEffect_ts[&quot;src/features/session/domain/applyEntityEffect.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyEntityEffect_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyGameEffects_ts[&quot;src/features/session/domain/applyGameEffects.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyEntityEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyLifecycleEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyStateEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts[&quot;src/features/session/domain/applyLifecycleEffect.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyLifecycleEffect_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyStateEffect_ts[&quot;src/features/session/domain/applyStateEffect.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyStateEffect_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_refreshGamePool_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_refreshGamePool_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
+  module_src_game_ts[&quot;src/game.ts&quot;]
+  module_src_types_game_ts[&quot;src/types/game.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_types_game_ts
+  module_src_types_public_ts[&quot;src/types/public.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_types_public_ts
+</div>
+    <details>
+      <summary>View Mermaid source</summary>
+      <pre>graph TD
+  package__ankhorage_game[&quot;@ankhorage/game&quot;]
+  entrypoint_src_game_ts[&quot;src/game.ts&quot;]
+  package__ankhorage_game --&gt; entrypoint_src_game_ts
+  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
+  package__ankhorage_game -.-&gt; module_examples_basic_usage_index_ts
+  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_applyGameEvent_test_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts[&quot;src/features/session/application/use-cases/arcadeBoard.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeBoard_test_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts[&quot;src/features/session/application/use-cases/arcadeCollision.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeCollision_test_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.definition.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.fixture.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_createGameSession_ts[&quot;src/features/session/application/use-cases/createGameSession.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyEntityEffect_ts[&quot;src/features/session/domain/applyEntityEffect.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyEntityEffect_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyGameEffects_ts[&quot;src/features/session/domain/applyGameEffects.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyEntityEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyLifecycleEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyStateEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts[&quot;src/features/session/domain/applyLifecycleEffect.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyLifecycleEffect_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyStateEffect_ts[&quot;src/features/session/domain/applyStateEffect.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_applyStateEffect_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_refreshGamePool_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_domain_refreshGamePool_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
+  module_src_game_ts[&quot;src/game.ts&quot;]
+  module_src_types_game_ts[&quot;src/types/game.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_types_game_ts
+  module_src_types_public_ts[&quot;src/types/public.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_types_public_ts
+</pre>
+    </details>
+  </article><article class="item" data-search="Module relationships diagrams/module-relationships.mmd">
+    <h3>Module relationships</h3>
+    <p class="muted"><code>diagrams/module-relationships.mmd</code></p>
+    <div class="mermaid">graph LR
+  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
+  module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts[&quot;src/features/session/application/use-cases/arcadeBoard.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts[&quot;src/features/session/application/use-cases/arcadeCollision.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.definition.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.fixture.ts&quot;]
+  module_src_features_session_application_use_cases_createGameSession_ts[&quot;src/features/session/application/use-cases/createGameSession.ts&quot;]
+  module_src_features_session_domain_applyEntityEffect_ts[&quot;src/features/session/domain/applyEntityEffect.ts&quot;]
+  module_src_features_session_domain_applyGameEffects_ts[&quot;src/features/session/domain/applyGameEffects.ts&quot;]
+  module_src_features_session_domain_applyLifecycleEffect_ts[&quot;src/features/session/domain/applyLifecycleEffect.ts&quot;]
+  module_src_features_session_domain_applyStateEffect_ts[&quot;src/features/session/domain/applyStateEffect.ts&quot;]
+  module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
+  module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
+  module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
+  module_src_game_ts[&quot;src/game.ts&quot;]
+  module_src_types_game_ts[&quot;src/types/game.ts&quot;]
+  module_src_types_public_ts[&quot;src/types/public.ts&quot;]
+  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyEntityEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyLifecycleEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyStateEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_refreshGamePool_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
+</div>
+    <details>
+      <summary>View Mermaid source</summary>
+      <pre>graph LR
+  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
+  module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts[&quot;src/features/session/application/use-cases/arcadeBoard.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts[&quot;src/features/session/application/use-cases/arcadeCollision.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.definition.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.fixture.ts&quot;]
+  module_src_features_session_application_use_cases_createGameSession_ts[&quot;src/features/session/application/use-cases/createGameSession.ts&quot;]
+  module_src_features_session_domain_applyEntityEffect_ts[&quot;src/features/session/domain/applyEntityEffect.ts&quot;]
+  module_src_features_session_domain_applyGameEffects_ts[&quot;src/features/session/domain/applyGameEffects.ts&quot;]
+  module_src_features_session_domain_applyLifecycleEffect_ts[&quot;src/features/session/domain/applyLifecycleEffect.ts&quot;]
+  module_src_features_session_domain_applyStateEffect_ts[&quot;src/features/session/domain/applyStateEffect.ts&quot;]
+  module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
+  module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
+  module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
+  module_src_game_ts[&quot;src/game.ts&quot;]
+  module_src_types_game_ts[&quot;src/types/game.ts&quot;]
+  module_src_types_public_ts[&quot;src/types/public.ts&quot;]
+  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_arcadeMechanics_definition_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_features_session_application_use_cases_createGameSession_ts
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts --&gt; module_src_types_game_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_features_session_application_use_cases_applyGameEvent_ts
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyEntityEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyEntityEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyLifecycleEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_applyStateEffect_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyGameEffects_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyLifecycleEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_domain_refreshGamePool_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_applyStateEffect_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_evaluateGameCondition_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_evaluateGameExpression_ts --&gt; module_src_types_game_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameCondition_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
+</pre>
+    </details>
+  </article><article class="item" data-search="Export graph diagrams/export-graph.mmd">
+    <h3>Export graph</h3>
+    <p class="muted"><code>diagrams/export-graph.mmd</code></p>
+    <div class="mermaid">graph LR
+  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
+  module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts[&quot;src/features/session/application/use-cases/arcadeBoard.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts[&quot;src/features/session/application/use-cases/arcadeCollision.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.definition.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.fixture.ts&quot;]
+  module_src_features_session_application_use_cases_createGameSession_ts[&quot;src/features/session/application/use-cases/createGameSession.ts&quot;]
+  module_src_features_session_domain_applyEntityEffect_ts[&quot;src/features/session/domain/applyEntityEffect.ts&quot;]
+  module_src_features_session_domain_applyGameEffects_ts[&quot;src/features/session/domain/applyGameEffects.ts&quot;]
+  module_src_features_session_domain_applyLifecycleEffect_ts[&quot;src/features/session/domain/applyLifecycleEffect.ts&quot;]
+  module_src_features_session_domain_applyStateEffect_ts[&quot;src/features/session/domain/applyStateEffect.ts&quot;]
+  module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
+  module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
+  module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
+  module_src_game_ts[&quot;src/game.ts&quot;]
+  module_src_types_game_ts[&quot;src/types/game.ts&quot;]
+  module_src_types_public_ts[&quot;src/types/public.ts&quot;]
+  export_advanceGameTime[&quot;advanceGameTime&quot;]
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; export_advanceGameTime
+  export_advanceGameTime -.-&gt; export_GameDefinition
+  export_advanceGameTime -.-&gt; export_GameExecutionResult
+  export_advanceGameTime -.-&gt; export_GameSession
+  export_advanceGameTime -.-&gt; export_GameValue
+  export_applyGameEvent[&quot;applyGameEvent&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; export_applyGameEvent
+  export_applyGameEvent -.-&gt; export_GameDefinition
+  export_applyGameEvent -.-&gt; export_GameEvent
+  export_applyGameEvent -.-&gt; export_GameExecutionResult
+  export_applyGameEvent -.-&gt; export_GameSession
+  export_applyGameEvent -.-&gt; export_GameValue
+  export_createGameSession[&quot;createGameSession&quot;]
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; export_createGameSession
+  export_createGameSession -.-&gt; export_GameDefinition
+  export_createGameSession -.-&gt; export_GameExecutionResult
+  export_createGameSession -.-&gt; export_GameSessionInitialization
+  export_GameCondition[&quot;GameCondition&quot;]
+  module_src_types_game_ts --&gt; export_GameCondition
+  export_GameDefinition[&quot;GameDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameDefinition
+  export_GameDefinition -.-&gt; export_GameEntityPoolDefinition
+  export_GameDefinition -.-&gt; export_GameEntityTemplate
+  export_GameDefinition -.-&gt; export_GameRuleDefinition
+  export_GameDefinition -.-&gt; export_GameStageDefinition
+  export_GameDefinition -.-&gt; export_GameValue
+  export_GameEffect[&quot;GameEffect&quot;]
+  module_src_types_game_ts --&gt; export_GameEffect
+  export_GameEntity[&quot;GameEntity&quot;]
+  module_src_types_game_ts --&gt; export_GameEntity
+  export_GameEntity -.-&gt; export_GameValue
+  export_GameEntityPoolDefinition[&quot;GameEntityPoolDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameEntityPoolDefinition
+  export_GameEntityPoolDefinition -.-&gt; export_GameExpression
+  export_GameEntityPoolDefinition -.-&gt; export_GamePoolPlacement
+  export_GameEntityPoolDefinition -.-&gt; export_GamePoolSelector
+  export_GameEntityTemplate[&quot;GameEntityTemplate&quot;]
+  module_src_types_game_ts --&gt; export_GameEntityTemplate
+  export_GameEntityTemplate -.-&gt; export_GameValue
+  export_GameEvent[&quot;GameEvent&quot;]
+  module_src_types_game_ts --&gt; export_GameEvent
+  export_GameEvent -.-&gt; export_GameValue
+  export_GameExecutionResult[&quot;GameExecutionResult&quot;]
+  module_src_types_game_ts --&gt; export_GameExecutionResult
+  export_GameExecutionResult -.-&gt; export_GameOutput
+  export_GameExecutionResult -.-&gt; export_GameSession
+  export_GameExpression[&quot;GameExpression&quot;]
+  module_src_types_game_ts --&gt; export_GameExpression
+  export_GameInput[&quot;GameInput&quot;]
+  module_src_types_game_ts --&gt; export_GameInput
+  export_GameOutput[&quot;GameOutput&quot;]
+  module_src_types_game_ts --&gt; export_GameOutput
+  export_GameOutput -.-&gt; export_GameValue
+  export_GamePoolPlacement[&quot;GamePoolPlacement&quot;]
+  module_src_types_game_ts --&gt; export_GamePoolPlacement
+  export_GamePoolSelector[&quot;GamePoolSelector&quot;]
+  module_src_types_game_ts --&gt; export_GamePoolSelector
+  export_GamePoolSelector -.-&gt; export_GameCondition
+  export_GameRecord[&quot;GameRecord&quot;]
+  module_src_types_game_ts --&gt; export_GameRecord
+  export_GameRuleDefinition[&quot;GameRuleDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameRuleDefinition
+  export_GameRuleDefinition -.-&gt; export_GameCondition
+  export_GameRuleDefinition -.-&gt; export_GameEffect
+  export_GameSession[&quot;GameSession&quot;]
+  module_src_types_game_ts --&gt; export_GameSession
+  export_GameSession -.-&gt; export_GameEntity
+  export_GameSession -.-&gt; export_GameValue
+  export_GameSessionInitialization[&quot;GameSessionInitialization&quot;]
+  module_src_types_game_ts --&gt; export_GameSessionInitialization
+  export_GameSessionInitialization -.-&gt; export_GameValue
+  export_GameStageDefinition[&quot;GameStageDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameStageDefinition
+  export_GameStageDefinition -.-&gt; export_GameValue
+  export_GameValue[&quot;GameValue&quot;]
+  module_src_types_game_ts --&gt; export_GameValue
+</div>
+    <details>
+      <summary>View Mermaid source</summary>
+      <pre>graph LR
+  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
+  module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeBoard_test_ts[&quot;src/features/session/application/use-cases/arcadeBoard.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeCollision_test_ts[&quot;src/features/session/application/use-cases/arcadeCollision.test.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_definition_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.definition.ts&quot;]
+  module_src_features_session_application_use_cases_arcadeMechanics_fixture_ts[&quot;src/features/session/application/use-cases/arcadeMechanics.fixture.ts&quot;]
+  module_src_features_session_application_use_cases_createGameSession_ts[&quot;src/features/session/application/use-cases/createGameSession.ts&quot;]
+  module_src_features_session_domain_applyEntityEffect_ts[&quot;src/features/session/domain/applyEntityEffect.ts&quot;]
+  module_src_features_session_domain_applyGameEffects_ts[&quot;src/features/session/domain/applyGameEffects.ts&quot;]
+  module_src_features_session_domain_applyLifecycleEffect_ts[&quot;src/features/session/domain/applyLifecycleEffect.ts&quot;]
+  module_src_features_session_domain_applyStateEffect_ts[&quot;src/features/session/domain/applyStateEffect.ts&quot;]
+  module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
+  module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
+  module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
+  module_src_game_ts[&quot;src/game.ts&quot;]
+  module_src_types_game_ts[&quot;src/types/game.ts&quot;]
+  module_src_types_public_ts[&quot;src/types/public.ts&quot;]
+  export_advanceGameTime[&quot;advanceGameTime&quot;]
+  module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; export_advanceGameTime
+  export_advanceGameTime -.-&gt; export_GameDefinition
+  export_advanceGameTime -.-&gt; export_GameExecutionResult
+  export_advanceGameTime -.-&gt; export_GameSession
+  export_advanceGameTime -.-&gt; export_GameValue
+  export_applyGameEvent[&quot;applyGameEvent&quot;]
+  module_src_features_session_application_use_cases_applyGameEvent_ts --&gt; export_applyGameEvent
+  export_applyGameEvent -.-&gt; export_GameDefinition
+  export_applyGameEvent -.-&gt; export_GameEvent
+  export_applyGameEvent -.-&gt; export_GameExecutionResult
+  export_applyGameEvent -.-&gt; export_GameSession
+  export_applyGameEvent -.-&gt; export_GameValue
+  export_createGameSession[&quot;createGameSession&quot;]
+  module_src_features_session_application_use_cases_createGameSession_ts --&gt; export_createGameSession
+  export_createGameSession -.-&gt; export_GameDefinition
+  export_createGameSession -.-&gt; export_GameExecutionResult
+  export_createGameSession -.-&gt; export_GameSessionInitialization
+  export_GameCondition[&quot;GameCondition&quot;]
+  module_src_types_game_ts --&gt; export_GameCondition
+  export_GameDefinition[&quot;GameDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameDefinition
+  export_GameDefinition -.-&gt; export_GameEntityPoolDefinition
+  export_GameDefinition -.-&gt; export_GameEntityTemplate
+  export_GameDefinition -.-&gt; export_GameRuleDefinition
+  export_GameDefinition -.-&gt; export_GameStageDefinition
+  export_GameDefinition -.-&gt; export_GameValue
+  export_GameEffect[&quot;GameEffect&quot;]
+  module_src_types_game_ts --&gt; export_GameEffect
+  export_GameEntity[&quot;GameEntity&quot;]
+  module_src_types_game_ts --&gt; export_GameEntity
+  export_GameEntity -.-&gt; export_GameValue
+  export_GameEntityPoolDefinition[&quot;GameEntityPoolDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameEntityPoolDefinition
+  export_GameEntityPoolDefinition -.-&gt; export_GameExpression
+  export_GameEntityPoolDefinition -.-&gt; export_GamePoolPlacement
+  export_GameEntityPoolDefinition -.-&gt; export_GamePoolSelector
+  export_GameEntityTemplate[&quot;GameEntityTemplate&quot;]
+  module_src_types_game_ts --&gt; export_GameEntityTemplate
+  export_GameEntityTemplate -.-&gt; export_GameValue
+  export_GameEvent[&quot;GameEvent&quot;]
+  module_src_types_game_ts --&gt; export_GameEvent
+  export_GameEvent -.-&gt; export_GameValue
+  export_GameExecutionResult[&quot;GameExecutionResult&quot;]
+  module_src_types_game_ts --&gt; export_GameExecutionResult
+  export_GameExecutionResult -.-&gt; export_GameOutput
+  export_GameExecutionResult -.-&gt; export_GameSession
+  export_GameExpression[&quot;GameExpression&quot;]
+  module_src_types_game_ts --&gt; export_GameExpression
+  export_GameInput[&quot;GameInput&quot;]
+  module_src_types_game_ts --&gt; export_GameInput
+  export_GameOutput[&quot;GameOutput&quot;]
+  module_src_types_game_ts --&gt; export_GameOutput
+  export_GameOutput -.-&gt; export_GameValue
+  export_GamePoolPlacement[&quot;GamePoolPlacement&quot;]
+  module_src_types_game_ts --&gt; export_GamePoolPlacement
+  export_GamePoolSelector[&quot;GamePoolSelector&quot;]
+  module_src_types_game_ts --&gt; export_GamePoolSelector
+  export_GamePoolSelector -.-&gt; export_GameCondition
+  export_GameRecord[&quot;GameRecord&quot;]
+  module_src_types_game_ts --&gt; export_GameRecord
+  export_GameRuleDefinition[&quot;GameRuleDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameRuleDefinition
+  export_GameRuleDefinition -.-&gt; export_GameCondition
+  export_GameRuleDefinition -.-&gt; export_GameEffect
+  export_GameSession[&quot;GameSession&quot;]
+  module_src_types_game_ts --&gt; export_GameSession
+  export_GameSession -.-&gt; export_GameEntity
+  export_GameSession -.-&gt; export_GameValue
+  export_GameSessionInitialization[&quot;GameSessionInitialization&quot;]
+  module_src_types_game_ts --&gt; export_GameSessionInitialization
+  export_GameSessionInitialization -.-&gt; export_GameValue
+  export_GameStageDefinition[&quot;GameStageDefinition&quot;]
+  module_src_types_game_ts --&gt; export_GameStageDefinition
+  export_GameStageDefinition -.-&gt; export_GameValue
+  export_GameValue[&quot;GameValue&quot;]
+  module_src_types_game_ts --&gt; export_GameValue
+</pre>
+    </details>
+  </article><article class="item" data-search="createGameSession sequence diagrams/sequences/create-game-session.mmd">
+    <h3>createGameSession sequence</h3>
+    <p class="muted"><code>diagrams/sequences/create-game-session.mmd</code></p>
+    <div class="mermaid">sequenceDiagram
+  participant participant_applyGameEvent as applyGameEvent
+  participant participant_createGameSession as createGameSession
+  participant_createGameSession-&gt;&gt;participant_applyGameEvent: applyGameEvent()
+  participant_applyGameEvent--&gt;&gt;participant_createGameSession: return
+</div>
+    <details>
+      <summary>View Mermaid source</summary>
+      <pre>sequenceDiagram
+  participant participant_applyGameEvent as applyGameEvent
+  participant participant_createGameSession as createGameSession
+  participant_createGameSession-&gt;&gt;participant_applyGameEvent: applyGameEvent()
+  participant_applyGameEvent--&gt;&gt;participant_createGameSession: return
+</pre>
+    </details>
+  </article>
+    </section>
+        </section>
+        <section id="view-src-features-session-application-use-cases-advancegametime-ts" class="view" data-view="src/features/session/application/use-cases/advanceGameTime.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/advanceGameTime.ts</h2>
+      <article class="item" data-search="advanceGameTime src/features/session/application/use-cases/advanceGameTime.ts Advance explicit elapsed time and execute due scheduled game effects without owning a timer.">
+    <h3>advanceGameTime</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/advanceGameTime.ts:11:1</code></p>
+    <p>Advance explicit elapsed time and execute due scheduled game effects without owning a timer.</p>
+  </article><article class="item" data-search="executeScheduled src/features/session/application/use-cases/advanceGameTime.ts Apply one due scheduled effect group and append its outputs.">
+    <h3>executeScheduled</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/advanceGameTime.ts:39:1</code></p>
+    <p>Apply one due scheduled effect group and append its outputs.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-application-use-cases-applygameevent-test-ts" class="view" data-view="src/features/session/application/use-cases/applyGameEvent.test.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/applyGameEvent.test.ts</h2>
+      <article class="item" data-search="ref src/features/session/application/use-cases/applyGameEvent.test.ts ">
+    <h3>ref</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/applyGameEvent.test.ts:14:7</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="literal src/features/session/application/use-cases/applyGameEvent.test.ts ">
+    <h3>literal</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/applyGameEvent.test.ts:18:7</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="startGame src/features/session/application/use-cases/applyGameEvent.test.ts Start the generic collector with one deterministic board seed.">
+    <h3>startGame</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/applyGameEvent.test.ts:192:1</code></p>
+    <p>Start the generic collector with one deterministic board seed.</p>
+  </article><article class="item" data-search="isGameRecord src/features/session/application/use-cases/applyGameEvent.test.ts Narrow one serializable test value to an object record.">
+    <h3>isGameRecord</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/applyGameEvent.test.ts:197:1</code></p>
+    <p>Narrow one serializable test value to an object record.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-application-use-cases-applygameevent-ts" class="view" data-view="src/features/session/application/use-cases/applyGameEvent.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/applyGameEvent.ts</h2>
+      <article class="item" data-search="applyGameEvent src/features/session/application/use-cases/applyGameEvent.ts Apply every matching declarative rule for one explicit game event.">
+    <h3>applyGameEvent</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/applyGameEvent.ts:12:1</code></p>
+    <p>Apply every matching declarative rule for one explicit game event.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-application-use-cases-arcadecollision-test-ts" class="view" data-view="src/features/session/application/use-cases/arcadeCollision.test.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/arcadeCollision.test.ts</h2>
+      <article class="item" data-search="assertHitLifecycle src/features/session/application/use-cases/arcadeCollision.test.ts ">
+    <h3>assertHitLifecycle</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeCollision.test.ts:56:1</code></p>
+    <p class="empty">No description available.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-application-use-cases-arcademechanics-definition-ts" class="view" data-view="src/features/session/application/use-cases/arcadeMechanics.definition.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/arcadeMechanics.definition.ts</h2>
+      <article class="item" data-search="ref src/features/session/application/use-cases/arcadeMechanics.definition.ts ">
+    <h3>ref</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.definition.ts:3:7</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="literal src/features/session/application/use-cases/arcadeMechanics.definition.ts ">
+    <h3>literal</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.definition.ts:8:7</code></p>
+    <p class="empty">No description available.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-application-use-cases-arcademechanics-fixture-ts" class="view" data-view="src/features/session/application/use-cases/arcadeMechanics.fixture.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/arcadeMechanics.fixture.ts</h2>
+      <article class="item" data-search="startArcadeGame src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>startArcadeGame</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:7:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="resolvePenaltyActor src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>resolvePenaltyActor</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:12:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="resolveActorEvent src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>resolveActorEvent</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:19:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="collisionEvent src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>collisionEvent</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:24:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="actorByTag src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>actorByTag</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:33:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="actorDataIds src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>actorDataIds</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:43:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="projectileEntities src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>projectileEntities</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:53:1</code></p>
+    <p class="empty">No description available.</p>
+  </article><article class="item" data-search="isGameRecord src/features/session/application/use-cases/arcadeMechanics.fixture.ts ">
+    <h3>isGameRecord</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/arcadeMechanics.fixture.ts:58:1</code></p>
+    <p class="empty">No description available.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-application-use-cases-creategamesession-ts" class="view" data-view="src/features/session/application/use-cases/createGameSession.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/application/use-cases/createGameSession.ts</h2>
+      <article class="item" data-search="createGameSession src/features/session/application/use-cases/createGameSession.ts Create and initialize one deterministic platform-neutral game session.">
+    <h3>createGameSession</h3>
+    <p class="muted"><code>src/features/session/application/use-cases/createGameSession.ts:10:1</code></p>
+    <p>Create and initialize one deterministic platform-neutral game session.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-applyentityeffect-ts" class="view" data-view="src/features/session/domain/applyEntityEffect.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/applyEntityEffect.ts</h2>
+      <article class="item" data-search="applyEntityEffect src/features/session/domain/applyEntityEffect.ts Apply one entity creation/removal/iteration effect.">
+    <h3>applyEntityEffect</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:14:1</code></p>
+    <p>Apply one entity creation/removal/iteration effect.</p>
+  </article><article class="item" data-search="spawnEntity src/features/session/domain/applyEntityEffect.ts Instantiate one entity template with state expressions.">
+    <h3>spawnEntity</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:37:1</code></p>
+    <p>Instantiate one entity template with state expressions.</p>
+  </article><article class="item" data-search="removeEntity src/features/session/domain/applyEntityEffect.ts Remove one entity by expression-resolved scalar id.">
+    <h3>removeEntity</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:72:1</code></p>
+    <p>Remove one entity by expression-resolved scalar id.</p>
+  </article><article class="item" data-search="forEachValue src/features/session/domain/applyEntityEffect.ts Apply nested effects once per array/string item with explicit loop-local context.">
+    <h3>forEachValue</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:85:1</code></p>
+    <p>Apply nested effects once per array/string item with explicit loop-local context.</p>
+  </article><article class="item" data-search="isGameValueArray src/features/session/domain/applyEntityEffect.ts Narrow a serializable game value to an array.">
+    <h3>isGameValueArray</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:110:1</code></p>
+    <p>Narrow a serializable game value to an array.</p>
+  </article><article class="item" data-search="scalarId src/features/session/domain/applyEntityEffect.ts Resolve one serializable value to a stable scalar entity id string.">
+    <h3>scalarId</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:115:1</code></p>
+    <p>Resolve one serializable value to a stable scalar entity id string.</p>
+  </article><article class="item" data-search="withSession src/features/session/domain/applyEntityEffect.ts Replace only the session while preserving already emitted outputs.">
+    <h3>withSession</h3>
+    <p class="muted"><code>src/features/session/domain/applyEntityEffect.ts:123:1</code></p>
+    <p>Replace only the session while preserving already emitted outputs.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-applygameeffects-ts" class="view" data-view="src/features/session/domain/applyGameEffects.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/applyGameEffects.ts</h2>
+      <article class="item" data-search="applyGameEffects src/features/session/domain/applyGameEffects.ts Apply a sequence of declarative effects to one immutable game session.">
+    <h3>applyGameEffects</h3>
+    <p class="muted"><code>src/features/session/domain/applyGameEffects.ts:15:1</code></p>
+    <p>Apply a sequence of declarative effects to one immutable game session.</p>
+  </article><article class="item" data-search="applyEffect src/features/session/domain/applyGameEffects.ts Route one declarative effect to its focused state, entity, or lifecycle handler.">
+    <h3>applyEffect</h3>
+    <p class="muted"><code>src/features/session/domain/applyGameEffects.ts:29:1</code></p>
+    <p>Route one declarative effect to its focused state, entity, or lifecycle handler.</p>
+  </article><article class="item" data-search="createExpressionContext src/features/session/domain/applyGameEffects.ts Build expression context from one immutable session and captured event/local state.">
+    <h3>createExpressionContext</h3>
+    <p class="muted"><code>src/features/session/domain/applyGameEffects.ts:55:1</code></p>
+    <p>Build expression context from one immutable session and captured event/local state.</p>
+  </article><article class="item" data-search="isEntityEffect src/features/session/domain/applyGameEffects.ts Return whether one effect belongs to entity operations.">
+    <h3>isEntityEffect</h3>
+    <p class="muted"><code>src/features/session/domain/applyGameEffects.ts:76:1</code></p>
+    <p>Return whether one effect belongs to entity operations.</p>
+  </article><article class="item" data-search="isLifecycleEffect src/features/session/domain/applyGameEffects.ts Return whether one effect belongs to stage lifecycle operations.">
+    <h3>isLifecycleEffect</h3>
+    <p class="muted"><code>src/features/session/domain/applyGameEffects.ts:83:1</code></p>
+    <p>Return whether one effect belongs to stage lifecycle operations.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-applylifecycleeffect-ts" class="view" data-view="src/features/session/domain/applyLifecycleEffect.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/applyLifecycleEffect.ts</h2>
+      <article class="item" data-search="applyLifecycleEffect src/features/session/domain/applyLifecycleEffect.ts Apply one stage transition or restart effect.">
+    <h3>applyLifecycleEffect</h3>
+    <p class="muted"><code>src/features/session/domain/applyLifecycleEffect.ts:12:1</code></p>
+    <p>Apply one stage transition or restart effect.</p>
+  </article><article class="item" data-search="transitionStage src/features/session/domain/applyLifecycleEffect.ts Transition to an explicit or configured next stage and apply its initial state.">
+    <h3>transitionStage</h3>
+    <p class="muted"><code>src/features/session/domain/applyLifecycleEffect.ts:34:1</code></p>
+    <p>Transition to an explicit or configured next stage and apply its initial state.</p>
+  </article><article class="item" data-search="restartStage src/features/session/domain/applyLifecycleEffect.ts Rebuild the current stage while preserving global session values.">
+    <h3>restartStage</h3>
+    <p class="muted"><code>src/features/session/domain/applyLifecycleEffect.ts:56:1</code></p>
+    <p>Rebuild the current stage while preserving global session values.</p>
+  </article><article class="item" data-search="resetForStage src/features/session/domain/applyLifecycleEffect.ts Reset stage-owned state and transient scheduling for one stage entry.">
+    <h3>resetForStage</h3>
+    <p class="muted"><code>src/features/session/domain/applyLifecycleEffect.ts:68:1</code></p>
+    <p>Reset stage-owned state and transient scheduling for one stage entry.</p>
+  </article><article class="item" data-search="stageById src/features/session/domain/applyLifecycleEffect.ts Resolve one stage definition or throw a useful configuration error.">
+    <h3>stageById</h3>
+    <p class="muted"><code>src/features/session/domain/applyLifecycleEffect.ts:85:1</code></p>
+    <p>Resolve one stage definition or throw a useful configuration error.</p>
+  </article><article class="item" data-search="withSession src/features/session/domain/applyLifecycleEffect.ts Replace only the session while preserving already emitted outputs.">
+    <h3>withSession</h3>
+    <p class="muted"><code>src/features/session/domain/applyLifecycleEffect.ts:92:1</code></p>
+    <p>Replace only the session while preserving already emitted outputs.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-applystateeffect-ts" class="view" data-view="src/features/session/domain/applyStateEffect.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/applyStateEffect.ts</h2>
+      <article class="item" data-search="applyStateEffect src/features/session/domain/applyStateEffect.ts Apply one state/output/scheduling effect.">
+    <h3>applyStateEffect</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:18:1</code></p>
+    <p>Apply one state/output/scheduling effect.</p>
+  </article><article class="item" data-search="appendState src/features/session/domain/applyStateEffect.ts Append one evaluated value to an array state path with an optional bounded history.">
+    <h3>appendState</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:54:1</code></p>
+    <p>Append one evaluated value to an array state path with an optional bounded history.</p>
+  </article><article class="item" data-search="isGameValueArray src/features/session/domain/applyStateEffect.ts Narrow one serializable state value to a readonly array.">
+    <h3>isGameValueArray</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:78:1</code></p>
+    <p>Narrow one serializable state value to a readonly array.</p>
+  </article><article class="item" data-search="incrementState src/features/session/domain/applyStateEffect.ts Increment one numeric state path with optional expression bounds.">
+    <h3>incrementState</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:83:1</code></p>
+    <p>Increment one numeric state path with optional expression bounds.</p>
+  </article><article class="item" data-search="numeric src/features/session/domain/applyStateEffect.ts Resolve one expression as a finite number.">
+    <h3>numeric</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:106:1</code></p>
+    <p>Resolve one expression as a finite number.</p>
+  </article><article class="item" data-search="setPhase src/features/session/domain/applyStateEffect.ts Set one string-valued session phase.">
+    <h3>setPhase</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:115:1</code></p>
+    <p>Set one string-valued session phase.</p>
+  </article><article class="item" data-search="emitOutput src/features/session/domain/applyStateEffect.ts Append one normalized output event to the effect result.">
+    <h3>emitOutput</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:126:1</code></p>
+    <p>Append one normalized output event to the effect result.</p>
+  </article><article class="item" data-search="scheduleEffects src/features/session/domain/applyStateEffect.ts Add delayed effects to the session without owning a platform timer.">
+    <h3>scheduleEffects</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:144:1</code></p>
+    <p>Add delayed effects to the session without owning a platform timer.</p>
+  </article><article class="item" data-search="refreshPool src/features/session/domain/applyStateEffect.ts Refresh one configured entity pool from explicit caller-owned input.">
+    <h3>refreshPool</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:167:1</code></p>
+    <p>Refresh one configured entity pool from explicit caller-owned input.</p>
+  </article><article class="item" data-search="withSession src/features/session/domain/applyStateEffect.ts Replace only the session while preserving already emitted outputs.">
+    <h3>withSession</h3>
+    <p class="muted"><code>src/features/session/domain/applyStateEffect.ts:188:1</code></p>
+    <p>Replace only the session while preserving already emitted outputs.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-evaluategamecondition-ts" class="view" data-view="src/features/session/domain/evaluateGameCondition.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/evaluateGameCondition.ts</h2>
+      <article class="item" data-search="evaluateGameCondition src/features/session/domain/evaluateGameCondition.ts Evaluate one declarative game condition against explicit runtime context.">
+    <h3>evaluateGameCondition</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameCondition.ts:5:1</code></p>
+    <p>Evaluate one declarative game condition against explicit runtime context.</p>
+  </article><article class="item" data-search="deepEquals src/features/session/domain/evaluateGameCondition.ts Compare serializable values structurally for deterministic rule checks.">
+    <h3>deepEquals</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameCondition.ts:34:1</code></p>
+    <p>Compare serializable values structurally for deterministic rule checks.</p>
+  </article><article class="item" data-search="includesValue src/features/session/domain/evaluateGameCondition.ts Check membership for arrays or substring presence for strings.">
+    <h3>includesValue</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameCondition.ts:39:1</code></p>
+    <p>Check membership for arrays or substring presence for strings.</p>
+  </article><article class="item" data-search="numericPair src/features/session/domain/evaluateGameCondition.ts Require both compared values to be finite numbers.">
+    <h3>numericPair</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameCondition.ts:46:1</code></p>
+    <p>Require both compared values to be finite numbers.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-evaluategameexpression-ts" class="view" data-view="src/features/session/domain/evaluateGameExpression.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/evaluateGameExpression.ts</h2>
+      <article class="item" data-search="evaluateGameExpression src/features/session/domain/evaluateGameExpression.ts Resolve one serializable expression against explicit runtime context.">
+    <h3>evaluateGameExpression</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:14:1</code></p>
+    <p>Resolve one serializable expression against explicit runtime context.</p>
+  </article><article class="item" data-search="resolveReference src/features/session/domain/evaluateGameExpression.ts Resolve one reference source and optional dot-separated path.">
+    <h3>resolveReference</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:53:1</code></p>
+    <p>Resolve one reference source and optional dot-separated path.</p>
+  </article><article class="item" data-search="referenceRoot src/features/session/domain/evaluateGameExpression.ts Build the serializable root value for one supported reference source.">
+    <h3>referenceRoot</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:67:1</code></p>
+    <p>Build the serializable root value for one supported reference source.</p>
+  </article><article class="item" data-search="entityValue src/features/session/domain/evaluateGameExpression.ts Expose one entity as serializable state plus stable runtime metadata.">
+    <h3>entityValue</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:89:1</code></p>
+    <p>Expose one entity as serializable state plus stable runtime metadata.</p>
+  </article><article class="item" data-search="eventValue src/features/session/domain/evaluateGameExpression.ts Expose one event payload together with stable event metadata.">
+    <h3>eventValue</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:99:1</code></p>
+    <p>Expose one event payload together with stable event metadata.</p>
+  </article><article class="item" data-search="entityValues src/features/session/domain/evaluateGameExpression.ts Resolve current entities as serializable snapshots, optionally filtered by pool.">
+    <h3>entityValues</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:109:1</code></p>
+    <p>Resolve current entities as serializable snapshots, optionally filtered by pool.</p>
+  </article><article class="item" data-search="splitValue src/features/session/domain/evaluateGameExpression.ts Split one string-valued expression into serializable items.">
+    <h3>splitValue</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:116:1</code></p>
+    <p>Split one string-valued expression into serializable items.</p>
+  </article><article class="item" data-search="stringValue src/features/session/domain/evaluateGameExpression.ts Convert one serializable scalar into a deterministic joined string part.">
+    <h3>stringValue</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:127:1</code></p>
+    <p>Convert one serializable scalar into a deterministic joined string part.</p>
+  </article><article class="item" data-search="evaluateMath src/features/session/domain/evaluateGameExpression.ts Evaluate one numeric expression operator without hidden coercion.">
+    <h3>evaluateMath</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:135:1</code></p>
+    <p>Evaluate one numeric expression operator without hidden coercion.</p>
+  </article><article class="item" data-search="numberValue src/features/session/domain/evaluateGameExpression.ts Require one evaluated value to be a finite number.">
+    <h3>numberValue</h3>
+    <p class="muted"><code>src/features/session/domain/evaluateGameExpression.ts:157:1</code></p>
+    <p>Require one evaluated value to be a finite number.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-domain-refreshgamepool-ts" class="view" data-view="src/features/session/domain/refreshGamePool.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/domain/refreshGamePool.ts</h2>
+      <article class="item" data-search="refreshGamePool src/features/session/domain/refreshGamePool.ts Replace one pool&#39;s entities from caller-owned data using deterministic selectors and placement.">
+    <h3>refreshGamePool</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:17:1</code></p>
+    <p>Replace one pool&#39;s entities from caller-owned data using deterministic selectors and placement.</p>
+  </article><article class="item" data-search="collectExcludedIds src/features/session/domain/refreshGamePool.ts Collect scalar item ids excluded by configured session-state paths.">
+    <h3>collectExcludedIds</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:65:1</code></p>
+    <p>Collect scalar item ids excluded by configured session-state paths.</p>
+  </article><article class="item" data-search="selectItems src/features/session/domain/refreshGamePool.ts Select each configured group without duplicating source items.">
+    <h3>selectItems</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:77:1</code></p>
+    <p>Select each configured group without duplicating source items.</p>
+  </article><article class="item" data-search="buildEntityState src/features/session/domain/refreshGamePool.ts Build one entity&#39;s generic state from template defaults and pool expressions.">
+    <h3>buildEntityState</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:107:1</code></p>
+    <p>Build one entity&#39;s generic state from template defaults and pool expressions.</p>
+  </article><article class="item" data-search="placeEntity src/features/session/domain/refreshGamePool.ts Place one generated entity deterministically within optional pool bounds.">
+    <h3>placeEntity</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:125:1</code></p>
+    <p>Place one generated entity deterministically within optional pool bounds.</p>
+  </article><article class="item" data-search="deterministicPoint src/features/session/domain/refreshGamePool.ts Derive one stable pseudo-random point from a normalized seed and integer sequence.">
+    <h3>deterministicPoint</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:157:1</code></p>
+    <p>Derive one stable pseudo-random point from a normalized seed and integer sequence.</p>
+  </article><article class="item" data-search="rotate src/features/session/domain/refreshGamePool.ts Rotate a readonly source list by a deterministic normalized seed.">
+    <h3>rotate</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:171:1</code></p>
+    <p>Rotate a readonly source list by a deterministic normalized seed.</p>
+  </article><article class="item" data-search="localContext src/features/session/domain/refreshGamePool.ts Build loop-local values available to entity-state expressions.">
+    <h3>localContext</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:178:1</code></p>
+    <p>Build loop-local values available to entity-state expressions.</p>
+  </article><article class="item" data-search="readItemId src/features/session/domain/refreshGamePool.ts Read one stable scalar item id from a serializable pool item.">
+    <h3>readItemId</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:183:1</code></p>
+    <p>Read one stable scalar item id from a serializable pool item.</p>
+  </article><article class="item" data-search="isScalarId src/features/session/domain/refreshGamePool.ts Narrow a serializable value to a scalar entity id.">
+    <h3>isScalarId</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:192:1</code></p>
+    <p>Narrow a serializable value to a scalar entity id.</p>
+  </article><article class="item" data-search="fractional src/features/session/domain/refreshGamePool.ts Normalize arbitrary numeric input into the deterministic half-open unit interval.">
+    <h3>fractional</h3>
+    <p class="muted"><code>src/features/session/domain/refreshGamePool.ts:197:1</code></p>
+    <p>Normalize arbitrary numeric input into the deterministic half-open unit interval.</p>
+  </article>
+    </section>
+  </section><section id="view-src-features-session-utils-gamepath-ts" class="view" data-view="src/features/session/utils/gamePath.ts" hidden>
+    <section class="panel">
+      <h2>src/features/session/utils/gamePath.ts</h2>
+      <article class="item" data-search="readGamePath src/features/session/utils/gamePath.ts Read one dot-separated value path from a serializable game value.">
+    <h3>readGamePath</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:4:1</code></p>
+    <p>Read one dot-separated value path from a serializable game value.</p>
+  </article><article class="item" data-search="writeGamePath src/features/session/utils/gamePath.ts Immutably write one dot-separated object path in game state.">
+    <h3>writeGamePath</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:18:1</code></p>
+    <p>Immutably write one dot-separated object path in game state.</p>
+  </article><article class="item" data-search="readRecordEntry src/features/session/utils/gamePath.ts Read one object entry without dynamic property injection syntax.">
+    <h3>readRecordEntry</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:25:1</code></p>
+    <p>Read one object entry without dynamic property injection syntax.</p>
+  </article><article class="item" data-search="writeObjectPath src/features/session/utils/gamePath.ts Recursively clone objects while replacing the requested nested value.">
+    <h3>writeObjectPath</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:30:1</code></p>
+    <p>Recursively clone objects while replacing the requested nested value.</p>
+  </article><article class="item" data-search="toRecord src/features/session/utils/gamePath.ts Return one serializable value as a record or an empty record for non-object values.">
+    <h3>toRecord</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:45:1</code></p>
+    <p>Return one serializable value as a record or an empty record for non-object values.</p>
+  </article><article class="item" data-search="isGameArray src/features/session/utils/gamePath.ts Narrow one serializable value to a readonly game-value array.">
+    <h3>isGameArray</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:53:1</code></p>
+    <p>Narrow one serializable value to a readonly game-value array.</p>
+  </article><article class="item" data-search="replaceRecordEntry src/features/session/utils/gamePath.ts Immutably replace one record key without dynamic property assignment.">
+    <h3>replaceRecordEntry</h3>
+    <p class="muted"><code>src/features/session/utils/gamePath.ts:58:1</code></p>
+    <p>Immutably replace one record key without dynamic property assignment.</p>
+  </article>
+    </section>
+  </section>
+      </main>
+    </div>
+    <script>
+      const search = document.getElementById('search');
+      const navButtons = Array.from(document.querySelectorAll('[data-target]'));
+      const views = Array.from(document.querySelectorAll('[data-view]'));
+
+      function getActiveView() {
+        return document.querySelector('[data-view]:not([hidden])');
+      }
+
+      function applySearch() {
+        const value = search?.value.trim().toLowerCase() || '';
+        const activeView = getActiveView();
+        const items = Array.from(activeView?.querySelectorAll('[data-search]') || []);
+
+        for (const item of items) {
+          const haystack = (item.getAttribute('data-search') || '').toLowerCase();
+          item.style.display = value === '' || haystack.includes(value) ? '' : 'none';
+        }
+      }
+
+      for (const button of navButtons) {
+        button.addEventListener('click', () => {
+          const target = button.getAttribute('data-target');
+
+          for (const view of views) {
+            view.hidden = view.getAttribute('data-view') !== target;
+          }
+
+          for (const item of navButtons) {
+            item.setAttribute('aria-current', item === button ? 'page' : 'false');
+          }
+
+          if (search) search.value = '';
+          applySearch();
+        });
+      }
+
+      search?.addEventListener('input', applySearch);
+    </script>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+  </body>
+</html>

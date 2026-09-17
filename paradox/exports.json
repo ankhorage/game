@@ -1,0 +1,979 @@
+[
+  {
+    "name": "advanceGameTime",
+    "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+    "sourceLocation": {
+      "filePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+      "line": 11,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameDefinition",
+      "GameExecutionResult",
+      "GameSession",
+      "GameValue"
+    ],
+    "signatures": [
+      {
+        "label": "(definition: GameDefinition, session: GameSession, elapsedMs: number, input?: Readonly<Record<string, import(\"../../../../game\").GameValue>>) => GameExecutionResult",
+        "parameters": [
+          {
+            "name": "definition",
+            "type": "GameDefinition",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "elapsedMs",
+            "type": "number",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "input",
+            "type": "Readonly<Record<string, import(\"../../../../game\").GameValue>>",
+            "required": false,
+            "description": null
+          },
+          {
+            "name": "session",
+            "type": "GameSession",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "GameExecutionResult",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "applyGameEvent",
+    "description": "Apply every matching declarative rule for one explicit game event.",
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/features/session/application/use-cases/applyGameEvent.ts",
+    "sourceLocation": {
+      "filePath": "src/features/session/application/use-cases/applyGameEvent.ts",
+      "line": 12,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameDefinition",
+      "GameEvent",
+      "GameExecutionResult",
+      "GameSession",
+      "GameValue"
+    ],
+    "signatures": [
+      {
+        "label": "(definition: GameDefinition, session: GameSession, event: GameEvent, input?: Readonly<Record<string, import(\"../../../../game\").GameValue>>) => GameExecutionResult",
+        "parameters": [
+          {
+            "name": "definition",
+            "type": "GameDefinition",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "event",
+            "type": "GameEvent",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "input",
+            "type": "Readonly<Record<string, import(\"../../../../game\").GameValue>>",
+            "required": false,
+            "description": null
+          },
+          {
+            "name": "session",
+            "type": "GameSession",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "GameExecutionResult",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "createGameSession",
+    "description": "Create and initialize one deterministic platform-neutral game session.",
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/features/session/application/use-cases/createGameSession.ts",
+    "sourceLocation": {
+      "filePath": "src/features/session/application/use-cases/createGameSession.ts",
+      "line": 10,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameDefinition",
+      "GameExecutionResult",
+      "GameSessionInitialization"
+    ],
+    "signatures": [
+      {
+        "label": "(definition: GameDefinition, initialization?: GameSessionInitialization) => GameExecutionResult",
+        "parameters": [
+          {
+            "name": "definition",
+            "type": "GameDefinition",
+            "required": true,
+            "description": null
+          },
+          {
+            "name": "initialization",
+            "type": "GameSessionInitialization",
+            "required": false,
+            "description": null
+          }
+        ],
+        "returnType": "GameExecutionResult",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "GameCondition",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 31,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "GameDefinition",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 139,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameEntityPoolDefinition",
+      "GameEntityTemplate",
+      "GameRuleDefinition",
+      "GameStageDefinition",
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "entityTemplates",
+        "kind": "property",
+        "type": "readonly GameEntityTemplate[]",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "id",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "initialPhase",
+        "kind": "property",
+        "type": "string",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "initialState",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "pools",
+        "kind": "property",
+        "type": "readonly GameEntityPoolDefinition[]",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "rules",
+        "kind": "property",
+        "type": "readonly GameRuleDefinition[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "stages",
+        "kind": "property",
+        "type": "readonly GameStageDefinition[]",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameEffect",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 80,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "GameEntity",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 149,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "id",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "poolId",
+        "kind": "property",
+        "type": "string",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "state",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "templateId",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameEntityPoolDefinition",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 68,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameExpression",
+      "GamePoolPlacement",
+      "GamePoolSelector"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "entityState",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameExpression>>",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "entityTemplateId",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "excludeIdsFromStatePaths",
+        "kind": "property",
+        "type": "readonly string[]",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "id",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "idPath",
+        "kind": "property",
+        "type": "string",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "placement",
+        "kind": "property",
+        "type": "GamePoolPlacement",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "selectors",
+        "kind": "property",
+        "type": "readonly GamePoolSelector[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "size",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "source",
+        "kind": "property",
+        "type": "GameExpression",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameEntityTemplate",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 48,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "id",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "initialState",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameEvent",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 179,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "entityId",
+        "kind": "property",
+        "type": "string",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "payload",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "seed",
+        "kind": "property",
+        "type": "number",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "type",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameExecutionResult",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 191,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameOutput",
+      "GameSession"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "outputs",
+        "kind": "property",
+        "type": "readonly GameOutput[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "session",
+        "kind": "property",
+        "type": "GameSession",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameExpression",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 9,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "GameInput",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 202,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "GameOutput",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 186,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "payload",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "type",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GamePoolPlacement",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 58,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "minimumDistance",
+        "kind": "property",
+        "type": "number",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "xMax",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "xMin",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "xStatePath",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "yMax",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "yMin",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "yStatePath",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GamePoolSelector",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 53,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameCondition"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "count",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "where",
+        "kind": "property",
+        "type": "GameCondition",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameRecord",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 6,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "GameRuleDefinition",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 126,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameCondition",
+      "GameEffect"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "effects",
+        "kind": "property",
+        "type": "readonly GameEffect[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "event",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "id",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "when",
+        "kind": "property",
+        "type": "GameCondition",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameSession",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 168,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameEntity",
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "definitionId",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "elapsedMs",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "entities",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameEntity>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "phase",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "scheduled",
+        "kind": "property",
+        "type": "readonly GameScheduledEffects[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "sequence",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "stageId",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "state",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameSessionInitialization",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 163,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "input",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "seed",
+        "kind": "property",
+        "type": "number",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameStageDefinition",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 133,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "id",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "initialState",
+        "kind": "property",
+        "type": "Readonly<Record<string, GameValue>>",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "nextStageId",
+        "kind": "property",
+        "type": "string",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "GameValue",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/game.ts",
+    "sourceLocation": {
+      "filePath": "src/types/game.ts",
+      "line": 3,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  }
+]

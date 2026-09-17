@@ -1,0 +1,3483 @@
+{
+  "packageName": "@ankhorage/game",
+  "packageId": "@ankhorage/game",
+  "description": "Platform-neutral config-driven game semantics and runtime primitives for Ankhorage apps.",
+  "collaborators": null,
+  "donation": null,
+  "badges": [
+    {
+      "id": "license",
+      "label": "license",
+      "value": "MIT",
+      "color": "2563eb"
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "value": "v0.1.0",
+      "color": "cb3837"
+    },
+    {
+      "id": "runtime",
+      "label": "runtime",
+      "value": "bun",
+      "color": "f59e0b"
+    },
+    {
+      "id": "typescript",
+      "label": "typescript",
+      "value": "strict",
+      "color": "2563eb"
+    },
+    {
+      "id": "eslint",
+      "label": "eslint",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "prettier",
+      "label": "prettier",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "build",
+      "label": "build",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "tests",
+      "label": "tests",
+      "value": "checked",
+      "color": "0a7f3f"
+    },
+    {
+      "id": "docs",
+      "label": "docs",
+      "value": "paradox",
+      "color": "0f766e"
+    }
+  ],
+  "usage": null,
+  "readmeUsageDescription": null,
+  "readmeUsage": [],
+  "readmeCli": null,
+  "readmeConfig": null,
+  "config": null,
+  "entrypoints": [
+    "src/game.ts"
+  ],
+  "modules": [
+    {
+      "path": "examples/basic-usage/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/game.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "src/features/session/application/use-cases/advanceGameTime.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/applyGameEffects.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "advanceGameTime"
+      ]
+    },
+    {
+      "path": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/application/use-cases/advanceGameTime.ts",
+        "src/features/session/application/use-cases/applyGameEvent.ts",
+        "src/features/session/application/use-cases/createGameSession.ts",
+        "src/types/game.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "src/features/session/application/use-cases/applyGameEvent.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/applyGameEffects.ts",
+        "src/features/session/domain/evaluateGameCondition.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "applyGameEvent"
+      ]
+    },
+    {
+      "path": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/application/use-cases/applyGameEvent.ts",
+        "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/application/use-cases/advanceGameTime.ts",
+        "src/features/session/application/use-cases/applyGameEvent.ts",
+        "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "src/types/game.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "arcadeDefinition",
+        "arcadeInput"
+      ]
+    },
+    {
+      "path": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/application/use-cases/applyGameEvent.ts",
+        "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "src/features/session/application/use-cases/createGameSession.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "actorByTag",
+        "actorDataIds",
+        "collisionEvent",
+        "projectileEntities",
+        "resolveActorEvent",
+        "resolvePenaltyActor",
+        "startArcadeGame"
+      ]
+    },
+    {
+      "path": "src/features/session/application/use-cases/createGameSession.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/application/use-cases/applyGameEvent.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "createGameSession"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/applyEntityEffect.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/evaluateGameExpression.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "applyEntityEffect"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/applyGameEffects.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/applyEntityEffect.ts",
+        "src/features/session/domain/applyLifecycleEffect.ts",
+        "src/features/session/domain/applyStateEffect.ts",
+        "src/features/session/domain/evaluateGameExpression.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "applyGameEffects"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/applyLifecycleEffect.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/evaluateGameExpression.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "applyLifecycleEffect"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/applyStateEffect.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/evaluateGameExpression.ts",
+        "src/features/session/domain/refreshGamePool.ts",
+        "src/features/session/utils/gamePath.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "applyStateEffect"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/evaluateGameCondition.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/evaluateGameExpression.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "evaluateGameCondition"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/evaluateGameExpression.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/utils/gamePath.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "evaluateGameExpression",
+        "GameExpressionContext"
+      ]
+    },
+    {
+      "path": "src/features/session/domain/refreshGamePool.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/domain/evaluateGameCondition.ts",
+        "src/features/session/domain/evaluateGameExpression.ts",
+        "src/features/session/utils/gamePath.ts",
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "refreshGamePool"
+      ]
+    },
+    {
+      "path": "src/features/session/utils/gamePath.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/types/game.ts"
+      ],
+      "exports": [
+        "readGamePath",
+        "writeGamePath"
+      ]
+    },
+    {
+      "path": "src/game.ts",
+      "isEntrypoint": true,
+      "dependencies": [],
+      "exports": [
+        "advanceGameTime",
+        "applyGameEvent",
+        "createGameSession",
+        "GameCondition",
+        "GameDefinition",
+        "GameEffect",
+        "GameEntity",
+        "GameEntityPoolDefinition",
+        "GameEntityTemplate",
+        "GameEvent",
+        "GameExecutionResult",
+        "GameExpression",
+        "GameInput",
+        "GameOutput",
+        "GamePoolPlacement",
+        "GamePoolSelector",
+        "GameRecord",
+        "GameRuleDefinition",
+        "GameSession",
+        "GameSessionInitialization",
+        "GameStageDefinition",
+        "GameValue"
+      ]
+    },
+    {
+      "path": "src/types/game.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "GameCondition",
+        "GameDefinition",
+        "GameEffect",
+        "GameEntity",
+        "GameEntityPoolDefinition",
+        "GameEntityTemplate",
+        "GameEvent",
+        "GameExecutionContextSnapshot",
+        "GameExecutionResult",
+        "GameExpression",
+        "GameInput",
+        "GameOutput",
+        "GamePoolPlacement",
+        "GamePoolSelector",
+        "GamePrimitive",
+        "GameRecord",
+        "GameReferenceSource",
+        "GameRuleDefinition",
+        "GameScheduledEffects",
+        "GameSession",
+        "GameSessionInitialization",
+        "GameStageDefinition",
+        "GameValue"
+      ]
+    },
+    {
+      "path": "src/types/public.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "GameCondition",
+        "GameDefinition",
+        "GameEffect",
+        "GameEntity",
+        "GameEntityPoolDefinition",
+        "GameEntityTemplate",
+        "GameEvent",
+        "GameExecutionContextSnapshot",
+        "GameExecutionResult",
+        "GameExpression",
+        "GameInput",
+        "GameOutput",
+        "GamePoolPlacement",
+        "GamePoolSelector",
+        "GamePrimitive",
+        "GameRecord",
+        "GameReferenceSource",
+        "GameRuleDefinition",
+        "GameScheduledEffects",
+        "GameSession",
+        "GameSessionInitialization",
+        "GameStageDefinition",
+        "GameValue"
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "name": "advanceGameTime",
+      "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "line": 11,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameDefinition",
+        "GameExecutionResult",
+        "GameSession",
+        "GameValue"
+      ],
+      "signatures": [
+        {
+          "label": "(definition: GameDefinition, session: GameSession, elapsedMs: number, input?: Readonly<Record<string, import(\"../../../../game\").GameValue>>) => GameExecutionResult",
+          "parameters": [
+            {
+              "name": "definition",
+              "type": "GameDefinition",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "elapsedMs",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "input",
+              "type": "Readonly<Record<string, import(\"../../../../game\").GameValue>>",
+              "required": false,
+              "description": null
+            },
+            {
+              "name": "session",
+              "type": "GameSession",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "GameExecutionResult",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "applyGameEvent",
+      "description": "Apply every matching declarative rule for one explicit game event.",
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/features/session/application/use-cases/applyGameEvent.ts",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "line": 12,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameDefinition",
+        "GameEvent",
+        "GameExecutionResult",
+        "GameSession",
+        "GameValue"
+      ],
+      "signatures": [
+        {
+          "label": "(definition: GameDefinition, session: GameSession, event: GameEvent, input?: Readonly<Record<string, import(\"../../../../game\").GameValue>>) => GameExecutionResult",
+          "parameters": [
+            {
+              "name": "definition",
+              "type": "GameDefinition",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "event",
+              "type": "GameEvent",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "input",
+              "type": "Readonly<Record<string, import(\"../../../../game\").GameValue>>",
+              "required": false,
+              "description": null
+            },
+            {
+              "name": "session",
+              "type": "GameSession",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "GameExecutionResult",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "createGameSession",
+      "description": "Create and initialize one deterministic platform-neutral game session.",
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/features/session/application/use-cases/createGameSession.ts",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/createGameSession.ts",
+        "line": 10,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameDefinition",
+        "GameExecutionResult",
+        "GameSessionInitialization"
+      ],
+      "signatures": [
+        {
+          "label": "(definition: GameDefinition, initialization?: GameSessionInitialization) => GameExecutionResult",
+          "parameters": [
+            {
+              "name": "definition",
+              "type": "GameDefinition",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "initialization",
+              "type": "GameSessionInitialization",
+              "required": false,
+              "description": null
+            }
+          ],
+          "returnType": "GameExecutionResult",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "GameCondition",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 31,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "GameDefinition",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 139,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameEntityPoolDefinition",
+        "GameEntityTemplate",
+        "GameRuleDefinition",
+        "GameStageDefinition",
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "entityTemplates",
+          "kind": "property",
+          "type": "readonly GameEntityTemplate[]",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "id",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "initialPhase",
+          "kind": "property",
+          "type": "string",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "initialState",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "pools",
+          "kind": "property",
+          "type": "readonly GameEntityPoolDefinition[]",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "rules",
+          "kind": "property",
+          "type": "readonly GameRuleDefinition[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "stages",
+          "kind": "property",
+          "type": "readonly GameStageDefinition[]",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameEffect",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 80,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "GameEntity",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 149,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "poolId",
+          "kind": "property",
+          "type": "string",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "state",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "templateId",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameEntityPoolDefinition",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 68,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameExpression",
+        "GamePoolPlacement",
+        "GamePoolSelector"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "entityState",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameExpression>>",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "entityTemplateId",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "excludeIdsFromStatePaths",
+          "kind": "property",
+          "type": "readonly string[]",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "id",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "idPath",
+          "kind": "property",
+          "type": "string",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "placement",
+          "kind": "property",
+          "type": "GamePoolPlacement",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "selectors",
+          "kind": "property",
+          "type": "readonly GamePoolSelector[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "size",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "source",
+          "kind": "property",
+          "type": "GameExpression",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameEntityTemplate",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 48,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "initialState",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameEvent",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 179,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "entityId",
+          "kind": "property",
+          "type": "string",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "payload",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "seed",
+          "kind": "property",
+          "type": "number",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "type",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameExecutionResult",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 191,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameOutput",
+        "GameSession"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "outputs",
+          "kind": "property",
+          "type": "readonly GameOutput[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "session",
+          "kind": "property",
+          "type": "GameSession",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameExpression",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 9,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "GameInput",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 202,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "GameOutput",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 186,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "payload",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "type",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GamePoolPlacement",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 58,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "minimumDistance",
+          "kind": "property",
+          "type": "number",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "xMax",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "xMin",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "xStatePath",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "yMax",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "yMin",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "yStatePath",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GamePoolSelector",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 53,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameCondition"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "count",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "where",
+          "kind": "property",
+          "type": "GameCondition",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameRecord",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 6,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "GameRuleDefinition",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 126,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameCondition",
+        "GameEffect"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "effects",
+          "kind": "property",
+          "type": "readonly GameEffect[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "event",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "id",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "when",
+          "kind": "property",
+          "type": "GameCondition",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameSession",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 168,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameEntity",
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "definitionId",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "elapsedMs",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "entities",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameEntity>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "phase",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "scheduled",
+          "kind": "property",
+          "type": "readonly GameScheduledEffects[]",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "sequence",
+          "kind": "property",
+          "type": "number",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "stageId",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "state",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameSessionInitialization",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 163,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "input",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "seed",
+          "kind": "property",
+          "type": "number",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameStageDefinition",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 133,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "initialState",
+          "kind": "property",
+          "type": "Readonly<Record<string, GameValue>>",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "nextStageId",
+          "kind": "property",
+          "type": "string",
+          "required": false,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "GameValue",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/game.ts",
+      "sourceLocation": {
+        "filePath": "src/types/game.ts",
+        "line": 3,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    }
+  ],
+  "components": [],
+  "sourceFunctions": [
+    {
+      "name": "advanceGameTime",
+      "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "line": 11,
+        "column": 1
+      }
+    },
+    {
+      "name": "executeScheduled",
+      "description": "Apply one due scheduled effect group and append its outputs.",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "line": 39,
+        "column": 1
+      }
+    },
+    {
+      "name": "ref",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "line": 14,
+        "column": 7
+      }
+    },
+    {
+      "name": "literal",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "line": 18,
+        "column": 7
+      }
+    },
+    {
+      "name": "startGame",
+      "description": "Start the generic collector with one deterministic board seed.",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "line": 192,
+        "column": 1
+      }
+    },
+    {
+      "name": "isGameRecord",
+      "description": "Narrow one serializable test value to an object record.",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "line": 197,
+        "column": 1
+      }
+    },
+    {
+      "name": "applyGameEvent",
+      "description": "Apply every matching declarative rule for one explicit game event.",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "name": "assertHitLifecycle",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "line": 56,
+        "column": 1
+      }
+    },
+    {
+      "name": "ref",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "line": 3,
+        "column": 7
+      }
+    },
+    {
+      "name": "literal",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "line": 8,
+        "column": 7
+      }
+    },
+    {
+      "name": "startArcadeGame",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 7,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolvePenaltyActor",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveActorEvent",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 19,
+        "column": 1
+      }
+    },
+    {
+      "name": "collisionEvent",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 24,
+        "column": 1
+      }
+    },
+    {
+      "name": "actorByTag",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 33,
+        "column": 1
+      }
+    },
+    {
+      "name": "actorDataIds",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 43,
+        "column": 1
+      }
+    },
+    {
+      "name": "projectileEntities",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 53,
+        "column": 1
+      }
+    },
+    {
+      "name": "isGameRecord",
+      "description": null,
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "line": 58,
+        "column": 1
+      }
+    },
+    {
+      "name": "createGameSession",
+      "description": "Create and initialize one deterministic platform-neutral game session.",
+      "sourceLocation": {
+        "filePath": "src/features/session/application/use-cases/createGameSession.ts",
+        "line": 10,
+        "column": 1
+      }
+    },
+    {
+      "name": "applyEntityEffect",
+      "description": "Apply one entity creation/removal/iteration effect.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 14,
+        "column": 1
+      }
+    },
+    {
+      "name": "spawnEntity",
+      "description": "Instantiate one entity template with state expressions.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 37,
+        "column": 1
+      }
+    },
+    {
+      "name": "removeEntity",
+      "description": "Remove one entity by expression-resolved scalar id.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 72,
+        "column": 1
+      }
+    },
+    {
+      "name": "forEachValue",
+      "description": "Apply nested effects once per array/string item with explicit loop-local context.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 85,
+        "column": 1
+      }
+    },
+    {
+      "name": "isGameValueArray",
+      "description": "Narrow a serializable game value to an array.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 110,
+        "column": 1
+      }
+    },
+    {
+      "name": "scalarId",
+      "description": "Resolve one serializable value to a stable scalar entity id string.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 115,
+        "column": 1
+      }
+    },
+    {
+      "name": "withSession",
+      "description": "Replace only the session while preserving already emitted outputs.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyEntityEffect.ts",
+        "line": 123,
+        "column": 1
+      }
+    },
+    {
+      "name": "applyGameEffects",
+      "description": "Apply a sequence of declarative effects to one immutable game session.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyGameEffects.ts",
+        "line": 15,
+        "column": 1
+      }
+    },
+    {
+      "name": "applyEffect",
+      "description": "Route one declarative effect to its focused state, entity, or lifecycle handler.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyGameEffects.ts",
+        "line": 29,
+        "column": 1
+      }
+    },
+    {
+      "name": "createExpressionContext",
+      "description": "Build expression context from one immutable session and captured event/local state.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyGameEffects.ts",
+        "line": 55,
+        "column": 1
+      }
+    },
+    {
+      "name": "isEntityEffect",
+      "description": "Return whether one effect belongs to entity operations.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyGameEffects.ts",
+        "line": 76,
+        "column": 1
+      }
+    },
+    {
+      "name": "isLifecycleEffect",
+      "description": "Return whether one effect belongs to stage lifecycle operations.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyGameEffects.ts",
+        "line": 83,
+        "column": 1
+      }
+    },
+    {
+      "name": "applyLifecycleEffect",
+      "description": "Apply one stage transition or restart effect.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "name": "transitionStage",
+      "description": "Transition to an explicit or configured next stage and apply its initial state.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "line": 34,
+        "column": 1
+      }
+    },
+    {
+      "name": "restartStage",
+      "description": "Rebuild the current stage while preserving global session values.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "line": 56,
+        "column": 1
+      }
+    },
+    {
+      "name": "resetForStage",
+      "description": "Reset stage-owned state and transient scheduling for one stage entry.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "line": 68,
+        "column": 1
+      }
+    },
+    {
+      "name": "stageById",
+      "description": "Resolve one stage definition or throw a useful configuration error.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "line": 85,
+        "column": 1
+      }
+    },
+    {
+      "name": "withSession",
+      "description": "Replace only the session while preserving already emitted outputs.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "line": 92,
+        "column": 1
+      }
+    },
+    {
+      "name": "applyStateEffect",
+      "description": "Apply one state/output/scheduling effect.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 18,
+        "column": 1
+      }
+    },
+    {
+      "name": "appendState",
+      "description": "Append one evaluated value to an array state path with an optional bounded history.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 54,
+        "column": 1
+      }
+    },
+    {
+      "name": "isGameValueArray",
+      "description": "Narrow one serializable state value to a readonly array.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 78,
+        "column": 1
+      }
+    },
+    {
+      "name": "incrementState",
+      "description": "Increment one numeric state path with optional expression bounds.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 83,
+        "column": 1
+      }
+    },
+    {
+      "name": "numeric",
+      "description": "Resolve one expression as a finite number.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 106,
+        "column": 1
+      }
+    },
+    {
+      "name": "setPhase",
+      "description": "Set one string-valued session phase.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 115,
+        "column": 1
+      }
+    },
+    {
+      "name": "emitOutput",
+      "description": "Append one normalized output event to the effect result.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 126,
+        "column": 1
+      }
+    },
+    {
+      "name": "scheduleEffects",
+      "description": "Add delayed effects to the session without owning a platform timer.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 144,
+        "column": 1
+      }
+    },
+    {
+      "name": "refreshPool",
+      "description": "Refresh one configured entity pool from explicit caller-owned input.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 167,
+        "column": 1
+      }
+    },
+    {
+      "name": "withSession",
+      "description": "Replace only the session while preserving already emitted outputs.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/applyStateEffect.ts",
+        "line": 188,
+        "column": 1
+      }
+    },
+    {
+      "name": "evaluateGameCondition",
+      "description": "Evaluate one declarative game condition against explicit runtime context.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameCondition.ts",
+        "line": 5,
+        "column": 1
+      }
+    },
+    {
+      "name": "deepEquals",
+      "description": "Compare serializable values structurally for deterministic rule checks.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameCondition.ts",
+        "line": 34,
+        "column": 1
+      }
+    },
+    {
+      "name": "includesValue",
+      "description": "Check membership for arrays or substring presence for strings.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameCondition.ts",
+        "line": 39,
+        "column": 1
+      }
+    },
+    {
+      "name": "numericPair",
+      "description": "Require both compared values to be finite numbers.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameCondition.ts",
+        "line": 46,
+        "column": 1
+      }
+    },
+    {
+      "name": "evaluateGameExpression",
+      "description": "Resolve one serializable expression against explicit runtime context.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 14,
+        "column": 1
+      }
+    },
+    {
+      "name": "resolveReference",
+      "description": "Resolve one reference source and optional dot-separated path.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 53,
+        "column": 1
+      }
+    },
+    {
+      "name": "referenceRoot",
+      "description": "Build the serializable root value for one supported reference source.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 67,
+        "column": 1
+      }
+    },
+    {
+      "name": "entityValue",
+      "description": "Expose one entity as serializable state plus stable runtime metadata.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 89,
+        "column": 1
+      }
+    },
+    {
+      "name": "eventValue",
+      "description": "Expose one event payload together with stable event metadata.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 99,
+        "column": 1
+      }
+    },
+    {
+      "name": "entityValues",
+      "description": "Resolve current entities as serializable snapshots, optionally filtered by pool.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 109,
+        "column": 1
+      }
+    },
+    {
+      "name": "splitValue",
+      "description": "Split one string-valued expression into serializable items.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 116,
+        "column": 1
+      }
+    },
+    {
+      "name": "stringValue",
+      "description": "Convert one serializable scalar into a deterministic joined string part.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 127,
+        "column": 1
+      }
+    },
+    {
+      "name": "evaluateMath",
+      "description": "Evaluate one numeric expression operator without hidden coercion.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 135,
+        "column": 1
+      }
+    },
+    {
+      "name": "numberValue",
+      "description": "Require one evaluated value to be a finite number.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/evaluateGameExpression.ts",
+        "line": 157,
+        "column": 1
+      }
+    },
+    {
+      "name": "refreshGamePool",
+      "description": "Replace one pool's entities from caller-owned data using deterministic selectors and placement.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 17,
+        "column": 1
+      }
+    },
+    {
+      "name": "collectExcludedIds",
+      "description": "Collect scalar item ids excluded by configured session-state paths.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 65,
+        "column": 1
+      }
+    },
+    {
+      "name": "selectItems",
+      "description": "Select each configured group without duplicating source items.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 77,
+        "column": 1
+      }
+    },
+    {
+      "name": "buildEntityState",
+      "description": "Build one entity's generic state from template defaults and pool expressions.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 107,
+        "column": 1
+      }
+    },
+    {
+      "name": "placeEntity",
+      "description": "Place one generated entity deterministically within optional pool bounds.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 125,
+        "column": 1
+      }
+    },
+    {
+      "name": "deterministicPoint",
+      "description": "Derive one stable pseudo-random point from a normalized seed and integer sequence.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 157,
+        "column": 1
+      }
+    },
+    {
+      "name": "rotate",
+      "description": "Rotate a readonly source list by a deterministic normalized seed.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 171,
+        "column": 1
+      }
+    },
+    {
+      "name": "localContext",
+      "description": "Build loop-local values available to entity-state expressions.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 178,
+        "column": 1
+      }
+    },
+    {
+      "name": "readItemId",
+      "description": "Read one stable scalar item id from a serializable pool item.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 183,
+        "column": 1
+      }
+    },
+    {
+      "name": "isScalarId",
+      "description": "Narrow a serializable value to a scalar entity id.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 192,
+        "column": 1
+      }
+    },
+    {
+      "name": "fractional",
+      "description": "Normalize arbitrary numeric input into the deterministic half-open unit interval.",
+      "sourceLocation": {
+        "filePath": "src/features/session/domain/refreshGamePool.ts",
+        "line": 197,
+        "column": 1
+      }
+    },
+    {
+      "name": "readGamePath",
+      "description": "Read one dot-separated value path from a serializable game value.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 4,
+        "column": 1
+      }
+    },
+    {
+      "name": "writeGamePath",
+      "description": "Immutably write one dot-separated object path in game state.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 18,
+        "column": 1
+      }
+    },
+    {
+      "name": "readRecordEntry",
+      "description": "Read one object entry without dynamic property injection syntax.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 25,
+        "column": 1
+      }
+    },
+    {
+      "name": "writeObjectPath",
+      "description": "Recursively clone objects while replacing the requested nested value.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 30,
+        "column": 1
+      }
+    },
+    {
+      "name": "toRecord",
+      "description": "Return one serializable value as a record or an empty record for non-object values.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 45,
+        "column": 1
+      }
+    },
+    {
+      "name": "isGameArray",
+      "description": "Narrow one serializable value to a readonly game-value array.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 53,
+        "column": 1
+      }
+    },
+    {
+      "name": "replaceRecordEntry",
+      "description": "Immutably replace one record key without dynamic property assignment.",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 58,
+        "column": 1
+      }
+    }
+  ],
+  "sequenceScenarios": [
+    {
+      "kind": "export",
+      "name": "advanceGameTime",
+      "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts",
+      "symbolName": "advanceGameTime",
+      "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "applyGameEvent",
+      "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts",
+      "symbolName": "applyGameEvent",
+      "description": "Apply every matching declarative rule for one explicit game event.",
+      "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "createGameSession",
+      "sourcePath": "src/features/session/application/use-cases/createGameSession.ts",
+      "symbolName": "createGameSession",
+      "description": "Create and initialize one deterministic platform-neutral game session.",
+      "isReadme": false
+    }
+  ],
+  "graphs": {
+    "imports": [
+      {
+        "fromPath": "src/game.ts",
+        "toPath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "sourcePath": "src/game.ts"
+      },
+      {
+        "fromPath": "src/game.ts",
+        "toPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "sourcePath": "src/game.ts"
+      },
+      {
+        "fromPath": "src/game.ts",
+        "toPath": "src/features/session/application/use-cases/createGameSession.ts",
+        "sourcePath": "src/game.ts"
+      },
+      {
+        "fromPath": "src/game.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/game.ts"
+      },
+      {
+        "fromPath": "examples/basic-usage/index.ts",
+        "toPath": "src/game.ts",
+        "sourcePath": "examples/basic-usage/index.ts"
+      },
+      {
+        "fromPath": "src/types/public.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/types/public.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyEntityEffect.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyEntityEffect.ts",
+        "toPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyGameEffects.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyGameEffects.ts",
+        "toPath": "src/features/session/domain/applyEntityEffect.ts",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyGameEffects.ts",
+        "toPath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyGameEffects.ts",
+        "toPath": "src/features/session/domain/applyStateEffect.ts",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyGameEffects.ts",
+        "toPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyLifecycleEffect.ts",
+        "toPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyStateEffect.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyStateEffect.ts",
+        "toPath": "src/features/session/utils/gamePath.ts",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyStateEffect.ts",
+        "toPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/applyStateEffect.ts",
+        "toPath": "src/features/session/domain/refreshGamePool.ts",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/evaluateGameCondition.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/evaluateGameCondition.ts",
+        "toPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "toPath": "src/features/session/utils/gamePath.ts",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/refreshGamePool.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/refreshGamePool.ts",
+        "toPath": "src/features/session/utils/gamePath.ts",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/refreshGamePool.ts",
+        "toPath": "src/features/session/domain/evaluateGameCondition.ts",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromPath": "src/features/session/domain/refreshGamePool.ts",
+        "toPath": "src/features/session/domain/evaluateGameExpression.ts",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromPath": "src/features/session/utils/gamePath.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "toPath": "src/features/session/domain/applyGameEffects.ts",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toPath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toPath": "src/features/session/application/use-cases/createGameSession.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "toPath": "src/features/session/domain/applyGameEffects.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "toPath": "src/features/session/domain/evaluateGameCondition.ts",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toPath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toPath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toPath": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toPath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toPath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "toPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "toPath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "toPath": "src/features/session/application/use-cases/createGameSession.ts",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/createGameSession.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      },
+      {
+        "fromPath": "src/features/session/application/use-cases/createGameSession.ts",
+        "toPath": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      }
+    ],
+    "calls": [
+      {
+        "fromSymbol": "examples/basic-usage/index.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "examples/basic-usage/index.ts"
+      },
+      {
+        "fromSymbol": "examples/basic-usage/index.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "examples/basic-usage/index.ts"
+      },
+      {
+        "fromSymbol": "applyEntityEffect",
+        "toSymbol": "spawnEntity",
+        "callExpression": "spawnEntity",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "applyEntityEffect",
+        "toSymbol": "removeEntity",
+        "callExpression": "removeEntity",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "applyEntityEffect",
+        "toSymbol": "forEachValue",
+        "callExpression": "forEachValue",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "spawnEntity",
+        "toSymbol": "scalarId",
+        "callExpression": "scalarId",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "spawnEntity",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/applyEntityEffect.ts",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "spawnEntity",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "removeEntity",
+        "toSymbol": "scalarId",
+        "callExpression": "scalarId",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "removeEntity",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "removeEntity",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "forEachValue",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "forEachValue",
+        "toSymbol": "isGameValueArray",
+        "callExpression": "isGameValueArray",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/applyEntityEffect.ts",
+        "toSymbol": "applyNestedEffects",
+        "callExpression": "applyNestedEffects",
+        "sourcePath": "src/features/session/domain/applyEntityEffect.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/applyGameEffects.ts",
+        "toSymbol": "applyEffect",
+        "callExpression": "applyEffect",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyEffect",
+        "toSymbol": "createExpressionContext",
+        "callExpression": "createExpressionContext",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyEffect",
+        "toSymbol": "isEntityEffect",
+        "callExpression": "isEntityEffect",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyEffect",
+        "toSymbol": "applyEntityEffect",
+        "callExpression": "applyEntityEffect",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/applyGameEffects.ts",
+        "toSymbol": "applyGameEffects",
+        "callExpression": "applyGameEffects",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyEffect",
+        "toSymbol": "isLifecycleEffect",
+        "callExpression": "isLifecycleEffect",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyEffect",
+        "toSymbol": "applyLifecycleEffect",
+        "callExpression": "applyLifecycleEffect",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyEffect",
+        "toSymbol": "applyStateEffect",
+        "callExpression": "applyStateEffect",
+        "sourcePath": "src/features/session/domain/applyGameEffects.ts"
+      },
+      {
+        "fromSymbol": "applyLifecycleEffect",
+        "toSymbol": "transitionStage",
+        "callExpression": "transitionStage",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "applyLifecycleEffect",
+        "toSymbol": "restartStage",
+        "callExpression": "restartStage",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "transitionStage",
+        "toSymbol": "stageById",
+        "callExpression": "stageById",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "transitionStage",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "transitionStage",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "transitionStage",
+        "toSymbol": "resetForStage",
+        "callExpression": "resetForStage",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "restartStage",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "restartStage",
+        "toSymbol": "resetForStage",
+        "callExpression": "resetForStage",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "restartStage",
+        "toSymbol": "stageById",
+        "callExpression": "stageById",
+        "sourcePath": "src/features/session/domain/applyLifecycleEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "writeGamePath",
+        "callExpression": "writeGamePath",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "appendState",
+        "callExpression": "appendState",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "incrementState",
+        "callExpression": "incrementState",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "setPhase",
+        "callExpression": "setPhase",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "emitOutput",
+        "callExpression": "emitOutput",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "scheduleEffects",
+        "callExpression": "scheduleEffects",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "applyStateEffect",
+        "toSymbol": "refreshPool",
+        "callExpression": "refreshPool",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "appendState",
+        "toSymbol": "readGamePath",
+        "callExpression": "readGamePath",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "appendState",
+        "toSymbol": "isGameValueArray",
+        "callExpression": "isGameValueArray",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "appendState",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "appendState",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "appendState",
+        "toSymbol": "writeGamePath",
+        "callExpression": "writeGamePath",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "incrementState",
+        "toSymbol": "readGamePath",
+        "callExpression": "readGamePath",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "incrementState",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "incrementState",
+        "toSymbol": "numeric",
+        "callExpression": "numeric",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "incrementState",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "incrementState",
+        "toSymbol": "writeGamePath",
+        "callExpression": "writeGamePath",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "numeric",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "setPhase",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "setPhase",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/applyStateEffect.ts",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "scheduleEffects",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "scheduleEffects",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "refreshPool",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "refreshPool",
+        "toSymbol": "withSession",
+        "callExpression": "withSession",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "refreshPool",
+        "toSymbol": "refreshGamePool",
+        "callExpression": "refreshGamePool",
+        "sourcePath": "src/features/session/domain/applyStateEffect.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/evaluateGameCondition.ts",
+        "toSymbol": "evaluateGameCondition",
+        "callExpression": "evaluateGameCondition",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameCondition",
+        "toSymbol": "evaluateGameCondition",
+        "callExpression": "evaluateGameCondition",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameCondition",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameCondition",
+        "toSymbol": "deepEquals",
+        "callExpression": "deepEquals",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameCondition",
+        "toSymbol": "includesValue",
+        "callExpression": "includesValue",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameCondition",
+        "toSymbol": "numericPair",
+        "callExpression": "numericPair",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/evaluateGameCondition.ts",
+        "toSymbol": "deepEquals",
+        "callExpression": "deepEquals",
+        "sourcePath": "src/features/session/domain/evaluateGameCondition.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameExpression",
+        "toSymbol": "resolveReference",
+        "callExpression": "resolveReference",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameExpression",
+        "toSymbol": "evaluateMath",
+        "callExpression": "evaluateMath",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameExpression",
+        "toSymbol": "numberValue",
+        "callExpression": "numberValue",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameExpression",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameExpression",
+        "toSymbol": "splitValue",
+        "callExpression": "splitValue",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/evaluateGameExpression.ts",
+        "toSymbol": "stringValue",
+        "callExpression": "stringValue",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/evaluateGameExpression.ts",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "evaluateGameExpression",
+        "toSymbol": "entityValues",
+        "callExpression": "entityValues",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "resolveReference",
+        "toSymbol": "referenceRoot",
+        "callExpression": "referenceRoot",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "resolveReference",
+        "toSymbol": "readGamePath",
+        "callExpression": "readGamePath",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "referenceRoot",
+        "toSymbol": "entityValue",
+        "callExpression": "entityValue",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "referenceRoot",
+        "toSymbol": "eventValue",
+        "callExpression": "eventValue",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "splitValue",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/evaluateGameExpression.ts",
+        "toSymbol": "numberValue",
+        "callExpression": "numberValue",
+        "sourcePath": "src/features/session/domain/evaluateGameExpression.ts"
+      },
+      {
+        "fromSymbol": "refreshGamePool",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "refreshGamePool",
+        "toSymbol": "collectExcludedIds",
+        "callExpression": "collectExcludedIds",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "refreshGamePool",
+        "toSymbol": "rotate",
+        "callExpression": "rotate",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "readItemId",
+        "callExpression": "readItemId",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "refreshGamePool",
+        "toSymbol": "selectItems",
+        "callExpression": "selectItems",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "localContext",
+        "callExpression": "localContext",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "buildEntityState",
+        "callExpression": "buildEntityState",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "placeEntity",
+        "callExpression": "placeEntity",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "readGamePath",
+        "callExpression": "readGamePath",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "evaluateGameCondition",
+        "callExpression": "evaluateGameCondition",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "evaluateGameExpression",
+        "callExpression": "evaluateGameExpression",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/domain/refreshGamePool.ts",
+        "toSymbol": "deterministicPoint",
+        "callExpression": "deterministicPoint",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "placeEntity",
+        "toSymbol": "deterministicPoint",
+        "callExpression": "deterministicPoint",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "placeEntity",
+        "toSymbol": "writeGamePath",
+        "callExpression": "writeGamePath",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "deterministicPoint",
+        "toSymbol": "fractional",
+        "callExpression": "fractional",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "rotate",
+        "toSymbol": "fractional",
+        "callExpression": "fractional",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "localContext",
+        "toSymbol": "fractional",
+        "callExpression": "fractional",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "readItemId",
+        "toSymbol": "readGamePath",
+        "callExpression": "readGamePath",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "readItemId",
+        "toSymbol": "isScalarId",
+        "callExpression": "isScalarId",
+        "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/utils/gamePath.ts",
+        "toSymbol": "isGameArray",
+        "callExpression": "isGameArray",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/utils/gamePath.ts",
+        "toSymbol": "readRecordEntry",
+        "callExpression": "readRecordEntry",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "writeGamePath",
+        "toSymbol": "writeObjectPath",
+        "callExpression": "writeObjectPath",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "writeObjectPath",
+        "toSymbol": "writeObjectPath",
+        "callExpression": "writeObjectPath",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "writeObjectPath",
+        "toSymbol": "toRecord",
+        "callExpression": "toRecord",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "writeObjectPath",
+        "toSymbol": "readRecordEntry",
+        "callExpression": "readRecordEntry",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "writeObjectPath",
+        "toSymbol": "replaceRecordEntry",
+        "callExpression": "replaceRecordEntry",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "toRecord",
+        "toSymbol": "isGameArray",
+        "callExpression": "isGameArray",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/advanceGameTime.ts",
+        "toSymbol": "executeScheduled",
+        "callExpression": "executeScheduled",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "executeScheduled",
+        "toSymbol": "applyGameEffects",
+        "callExpression": "applyGameEffects",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "ref",
+        "callExpression": "ref",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "literal",
+        "callExpression": "literal",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "startGame",
+        "callExpression": "startGame",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "isGameRecord",
+        "callExpression": "isGameRecord",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.test.ts",
+        "toSymbol": "advanceGameTime",
+        "callExpression": "advanceGameTime",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "startGame",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "toSymbol": "evaluateGameCondition",
+        "callExpression": "evaluateGameCondition",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/applyGameEvent.ts",
+        "toSymbol": "applyGameEffects",
+        "callExpression": "applyGameEffects",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "startArcadeGame",
+        "callExpression": "startArcadeGame",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "actorDataIds",
+        "callExpression": "actorDataIds",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "actorByTag",
+        "callExpression": "actorByTag",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "resolveActorEvent",
+        "callExpression": "resolveActorEvent",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeBoard.test.ts",
+        "toSymbol": "projectileEntities",
+        "callExpression": "projectileEntities",
+        "sourcePath": "src/features/session/application/use-cases/arcadeBoard.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "resolvePenaltyActor",
+        "callExpression": "resolvePenaltyActor",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "projectileEntities",
+        "callExpression": "projectileEntities",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "collisionEvent",
+        "callExpression": "collisionEvent",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeCollision.test.ts",
+        "toSymbol": "assertHitLifecycle",
+        "callExpression": "assertHitLifecycle",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "assertHitLifecycle",
+        "toSymbol": "advanceGameTime",
+        "callExpression": "advanceGameTime",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "assertHitLifecycle",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "src/features/session/application/use-cases/arcadeCollision.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "toSymbol": "ref",
+        "callExpression": "ref",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
+        "toSymbol": "literal",
+        "callExpression": "literal",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts"
+      },
+      {
+        "fromSymbol": "startArcadeGame",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromSymbol": "resolvePenaltyActor",
+        "toSymbol": "startArcadeGame",
+        "callExpression": "startArcadeGame",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromSymbol": "resolvePenaltyActor",
+        "toSymbol": "actorByTag",
+        "callExpression": "actorByTag",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromSymbol": "resolvePenaltyActor",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromSymbol": "resolvePenaltyActor",
+        "toSymbol": "resolveActorEvent",
+        "callExpression": "resolveActorEvent",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
+        "toSymbol": "isGameRecord",
+        "callExpression": "isGameRecord",
+        "sourcePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts"
+      },
+      {
+        "fromSymbol": "createGameSession",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      }
+    ],
+    "typeReferences": [
+      {
+        "fromSymbol": "advanceGameTime",
+        "toType": "GameDefinition",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "advanceGameTime",
+        "toType": "GameExecutionResult",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "advanceGameTime",
+        "toType": "GameSession",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "advanceGameTime",
+        "toType": "GameValue",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "advanceGameTime",
+        "toType": "Readonly",
+        "sourcePath": "src/features/session/application/use-cases/advanceGameTime.ts"
+      },
+      {
+        "fromSymbol": "applyGameEvent",
+        "toType": "GameDefinition",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "applyGameEvent",
+        "toType": "GameEvent",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "applyGameEvent",
+        "toType": "GameExecutionResult",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "applyGameEvent",
+        "toType": "GameSession",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "applyGameEvent",
+        "toType": "GameValue",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "applyGameEvent",
+        "toType": "Readonly",
+        "sourcePath": "src/features/session/application/use-cases/applyGameEvent.ts"
+      },
+      {
+        "fromSymbol": "createGameSession",
+        "toType": "GameDefinition",
+        "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      },
+      {
+        "fromSymbol": "createGameSession",
+        "toType": "GameExecutionResult",
+        "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      },
+      {
+        "fromSymbol": "createGameSession",
+        "toType": "GameSessionInitialization",
+        "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      },
+      {
+        "fromSymbol": "GameDefinition",
+        "toType": "GameEntityPoolDefinition",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameDefinition",
+        "toType": "GameEntityTemplate",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameDefinition",
+        "toType": "GameRuleDefinition",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameDefinition",
+        "toType": "GameStageDefinition",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameDefinition",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameDefinition",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntity",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntity",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntityPoolDefinition",
+        "toType": "GameExpression",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntityPoolDefinition",
+        "toType": "GamePoolPlacement",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntityPoolDefinition",
+        "toType": "GamePoolSelector",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntityPoolDefinition",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntityTemplate",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEntityTemplate",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEvent",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameEvent",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameExecutionResult",
+        "toType": "GameOutput",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameExecutionResult",
+        "toType": "GameSession",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameOutput",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameOutput",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GamePoolSelector",
+        "toType": "GameCondition",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameRuleDefinition",
+        "toType": "GameCondition",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameRuleDefinition",
+        "toType": "GameEffect",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameSession",
+        "toType": "GameEntity",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameSession",
+        "toType": "GameScheduledEffects",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameSession",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameSession",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameSessionInitialization",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameSessionInitialization",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameStageDefinition",
+        "toType": "GameValue",
+        "sourcePath": "src/types/game.ts"
+      },
+      {
+        "fromSymbol": "GameStageDefinition",
+        "toType": "Readonly",
+        "sourcePath": "src/types/game.ts"
+      }
+    ],
+    "componentComposition": []
+  }
+}

@@ -1,0 +1,5 @@
+sequenceDiagram
+  participant participant_applyGameEvent as applyGameEvent
+  participant participant_createGameSession as createGameSession
+  participant_createGameSession->>participant_applyGameEvent: applyGameEvent()
+  participant_applyGameEvent-->>participant_createGameSession: return
