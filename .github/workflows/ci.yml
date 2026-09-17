@@ -18,7 +18,8 @@ jobs:
         with: { node-version: '24' }
       - run: bun install
       - run: bun run build
-      - run: bunx @ankhorage/ankh doctor validate .
+      - name: Validate Ankhorage repository
+        run: BUN_INSTALL_CACHE_DIR="${RUNNER_TEMP}/doctor-cache" bunx @ankhorage/doctor@0.10.14 validate .
       - run: bun run lint
       - run: bun run format:check
       - run: bun run knip:check
