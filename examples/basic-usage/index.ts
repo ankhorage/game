@@ -12,9 +12,7 @@ const game: GameDefinition = {
     {
       id: 'collect-orb',
       event: 'orb.collect',
-      effects: [
-        { kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } },
-      ],
+      effects: [{ kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } }],
     },
   ],
 };
