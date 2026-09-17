@@ -160,6 +160,11 @@ export interface GameScheduledEffects {
   readonly context: GameExecutionContextSnapshot;
 }
 
+export interface GameSessionInitialization {
+  readonly input?: GameInput;
+  readonly seed?: number;
+}
+
 export interface GameSession {
   readonly definitionId: string;
   readonly stageId: string;

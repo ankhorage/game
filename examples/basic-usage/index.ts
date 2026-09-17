@@ -17,6 +17,6 @@ const game: GameDefinition = {
   ],
 };
 
-const initial = createGameSession(game);
+const initial = createGameSession(game).session;
 const result = applyGameEvent(game, initial, { type: 'orb.collect' });
 console.log(result.session.state.score);

@@ -19,6 +19,7 @@ export type {
   GameRuleDefinition,
   GameScheduledEffects,
   GameSession,
+  GameSessionInitialization,
   GameStageDefinition,
   GameValue,
 } from './game';
