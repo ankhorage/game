@@ -1,6 +1,7 @@
 export { advanceGameTime } from './features/session/application/use-cases/advanceGameTime';
 export { applyGameEvent } from './features/session/application/use-cases/applyGameEvent';
 export { createGameSession } from './features/session/application/use-cases/createGameSession';
+export { readGamePath } from './features/session/utils/gamePath';
 export type {
   GameCondition,
   GameDefinition,
