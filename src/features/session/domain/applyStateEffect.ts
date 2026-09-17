@@ -60,7 +60,10 @@ function appendState(
   if (current !== undefined && !isGameValueArray(current)) {
     throw new Error(`append requires array state at ${effect.path}.`);
   }
-  if (effect.maxLength !== undefined && (!Number.isInteger(effect.maxLength) || effect.maxLength < 0)) {
+  if (
+    effect.maxLength !== undefined &&
+    (!Number.isInteger(effect.maxLength) || effect.maxLength < 0)
+  ) {
     throw new Error('append maxLength must be a non-negative integer.');
   }
   const appended = [...(current ?? []), evaluateGameExpression(effect.value, context)];

@@ -71,8 +71,12 @@ function referenceRoot(
   if (source === 'state') return context.session.state;
   if (source === 'input') return context.input;
   if (source === 'local') return context.local;
-  if (source === 'entity') return context.entity === undefined ? undefined : entityValue(context.entity);
-  if (source === 'event') return context.event === undefined ? undefined : eventValue(context.event);
+  if (source === 'entity') {
+    return context.entity === undefined ? undefined : entityValue(context.entity);
+  }
+  if (source === 'event') {
+    return context.event === undefined ? undefined : eventValue(context.event);
+  }
   return {
     elapsedMs: context.session.elapsedMs,
     phase: context.session.phase,
