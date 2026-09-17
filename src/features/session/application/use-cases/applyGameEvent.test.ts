@@ -117,7 +117,7 @@ const input: GameInput = {
   ],
 };
 
-describe('config-driven game runtime', () => {
+describe('game session state and pools', () => {
   test('creates a session and clamps configured movement from an event', () => {
     const moved = applyGameEvent(definition, createGameSession(definition), {
       type: 'player.move',
@@ -127,12 +127,7 @@ describe('config-driven game runtime', () => {
   });
 
   test('refreshes a generic entity pool from caller-owned input data', () => {
-    const started = applyGameEvent(
-      definition,
-      createGameSession(definition),
-      { type: 'game.start', payload: { seed: 0.25 }, seed: 0.25 },
-      input,
-    );
+    const started = startGame(0.25);
     const entities = Object.values(started.session.entities);
     expect(entities).toHaveLength(3);
     const coordinateKeys = entities.map((entity) => {
@@ -144,14 +139,11 @@ describe('config-driven game runtime', () => {
     });
     expect(new Set(coordinateKeys).size).toBe(3);
   });
+});
 
+describe('game outputs and lifecycle', () => {
   test('emits app-domain outputs and represents delays without platform timers', () => {
-    const started = applyGameEvent(
-      definition,
-      createGameSession(definition),
-      { type: 'game.start', payload: { seed: 0 }, seed: 0 },
-      input,
-    );
+    const started = startGame(0);
     const target = Object.values(started.session.entities).find(
       (entity) => isGameRecord(entity.state.data) && entity.state.data.tag === 'target',
     );
@@ -184,12 +176,17 @@ describe('config-driven game runtime', () => {
   });
 });
 
+/*** Start the generic collector with one deterministic board seed. */
+function startGame(seed: number) {
+  return applyGameEvent(
+    definition,
+    createGameSession(definition),
+    { type: 'game.start', payload: { seed }, seed },
+    input,
+  );
+}
+
 /*** Narrow one serializable test value to an object record. */
 function isGameRecord(value: GameValue | undefined): value is GameRecord {
-  return (
-    value !== null &&
-    value !== undefined &&
-    typeof value === 'object' &&
-    !Array.isArray(value)
-  );
+  return value !== null && value !== undefined && typeof value === 'object' && !Array.isArray(value);
 }

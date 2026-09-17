@@ -1,9 +1,6 @@
 export type GamePrimitive = boolean | null | number | string;
 
-export type GameValue =
-  | GamePrimitive
-  | readonly GameValue[]
-  | { readonly [key: string]: GameValue };
+export type GameValue = GamePrimitive | readonly GameValue[] | { readonly [key: string]: GameValue };
 
 export type GameRecord = Readonly<Record<string, GameValue>>;
 export type GameReferenceSource = 'entity' | 'event' | 'input' | 'local' | 'session' | 'state';
