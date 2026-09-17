@@ -1,10 +1,21 @@
-import type { GameDefinition, GameSession } from '../../../../types/game';
+import type {
+  GameDefinition,
+  GameExecutionResult,
+  GameSession,
+  GameSessionInitialization,
+} from '../../../../types/game';
+import { applyGameEvent } from './applyGameEvent';
 
-/*** Create one fresh platform-neutral game session from a serializable definition. */
-export function createGameSession(definition: GameDefinition): GameSession {
+/*** Create and initialize one deterministic platform-neutral game session. */
+export function createGameSession(
+  definition: GameDefinition,
+  initialization: GameSessionInitialization = {},
+): GameExecutionResult {
   const firstStage = definition.stages.at(0);
   if (firstStage === undefined) throw new Error('Game definition requires at least one stage.');
-  return {
+  const { input = {}, seed = 0 } = initialization;
+  if (!Number.isFinite(seed)) throw new Error('Game session seed must be finite.');
+  const session: GameSession = {
     definitionId: definition.id,
     stageId: firstStage.id,
     phase: definition.initialPhase ?? 'playing',
@@ -14,4 +25,5 @@ export function createGameSession(definition: GameDefinition): GameSession {
     elapsedMs: 0,
     sequence: 0,
   };
+  return applyGameEvent(definition, session, { type: 'game.start', seed }, input);
 }
