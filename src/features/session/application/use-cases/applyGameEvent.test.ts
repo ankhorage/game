@@ -62,7 +62,10 @@ const definition: GameDefinition = {
     {
       id: 'start-board',
       event: 'game.start',
-      effects: [{ kind: 'refreshPool', poolId: 'tokens', seed: ref('event', 'seed') }],
+      effects: [
+        { kind: 'refreshPool', poolId: 'tokens', seed: ref('event', 'seed') },
+        { kind: 'emit', type: 'game.started', payload: { seed: ref('event', 'seed') } },
+      ],
     },
     {
       id: 'move-player',
@@ -119,10 +122,15 @@ const input: GameInput = {
 
 describe('game session state and pools', () => {
   test('creates a session and clamps configured movement from an event', () => {
-    const moved = applyGameEvent(definition, createGameSession(definition), {
+    const moved = applyGameEvent(
+      definition,
+      createGameSession(definition, { input, seed: 0 }).session,
+      {
       type: 'player.move',
-      payload: { x: 120 },
-    });
+        payload: { x: 120 },
+      },
+      input,
+    );
     expect(moved.session.state.player).toEqual({ x: 90, minX: 10, maxX: 90 });
   });
 
@@ -130,6 +138,7 @@ describe('game session state and pools', () => {
     const started = startGame(0.25);
     const entities = Object.values(started.session.entities);
     expect(entities).toHaveLength(3);
+    expect(started.outputs).toEqual([{ type: 'game.started', payload: { seed: 0.25 } }]);
     const coordinateKeys = entities.map((entity) => {
       const { x, y } = entity.state;
       if (typeof x !== 'number' || typeof y !== 'number') {
@@ -164,9 +173,12 @@ describe('game outputs and lifecycle', () => {
   });
 
   test('applies health bounds and stage lifecycle from config', () => {
-    const firstHit = applyGameEvent(definition, createGameSession(definition), {
-      type: 'player.hit',
-    });
+    const firstHit = applyGameEvent(
+      definition,
+      createGameSession(definition, { input, seed: 0 }).session,
+      { type: 'player.hit' },
+      input,
+    );
     expect(firstHit.session.state.health).toBe(2);
     const advanced = applyGameEvent(definition, firstHit.session, { type: 'stage.complete' });
     expect(advanced.session.stageId).toBe('stage-two');
@@ -178,12 +190,7 @@ describe('game outputs and lifecycle', () => {
 
 /*** Start the generic collector with one deterministic board seed. */
 function startGame(seed: number) {
-  return applyGameEvent(
-    definition,
-    createGameSession(definition),
-    { type: 'game.start', payload: { seed }, seed },
-    input,
-  );
+  return createGameSession(definition, { input, seed });
 }
 
 /*** Narrow one serializable test value to an object record. */
