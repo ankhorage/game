@@ -1,7 +1,7 @@
 import type { GameEntity, GameRecord, GameSession, GameValue } from '../../../../types/game';
 import { applyGameEvent } from './applyGameEvent';
-import { createGameSession } from './createGameSession';
 import { arcadeDefinition, arcadeInput } from './arcadeMechanics.definition';
+import { createGameSession } from './createGameSession';
 
 /** Start one deterministic generic arcade fixture session. */
 export function startArcadeGame(seed: number) {
@@ -37,7 +37,7 @@ export function collisionEvent(projectile: GameEntity) {
 /** Find one active actor by its caller-owned data tag. */
 export function actorByTag(session: GameSession, tag: string): GameEntity {
   const actor = Object.values(session.entities).find((entity) => {
-    const data = entity.state.data;
+    const { data } = entity.state;
     return entity.poolId === 'actors' && isGameRecord(data) && data.tag === tag;
   });
   if (actor === undefined) throw new Error(`Expected actor tagged ${tag}.`);
@@ -47,7 +47,7 @@ export function actorByTag(session: GameSession, tag: string): GameEntity {
 /** Read stable caller-owned ids from all active actor data records. */
 export function actorDataIds(session: GameSession): readonly string[] {
   return Object.values(session.entities).flatMap((entity) => {
-    const data = entity.state.data;
+    const { data } = entity.state;
     if (entity.poolId !== 'actors' || !isGameRecord(data)) return [];
     const { id } = data;
     return typeof id === 'string' ? [id] : [];
