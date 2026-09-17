@@ -7,9 +7,11 @@ import type {
   GameSession,
   GameValue,
 } from '../../../types/game';
-import { readGamePath } from '../utils/gamePath';
+import { readGamePath, writeGamePath } from '../utils/gamePath';
 import { evaluateGameCondition } from './evaluateGameCondition';
 import { evaluateGameExpression } from './evaluateGameExpression';
+
+type GameScalarId = number | string;
 
 /*** Replace one pool's entities from caller-owned data using deterministic selectors and placement. */
 export function refreshGamePool(
@@ -21,35 +23,54 @@ export function refreshGamePool(
 ): Readonly<Record<string, GameEntity>> {
   const pool = definition.pools?.find((candidate) => candidate.id === poolId);
   if (pool === undefined) throw new Error(`Unknown game pool: ${poolId}`);
-  const template = definition.entityTemplates?.find((candidate) => candidate.id === pool.entityTemplateId);
+  const template = definition.entityTemplates?.find(
+    (candidate) => candidate.id === pool.entityTemplateId,
+  );
   if (template === undefined) throw new Error(`Unknown entity template: ${pool.entityTemplateId}`);
 
   const source = evaluateGameExpression(pool.source, { session, input });
-  if (!Array.isArray(source)) throw new Error(`Game pool ${poolId} source must resolve to an array.`);
+  if (!Array.isArray(source)) {
+    throw new Error(`Game pool ${poolId} source must resolve to an array.`);
+  }
   const excludedIds = collectExcludedIds(pool, session);
-  const rotated = rotate(source, seed).filter((item) => !excludedIds.has(readItemId(item, pool.idPath)));
+  const rotated = rotate(source, seed).filter(
+    (item) => !excludedIds.has(readItemId(item, pool.idPath)),
+  );
   const selected = selectItems(rotated, pool, session, input, seed);
-  const retained = Object.fromEntries(Object.entries(session.entities).filter(([, entity]) => entity.poolId !== poolId));
-  const generated = selected.reduce<readonly (readonly [string, GameEntity])[]>((entries, item, index) => {
-    const itemId = readItemId(item, pool.idPath);
-    const local = localContext(item, index, seed);
-    const state = buildEntityState(template.initialState ?? {}, pool, session, input, local);
-    const priorStates = entries.map(([, entity]) => entity.state);
-    const placedState = placeEntity(state, pool, priorStates, index, seed);
-    const id = `${pool.id}:${String(itemId)}:${session.sequence + index + 1}`;
-    const entity: GameEntity = { id, templateId: template.id, poolId: pool.id, state: placedState };
-    return [...entries, [id, entity] as const];
-  }, []);
+  const retained = Object.fromEntries(
+    Object.entries(session.entities).filter(([, entity]) => entity.poolId !== poolId),
+  );
+  const generated = selected.reduce<readonly (readonly [string, GameEntity])[]>(
+    (entries, item, index) => {
+      const itemId = readItemId(item, pool.idPath);
+      const local = localContext(item, index, seed);
+      const state = buildEntityState(template.initialState ?? {}, pool, session, input, local);
+      const priorStates = entries.map(([, entity]) => entity.state);
+      const placedState = placeEntity(state, pool, priorStates, index, seed);
+      const id = `${pool.id}:${itemId}:${session.sequence + index + 1}`;
+      const entity: GameEntity = {
+        id,
+        templateId: template.id,
+        poolId: pool.id,
+        state: placedState,
+      };
+      return [...entries, [id, entity] as const];
+    },
+    [],
+  );
   return { ...retained, ...Object.fromEntries(generated) };
 }
 
-/*** Collect item ids excluded by configured session-state paths. */
-function collectExcludedIds(pool: GameEntityPoolDefinition, session: GameSession): Set<GameValue> {
+/*** Collect scalar item ids excluded by configured session-state paths. */
+function collectExcludedIds(
+  pool: GameEntityPoolDefinition,
+  session: GameSession,
+): ReadonlySet<GameScalarId> {
   const values = (pool.excludeIdsFromStatePaths ?? []).flatMap((path) => {
     const value = readGamePath(session.state, path);
-    return Array.isArray(value) ? value : [];
+    return Array.isArray(value) ? value.filter(isScalarId) : [];
   });
-  return new Set(values);
+  return new Set<GameScalarId>(values);
 }
 
 /*** Select each configured group without duplicating source items. */
@@ -62,13 +83,23 @@ function selectItems(
 ): readonly GameValue[] {
   const selected = pool.selectors.reduce<readonly GameValue[]>((current, selector) => {
     const candidates = source.filter((item) => {
-      if (current.some((existing) => readItemId(existing, pool.idPath) === readItemId(item, pool.idPath))) return false;
+      if (
+        current.some(
+          (existing) => readItemId(existing, pool.idPath) === readItemId(item, pool.idPath),
+        )
+      ) {
+        return false;
+      }
       if (selector.where === undefined) return true;
       return evaluateGameCondition(selector.where, { session, input, local: { item, seed } });
     });
     return [...current, ...candidates.slice(0, selector.count)];
   }, []);
-  if (selected.length !== pool.size) throw new Error(`Game pool ${pool.id} selected ${selected.length} items; expected ${pool.size}.`);
+  if (selected.length !== pool.size) {
+    throw new Error(
+      `Game pool ${pool.id} selected ${selected.length} items; expected ${pool.size}.`,
+    );
+  }
   return selected;
 }
 
@@ -80,10 +111,13 @@ function buildEntityState(
   input: GameInput,
   local: GameRecord,
 ): GameRecord {
-  const mapped = Object.entries(pool.entityState ?? {}).reduce<GameRecord>((state, [key, expression]) => ({
-    ...state,
-    [key]: evaluateGameExpression(expression, { session, input, local }),
-  }), {});
+  const mapped = Object.entries(pool.entityState ?? {}).reduce<GameRecord>(
+    (state, [key, expression]) => ({
+      ...state,
+      [key]: evaluateGameExpression(expression, { session, input, local }),
+    }),
+    {},
+  );
   return { ...initialState, data: local.item ?? null, ...mapped };
 }
 
@@ -95,17 +129,28 @@ function placeEntity(
   index: number,
   seed: number,
 ): GameRecord {
-  if (pool.placement === undefined) return state;
-  const placement = pool.placement;
+  const { placement } = pool;
+  if (placement === undefined) return state;
   const priorPositions = priorStates.flatMap((priorState) => {
     const x = readGamePath(priorState, placement.xStatePath);
     const y = readGamePath(priorState, placement.yStatePath);
     return typeof x === 'number' && typeof y === 'number' ? [{ x, y }] : [];
   });
-  const point = Array.from({ length: 32 }, (_, attempt) => deterministicPoint(placement, index + attempt * 17, seed)).find((candidate) =>
-    priorPositions.every((prior) => Math.hypot(candidate.x - prior.x, candidate.y - prior.y) >= (placement.minimumDistance ?? 0)),
-  ) ?? deterministicPoint(placement, index, seed);
-  return { ...state, [placement.xStatePath]: point.x, [placement.yStatePath]: point.y };
+  const point =
+    Array.from({ length: 32 }, (_, attempt) =>
+      deterministicPoint(placement, index + attempt * 17, seed),
+    ).find((candidate) =>
+      priorPositions.every(
+        (prior) =>
+          Math.hypot(candidate.x - prior.x, candidate.y - prior.y) >=
+          (placement.minimumDistance ?? 0),
+      ),
+    ) ?? deterministicPoint(placement, index, seed);
+  return writeGamePath(
+    writeGamePath(state, placement.xStatePath, point.x),
+    placement.yStatePath,
+    point.y,
+  );
 }
 
 /*** Derive one stable pseudo-random point from a normalized seed and integer sequence. */
@@ -135,10 +180,17 @@ function localContext(item: GameValue, index: number, seed: number): GameRecord 
 }
 
 /*** Read one stable scalar item id from a serializable pool item. */
-function readItemId(item: GameValue, idPath = 'id'): GameValue {
+function readItemId(item: GameValue, idPath = 'id'): GameScalarId {
   const id = readGamePath(item, idPath);
-  if (typeof id !== 'string' && typeof id !== 'number') throw new Error(`Game pool item id at ${idPath} must be a string or number.`);
+  if (!isScalarId(id)) {
+    throw new Error(`Game pool item id at ${idPath} must be a string or number.`);
+  }
   return id;
+}
+
+/*** Narrow a serializable value to a scalar entity id. */
+function isScalarId(value: GameValue | undefined): value is GameScalarId {
+  return typeof value === 'string' || typeof value === 'number';
 }
 
 /*** Normalize arbitrary numeric input into the deterministic half-open unit interval. */
