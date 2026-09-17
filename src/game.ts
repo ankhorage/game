@@ -18,6 +18,7 @@ export type {
   GameRecord,
   GameRuleDefinition,
   GameSession,
+  GameSessionInitialization,
   GameStageDefinition,
   GameValue,
 } from './types/game';
