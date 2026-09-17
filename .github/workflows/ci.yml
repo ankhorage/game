@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -19,18 +19,23 @@ jobs:
       - run: bun install --frozen-lockfile
       - name: Sync Devtools managed repository files
         if: github.event_name == 'pull_request'
-        env:
-          HEAD_REF: ${{ github.head_ref }}
         run: |
           bunx @ankhorage/ankh devtools sync .
           bun install
-          if git status --porcelain | grep -q .; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add --all
-            git commit -m "chore: sync Devtools repository management"
-            git push origin "HEAD:${HEAD_REF}"
-          fi
+          tar -czf /tmp/devtools-sync-output.tar.gz \
+            .agents \
+            .vscode \
+            renovate.json5 \
+            AGENTS.md \
+            .github/workflows/ci.yml \
+            .github/workflows/release.yml
+      - name: Capture Devtools sync output
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: devtools-sync-output
+          path: /tmp/devtools-sync-output.tar.gz
+          if-no-files-found: error
       - run: bun run build
       - name: Validate Ankhorage repository
         run: BUN_INSTALL_CACHE_DIR="${RUNNER_TEMP}/doctor-cache" bunx @ankhorage/doctor@0.10.14 validate .
