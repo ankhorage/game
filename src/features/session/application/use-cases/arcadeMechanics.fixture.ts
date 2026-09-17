@@ -5,12 +5,7 @@ import { createGameSession } from './createGameSession';
 
 /** Start one deterministic generic arcade fixture session. */
 export function startArcadeGame(seed: number) {
-  return applyGameEvent(
-    arcadeDefinition,
-    createGameSession(arcadeDefinition),
-    { type: 'game.start', seed },
-    arcadeInput,
-  );
+  return createGameSession(arcadeDefinition, { input: arcadeInput, seed });
 }
 
 /** Resolve the configured non-target actor to create generic projectiles. */
