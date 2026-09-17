@@ -4,11 +4,7 @@ import type { GameEntity, GameSession } from '../../../../types/game';
 import { advanceGameTime } from './advanceGameTime';
 import { applyGameEvent } from './applyGameEvent';
 import { arcadeDefinition, arcadeInput } from './arcadeMechanics.definition';
-import {
-  collisionEvent,
-  projectileEntities,
-  resolvePenaltyActor,
-} from './arcadeMechanics.fixture';
+import { collisionEvent, projectileEntities, resolvePenaltyActor } from './arcadeMechanics.fixture';
 
 describe('generic arcade collision and lifecycle', () => {
   test('applies collision damage once and drives hitstop, respawn and invulnerability timing', () => {
