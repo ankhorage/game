@@ -75,9 +75,7 @@ function createExpressionContext(
 /*** Return whether one effect belongs to entity operations. */
 function isEntityEffect(effect: GameEffect): boolean {
   return (
-    effect.kind === 'spawnEntity' ||
-    effect.kind === 'removeEntity' ||
-    effect.kind === 'forEach'
+    effect.kind === 'spawnEntity' || effect.kind === 'removeEntity' || effect.kind === 'forEach'
   );
 }
 
