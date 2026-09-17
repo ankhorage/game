@@ -8,6 +8,7 @@ import type {
   GameOutput,
   GameRecord,
   GameSession,
+  GameValue,
 } from '../../../types/game';
 import { readGamePath, writeGamePath } from '../utils/gamePath';
 import { evaluateGameExpression, type GameExpressionContext } from './evaluateGameExpression';
@@ -32,6 +33,8 @@ export function applyStateEffect(
           evaluateGameExpression(effect.value, context),
         ),
       });
+    case 'append':
+      return appendState(result, effect, context);
     case 'increment':
       return incrementState(result, effect, context);
     case 'setPhase':
@@ -45,6 +48,32 @@ export function applyStateEffect(
     default:
       throw new Error(`Unsupported state effect: ${effect.kind}`);
   }
+}
+
+/*** Append one evaluated value to an array state path with an optional bounded history. */
+function appendState(
+  result: GameExecutionResult,
+  effect: Extract<GameEffect, { readonly kind: 'append' }>,
+  context: GameExpressionContext,
+): GameExecutionResult {
+  const current = readGamePath(result.session.state, effect.path);
+  if (current !== undefined && !isGameValueArray(current)) {
+    throw new Error(`append requires array state at ${effect.path}.`);
+  }
+  if (effect.maxLength !== undefined && (!Number.isInteger(effect.maxLength) || effect.maxLength < 0)) {
+    throw new Error('append maxLength must be a non-negative integer.');
+  }
+  const appended = [...(current ?? []), evaluateGameExpression(effect.value, context)];
+  const next = effect.maxLength === undefined ? appended : appended.slice(-effect.maxLength);
+  return withSession(result, {
+    ...result.session,
+    state: writeGamePath(result.session.state, effect.path, next),
+  });
+}
+
+/*** Narrow one serializable state value to a readonly array. */
+function isGameValueArray(value: GameValue): value is readonly GameValue[] {
+  return Array.isArray(value);
 }
 
 /*** Increment one numeric state path with optional expression bounds. */

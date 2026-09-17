@@ -20,7 +20,13 @@ export type GameExpression =
       readonly min: GameExpression;
       readonly max: GameExpression;
     }
-  | { readonly kind: 'split'; readonly value: GameExpression; readonly separator: string };
+  | { readonly kind: 'split'; readonly value: GameExpression; readonly separator: string }
+  | {
+      readonly kind: 'join';
+      readonly values: readonly GameExpression[];
+      readonly separator?: string;
+    }
+  | { readonly kind: 'entities'; readonly poolId?: string };
 
 export type GameCondition =
   | {
@@ -73,6 +79,12 @@ export interface GameEntityPoolDefinition {
 
 export type GameEffect =
   | { readonly kind: 'set'; readonly path: string; readonly value: GameExpression }
+  | {
+      readonly kind: 'append';
+      readonly path: string;
+      readonly value: GameExpression;
+      readonly maxLength?: number;
+    }
   | {
       readonly kind: 'increment';
       readonly path: string;

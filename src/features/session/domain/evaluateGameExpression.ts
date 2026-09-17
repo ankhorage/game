@@ -30,11 +30,14 @@ export function evaluateGameExpression(
           numberValue(evaluateGameExpression(expression.value, context)),
         ),
       );
-    case 'split': {
-      const value = evaluateGameExpression(expression.value, context);
-      if (typeof value !== 'string') throw new Error('split expression requires a string value.');
-      return value.split(expression.separator);
-    }
+    case 'split':
+      return splitValue(expression.value, expression.separator, context);
+    case 'join':
+      return expression.values
+        .map((value) => stringValue(evaluateGameExpression(value, context)))
+        .join(expression.separator ?? '');
+    case 'entities':
+      return entityValues(context.session, expression.poolId);
   }
 }
 
@@ -68,14 +71,60 @@ function referenceRoot(
   if (source === 'state') return context.session.state;
   if (source === 'input') return context.input;
   if (source === 'local') return context.local;
-  if (source === 'entity') return context.entity?.state;
-  if (source === 'event') return context.event?.payload ?? {};
+  if (source === 'entity') return context.entity === undefined ? undefined : entityValue(context.entity);
+  if (source === 'event') return context.event === undefined ? undefined : eventValue(context.event);
   return {
     elapsedMs: context.session.elapsedMs,
     phase: context.session.phase,
     sequence: context.session.sequence,
     stageId: context.session.stageId,
   };
+}
+
+/*** Expose one entity as serializable state plus stable runtime metadata. */
+function entityValue(entity: GameEntity): GameRecord {
+  return {
+    ...entity.state,
+    id: entity.id,
+    templateId: entity.templateId,
+    ...(entity.poolId === undefined ? {} : { poolId: entity.poolId }),
+  };
+}
+
+/*** Expose one event payload together with stable event metadata. */
+function eventValue(event: GameEvent): GameRecord {
+  return {
+    ...(event.payload ?? {}),
+    type: event.type,
+    ...(event.entityId === undefined ? {} : { entityId: event.entityId }),
+    ...(event.seed === undefined ? {} : { seed: event.seed }),
+  };
+}
+
+/*** Resolve current entities as serializable snapshots, optionally filtered by pool. */
+function entityValues(session: GameSession, poolId: string | undefined): readonly GameValue[] {
+  return Object.values(session.entities)
+    .filter((entity) => poolId === undefined || entity.poolId === poolId)
+    .map(entityValue);
+}
+
+/*** Split one string-valued expression into serializable items. */
+function splitValue(
+  expression: GameExpression,
+  separator: string,
+  context: GameExpressionContext,
+): readonly string[] {
+  const value = evaluateGameExpression(expression, context);
+  if (typeof value !== 'string') throw new Error('split expression requires a string value.');
+  return value.split(separator);
+}
+
+/*** Convert one serializable scalar into a deterministic joined string part. */
+function stringValue(value: GameValue): string {
+  if (typeof value === 'object' && value !== null) {
+    throw new Error('join expression accepts only scalar values.');
+  }
+  return String(value);
 }
 
 /*** Evaluate one numeric expression operator without hidden coercion. */
