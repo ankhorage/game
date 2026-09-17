@@ -8,7 +8,15 @@ const game: GameDefinition = {
   id: 'orb-collector',
   initialState: { score: 0 },
   stages: [{ id: 'round' }],
-  rules: [{ id: 'collect-orb', event: 'orb.collect', effects: [{ kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } }] }],
+  rules: [
+    {
+      id: 'collect-orb',
+      event: 'orb.collect',
+      effects: [
+        { kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } },
+      ],
+    },
+  ],
 };
 
 const initial = createGameSession(game);
