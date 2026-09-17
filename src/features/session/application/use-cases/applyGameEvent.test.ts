@@ -189,9 +189,7 @@ function startGame(seed: number) {
 /*** Narrow one serializable test value to an object record. */
 function isGameRecord(value: GameValue | undefined): value is GameRecord {
   return (
-    value !== null &&
-    value !== undefined &&
-    typeof value === 'object' &&
+    value !== null && value !== undefined && typeof value === 'object' &&
     !Array.isArray(value)
   );
 }
