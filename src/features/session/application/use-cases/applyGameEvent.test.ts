@@ -126,7 +126,7 @@ describe('game session state and pools', () => {
       definition,
       createGameSession(definition, { input, seed: 0 }).session,
       {
-      type: 'player.move',
+        type: 'player.move',
         payload: { x: 120 },
       },
       input,
