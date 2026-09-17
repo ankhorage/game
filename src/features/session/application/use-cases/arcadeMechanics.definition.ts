@@ -1,8 +1,4 @@
-import type {
-  GameDefinition,
-  GameInput,
-  GameReferenceSource,
-} from '../../../../types/game';
+import type { GameDefinition, GameInput, GameReferenceSource } from '../../../../types/game';
 
 const ref = (source: GameReferenceSource, path?: string) =>
   path === undefined
