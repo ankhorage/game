@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.1.0",
+      "value": "v0.1.1",
       "color": "cb3837"
     },
     {
@@ -261,6 +261,15 @@
       ]
     },
     {
+      "path": "src/features/session/utils/gamePath.test.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/session/utils/gamePath.ts",
+        "src/types/game.ts"
+      ],
+      "exports": []
+    },
+    {
       "path": "src/features/session/utils/gamePath.ts",
       "isEntrypoint": false,
       "dependencies": [
@@ -297,7 +306,8 @@
         "GameSession",
         "GameSessionInitialization",
         "GameStageDefinition",
-        "GameValue"
+        "GameValue",
+        "readGamePath"
       ]
     },
     {
@@ -1338,6 +1348,48 @@
       "signatures": [],
       "members": [],
       "structuredRows": []
+    },
+    {
+      "name": "readGamePath",
+      "description": "Read one dot-separated value path from a serializable game value.",
+      "isReadme": false,
+      "examples": [],
+      "kind": "function",
+      "modulePath": "src/features/session/utils/gamePath.ts",
+      "sourceLocation": {
+        "filePath": "src/features/session/utils/gamePath.ts",
+        "line": 4,
+        "column": 1
+      },
+      "exportPaths": [
+        "src/game.ts"
+      ],
+      "relatedSymbols": [
+        "GameValue"
+      ],
+      "signatures": [
+        {
+          "label": "(value: GameValue | undefined, path?: string | undefined) => GameValue | undefined",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string | undefined",
+              "required": false,
+              "description": null
+            },
+            {
+              "name": "value",
+              "type": "GameValue | undefined",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returnType": "GameValue | undefined",
+          "returnDescription": null
+        }
+      ],
+      "members": [],
+      "structuredRows": []
     }
   ],
   "components": [],
@@ -2078,6 +2130,14 @@
       "symbolName": "createGameSession",
       "description": "Create and initialize one deterministic platform-neutral game session.",
       "isReadme": false
+    },
+    {
+      "kind": "export",
+      "name": "readGamePath",
+      "sourcePath": "src/features/session/utils/gamePath.ts",
+      "symbolName": "readGamePath",
+      "description": "Read one dot-separated value path from a serializable game value.",
+      "isReadme": false
     }
   ],
   "graphs": {
@@ -2095,6 +2155,11 @@
       {
         "fromPath": "src/game.ts",
         "toPath": "src/features/session/application/use-cases/createGameSession.ts",
+        "sourcePath": "src/game.ts"
+      },
+      {
+        "fromPath": "src/game.ts",
+        "toPath": "src/features/session/utils/gamePath.ts",
         "sourcePath": "src/game.ts"
       },
       {
@@ -2216,6 +2281,16 @@
         "fromPath": "src/features/session/domain/refreshGamePool.ts",
         "toPath": "src/features/session/domain/evaluateGameExpression.ts",
         "sourcePath": "src/features/session/domain/refreshGamePool.ts"
+      },
+      {
+        "fromPath": "src/features/session/utils/gamePath.test.ts",
+        "toPath": "src/types/game.ts",
+        "sourcePath": "src/features/session/utils/gamePath.test.ts"
+      },
+      {
+        "fromPath": "src/features/session/utils/gamePath.test.ts",
+        "toPath": "src/features/session/utils/gamePath.ts",
+        "sourcePath": "src/features/session/utils/gamePath.test.ts"
       },
       {
         "fromPath": "src/features/session/utils/gamePath.ts",
@@ -2945,6 +3020,30 @@
         "sourcePath": "src/features/session/domain/refreshGamePool.ts"
       },
       {
+        "fromSymbol": "src/features/session/utils/gamePath.test.ts",
+        "toSymbol": "describe",
+        "callExpression": "describe",
+        "sourcePath": "src/features/session/utils/gamePath.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/utils/gamePath.test.ts",
+        "toSymbol": "test",
+        "callExpression": "test",
+        "sourcePath": "src/features/session/utils/gamePath.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/utils/gamePath.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "src/features/session/utils/gamePath.test.ts"
+      },
+      {
+        "fromSymbol": "src/features/session/utils/gamePath.test.ts",
+        "toSymbol": "readGamePath",
+        "callExpression": "readGamePath",
+        "sourcePath": "src/features/session/utils/gamePath.test.ts"
+      },
+      {
         "fromSymbol": "src/features/session/utils/gamePath.ts",
         "toSymbol": "isGameArray",
         "callExpression": "isGameArray",
@@ -3321,6 +3420,11 @@
         "fromSymbol": "createGameSession",
         "toType": "GameSessionInitialization",
         "sourcePath": "src/features/session/application/use-cases/createGameSession.ts"
+      },
+      {
+        "fromSymbol": "readGamePath",
+        "toType": "GameValue",
+        "sourcePath": "src/features/session/utils/gamePath.ts"
       },
       {
         "fromSymbol": "GameDefinition",

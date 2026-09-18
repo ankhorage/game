@@ -211,9 +211,9 @@
     <section class="panel">
       <h2>Package overview</h2>
       <div class="summary">
-        <div><strong>22</strong><span class="muted">public exports</span></div>
+        <div><strong>23</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>20</strong><span class="muted">modules</span></div>
+        <div><strong>21</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -304,16 +304,21 @@
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/features/session/domain/evaluateGameCondition.ts</code>, <code>src/features/session/domain/evaluateGameExpression.ts</code>, <code>src/features/session/utils/gamePath.ts</code>, <code>src/types/game.ts</code></p>
     <p><strong>Exports:</strong> <code>refreshGamePool</code></p>
+  </article><article class="item" data-search="src/features/session/utils/gamePath.test.ts src/features/session/utils/gamePath.ts src/types/game.ts">
+    <h3>src/features/session/utils/gamePath.test.ts</h3>
+    <p class="muted">Referenced module</p>
+    <p><strong>Dependencies:</strong> <code>src/features/session/utils/gamePath.ts</code>, <code>src/types/game.ts</code></p>
+    <p><strong>Exports:</strong> <span class="empty">None</span></p>
   </article><article class="item" data-search="src/features/session/utils/gamePath.ts src/types/game.ts readGamePath writeGamePath">
     <h3>src/features/session/utils/gamePath.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/types/game.ts</code></p>
     <p><strong>Exports:</strong> <code>readGamePath</code>, <code>writeGamePath</code></p>
-  </article><article class="item" data-search="src/game.ts advanceGameTime applyGameEvent createGameSession GameCondition GameDefinition GameEffect GameEntity GameEntityPoolDefinition GameEntityTemplate GameEvent GameExecutionResult GameExpression GameInput GameOutput GamePoolPlacement GamePoolSelector GameRecord GameRuleDefinition GameSession GameSessionInitialization GameStageDefinition GameValue">
+  </article><article class="item" data-search="src/game.ts advanceGameTime applyGameEvent createGameSession GameCondition GameDefinition GameEffect GameEntity GameEntityPoolDefinition GameEntityTemplate GameEvent GameExecutionResult GameExpression GameInput GameOutput GamePoolPlacement GamePoolSelector GameRecord GameRuleDefinition GameSession GameSessionInitialization GameStageDefinition GameValue readGamePath">
     <h3>src/game.ts</h3>
     <p class="muted">Configured entrypoint</p>
     <p><strong>Dependencies:</strong> <span class="empty">None</span></p>
-    <p><strong>Exports:</strong> <code>advanceGameTime</code>, <code>applyGameEvent</code>, <code>createGameSession</code>, <code>GameCondition</code>, <code>GameDefinition</code>, <code>GameEffect</code>, <code>GameEntity</code>, <code>GameEntityPoolDefinition</code>, <code>GameEntityTemplate</code>, <code>GameEvent</code>, <code>GameExecutionResult</code>, <code>GameExpression</code>, <code>GameInput</code>, <code>GameOutput</code>, <code>GamePoolPlacement</code>, <code>GamePoolSelector</code>, <code>GameRecord</code>, <code>GameRuleDefinition</code>, <code>GameSession</code>, <code>GameSessionInitialization</code>, <code>GameStageDefinition</code>, <code>GameValue</code></p>
+    <p><strong>Exports:</strong> <code>advanceGameTime</code>, <code>applyGameEvent</code>, <code>createGameSession</code>, <code>GameCondition</code>, <code>GameDefinition</code>, <code>GameEffect</code>, <code>GameEntity</code>, <code>GameEntityPoolDefinition</code>, <code>GameEntityTemplate</code>, <code>GameEvent</code>, <code>GameExecutionResult</code>, <code>GameExpression</code>, <code>GameInput</code>, <code>GameOutput</code>, <code>GamePoolPlacement</code>, <code>GamePoolSelector</code>, <code>GameRecord</code>, <code>GameRuleDefinition</code>, <code>GameSession</code>, <code>GameSessionInitialization</code>, <code>GameStageDefinition</code>, <code>GameValue</code>, <code>readGamePath</code></p>
   </article><article class="item" data-search="src/types/game.ts GameCondition GameDefinition GameEffect GameEntity GameEntityPoolDefinition GameEntityTemplate GameEvent GameExecutionContextSnapshot GameExecutionResult GameExpression GameInput GameOutput GamePoolPlacement GamePoolSelector GamePrimitive GameRecord GameReferenceSource GameRuleDefinition GameScheduledEffects GameSession GameSessionInitialization GameStageDefinition GameValue">
     <h3>src/types/game.ts</h3>
     <p class="muted">Referenced module</p>
@@ -441,6 +446,38 @@
                 </tbody>
               </table>
         <p><strong>Returns:</strong> <code>GameExecutionResult</code></p>
+      </div>
+    
+  </article>
+            </section>
+            <section>
+              <h3>src/features/session/utils/gamePath.ts</h3>
+              <article class="item" id="symbol-readgamepath" data-search="readGamePath function src/features/session/utils/gamePath.ts Read one dot-separated value path from a serializable game value. GameValue (value: GameValue | undefined, path?: string | undefined) =&gt; GameValue | undefined">
+    <h4>readGamePath</h4>
+    <p class="muted">function • <code>src/features/session/utils/gamePath.ts:4:1</code></p>
+    <p>Read one dot-separated value path from a serializable game value.</p>
+    <p><strong>Export paths:</strong> <code>src/game.ts</code></p>
+    <div><strong>Related symbols:</strong> <ul class="chips"><li class="chip">GameValue</li></ul></div>
+    <div>
+        <h5>Signature</h5>
+        <pre>(value: GameValue | undefined, path?: string | undefined) =&gt; GameValue | undefined</pre>
+        <table>
+                <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr>
+                        <td><code>path</code></td>
+                        <td><code>string | undefined</code></td>
+                        <td>no</td>
+                        <td></td>
+                      </tr><tr>
+                        <td><code>value</code></td>
+                        <td><code>GameValue | undefined</code></td>
+                        <td>yes</td>
+                        <td></td>
+                      </tr>
+                </tbody>
+              </table>
+        <p><strong>Returns:</strong> <code>GameValue | undefined</code></p>
       </div>
     
   </article>
@@ -1094,6 +1131,10 @@
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_test_ts[&quot;src/features/session/utils/gamePath.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_utils_gamePath_test_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_types_game_ts
   module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
   package__ankhorage_game -.-&gt; module_src_features_session_utils_gamePath_ts
   module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
@@ -1187,6 +1228,10 @@
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_test_ts[&quot;src/features/session/utils/gamePath.test.ts&quot;]
+  package__ankhorage_game -.-&gt; module_src_features_session_utils_gamePath_test_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_types_game_ts
   module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
   package__ankhorage_game -.-&gt; module_src_features_session_utils_gamePath_ts
   module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
@@ -1217,6 +1262,7 @@
   module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
   module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
   module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_test_ts[&quot;src/features/session/utils/gamePath.test.ts&quot;]
   module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
   module_src_game_ts[&quot;src/game.ts&quot;]
   module_src_types_game_ts[&quot;src/types/game.ts&quot;]
@@ -1267,6 +1313,8 @@
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_types_game_ts
   module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
 </div>
     <details>
@@ -1288,6 +1336,7 @@
   module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
   module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
   module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_test_ts[&quot;src/features/session/utils/gamePath.test.ts&quot;]
   module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
   module_src_game_ts[&quot;src/game.ts&quot;]
   module_src_types_game_ts[&quot;src/types/game.ts&quot;]
@@ -1338,6 +1387,8 @@
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_domain_evaluateGameExpression_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_features_session_utils_gamePath_ts
   module_src_features_session_domain_refreshGamePool_ts --&gt; module_src_types_game_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_test_ts --&gt; module_src_types_game_ts
   module_src_features_session_utils_gamePath_ts --&gt; module_src_types_game_ts
 </pre>
     </details>
@@ -1361,6 +1412,7 @@
   module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
   module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
   module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_test_ts[&quot;src/features/session/utils/gamePath.test.ts&quot;]
   module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
   module_src_game_ts[&quot;src/game.ts&quot;]
   module_src_types_game_ts[&quot;src/types/game.ts&quot;]
@@ -1442,6 +1494,9 @@
   export_GameStageDefinition -.-&gt; export_GameValue
   export_GameValue[&quot;GameValue&quot;]
   module_src_types_game_ts --&gt; export_GameValue
+  export_readGamePath[&quot;readGamePath&quot;]
+  module_src_features_session_utils_gamePath_ts --&gt; export_readGamePath
+  export_readGamePath -.-&gt; export_GameValue
 </div>
     <details>
       <summary>View Mermaid source</summary>
@@ -1462,6 +1517,7 @@
   module_src_features_session_domain_evaluateGameCondition_ts[&quot;src/features/session/domain/evaluateGameCondition.ts&quot;]
   module_src_features_session_domain_evaluateGameExpression_ts[&quot;src/features/session/domain/evaluateGameExpression.ts&quot;]
   module_src_features_session_domain_refreshGamePool_ts[&quot;src/features/session/domain/refreshGamePool.ts&quot;]
+  module_src_features_session_utils_gamePath_test_ts[&quot;src/features/session/utils/gamePath.test.ts&quot;]
   module_src_features_session_utils_gamePath_ts[&quot;src/features/session/utils/gamePath.ts&quot;]
   module_src_game_ts[&quot;src/game.ts&quot;]
   module_src_types_game_ts[&quot;src/types/game.ts&quot;]
@@ -1543,6 +1599,9 @@
   export_GameStageDefinition -.-&gt; export_GameValue
   export_GameValue[&quot;GameValue&quot;]
   module_src_types_game_ts --&gt; export_GameValue
+  export_readGamePath[&quot;readGamePath&quot;]
+  module_src_features_session_utils_gamePath_ts --&gt; export_readGamePath
+  export_readGamePath -.-&gt; export_GameValue
 </pre>
     </details>
   </article><article class="item" data-search="createGameSession sequence diagrams/sequences/create-game-session.mmd">

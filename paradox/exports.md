@@ -283,3 +283,18 @@ Source: `src/types/game.ts:133:1`
 Kind: `unknown`
 Module: `src/types/game.ts`
 Source: `src/types/game.ts:3:1`
+
+## readGamePath
+
+Kind: `function`
+Module: `src/features/session/utils/gamePath.ts`
+Source: `src/features/session/utils/gamePath.ts:4:1`
+
+Read one dot-separated value path from a serializable game value.
+
+### Signatures
+
+- `(value: GameValue | undefined, path?: string | undefined) => GameValue | undefined`
+  - path: `string | undefined` (optional)
+  - value: `GameValue | undefined`
+  - returns: `GameValue | undefined`

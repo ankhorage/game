@@ -975,5 +975,47 @@
     "signatures": [],
     "members": [],
     "structuredRows": []
+  },
+  {
+    "name": "readGamePath",
+    "description": "Read one dot-separated value path from a serializable game value.",
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/features/session/utils/gamePath.ts",
+    "sourceLocation": {
+      "filePath": "src/features/session/utils/gamePath.ts",
+      "line": 4,
+      "column": 1
+    },
+    "exportPaths": [
+      "src/game.ts"
+    ],
+    "relatedSymbols": [
+      "GameValue"
+    ],
+    "signatures": [
+      {
+        "label": "(value: GameValue | undefined, path?: string | undefined) => GameValue | undefined",
+        "parameters": [
+          {
+            "name": "path",
+            "type": "string | undefined",
+            "required": false,
+            "description": null
+          },
+          {
+            "name": "value",
+            "type": "GameValue | undefined",
+            "required": true,
+            "description": null
+          }
+        ],
+        "returnType": "GameValue | undefined",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
   }
 ]

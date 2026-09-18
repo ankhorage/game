@@ -80,6 +80,10 @@ graph TD
   module_src_features_session_domain_refreshGamePool_ts --> module_src_features_session_domain_evaluateGameExpression_ts
   module_src_features_session_domain_refreshGamePool_ts --> module_src_features_session_utils_gamePath_ts
   module_src_features_session_domain_refreshGamePool_ts --> module_src_types_game_ts
+  module_src_features_session_utils_gamePath_test_ts["src/features/session/utils/gamePath.test.ts"]
+  package__ankhorage_game -.-> module_src_features_session_utils_gamePath_test_ts
+  module_src_features_session_utils_gamePath_test_ts --> module_src_features_session_utils_gamePath_ts
+  module_src_features_session_utils_gamePath_test_ts --> module_src_types_game_ts
   module_src_features_session_utils_gamePath_ts["src/features/session/utils/gamePath.ts"]
   package__ankhorage_game -.-> module_src_features_session_utils_gamePath_ts
   module_src_features_session_utils_gamePath_ts --> module_src_types_game_ts

@@ -1,5 +1,12 @@
 # @ankhorage/game
 
+## 0.1.1
+
+### Patch Changes
+
+- ee74e33: Expose the existing serializable Game dot-path reader through the public package API for owner-safe
+  session and entity value consumers.
+
 ## 0.1.0
 
 ### Minor Changes

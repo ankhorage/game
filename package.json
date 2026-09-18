@@ -1,6 +1,6 @@
 {
   "name": "@ankhorage/game",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Platform-neutral config-driven game semantics and runtime primitives for Ankhorage apps.",
   "license": "MIT",
