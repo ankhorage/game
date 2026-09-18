@@ -1,8 +1,11 @@
 /***
- * Configure a tiny non-product-specific collection game without executable rule callbacks.
+ * Start with the smallest config-driven game: an event matches a rule and applies an immutable
+ * state effect. Keep rules serializable; UI, timers and platform input stay outside this package.
+ *
  * @usage
+ * @readme
  */
-import { applyGameEvent, createGameSession, type GameDefinition } from '../../src/game';
+import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
 
 const game: GameDefinition = {
   id: 'orb-collector',
