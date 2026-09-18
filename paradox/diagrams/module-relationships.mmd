@@ -1,5 +1,4 @@
 graph LR
-  module_examples_basic_usage_index_ts["examples/basic-usage/index.ts"]
   module_src_features_session_application_use_cases_advanceGameTime_ts["src/features/session/application/use-cases/advanceGameTime.ts"]
   module_src_features_session_application_use_cases_applyGameEvent_test_ts["src/features/session/application/use-cases/applyGameEvent.test.ts"]
   module_src_features_session_application_use_cases_applyGameEvent_ts["src/features/session/application/use-cases/applyGameEvent.ts"]
@@ -20,7 +19,6 @@ graph LR
   module_src_game_ts["src/game.ts"]
   module_src_types_game_ts["src/types/game.ts"]
   module_src_types_public_ts["src/types/public.ts"]
-  module_examples_basic_usage_index_ts --> module_src_game_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --> module_src_features_session_domain_applyGameEffects_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --> module_src_types_game_ts
   module_src_features_session_application_use_cases_applyGameEvent_test_ts --> module_src_features_session_application_use_cases_advanceGameTime_ts

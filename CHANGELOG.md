@@ -1,5 +1,11 @@
 # @ankhorage/game
 
+## 0.1.2
+
+### Patch Changes
+
+- 5c5b298: Publish Paradox README usage guidance and product-neutral examples for core game authoring patterns.
+
 ## 0.1.1
 
 ### Patch Changes

@@ -2,9 +2,6 @@ graph TD
   package__ankhorage_game["@ankhorage/game"]
   entrypoint_src_game_ts["src/game.ts"]
   package__ankhorage_game --> entrypoint_src_game_ts
-  module_examples_basic_usage_index_ts["examples/basic-usage/index.ts"]
-  package__ankhorage_game -.-> module_examples_basic_usage_index_ts
-  module_examples_basic_usage_index_ts --> module_src_game_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts["src/features/session/application/use-cases/advanceGameTime.ts"]
   package__ankhorage_game -.-> module_src_features_session_application_use_cases_advanceGameTime_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --> module_src_features_session_domain_applyGameEffects_ts

@@ -213,7 +213,7 @@
       <div class="summary">
         <div><strong>23</strong><span class="muted">public exports</span></div>
         <div><strong>0</strong><span class="muted">components</span></div>
-        <div><strong>21</strong><span class="muted">modules</span></div>
+        <div><strong>20</strong><span class="muted">modules</span></div>
         <div><strong>1</strong><span class="muted">entrypoints</span></div>
       </div>
       <h3>Entrypoints</h3>
@@ -224,12 +224,7 @@
     
     <section class="panel">
       <h2>Modules</h2>
-      <article class="item" data-search="examples/basic-usage/index.ts src/game.ts">
-    <h3>examples/basic-usage/index.ts</h3>
-    <p class="muted">Referenced module</p>
-    <p><strong>Dependencies:</strong> <code>src/game.ts</code></p>
-    <p><strong>Exports:</strong> <span class="empty">None</span></p>
-  </article><article class="item" data-search="src/features/session/application/use-cases/advanceGameTime.ts src/features/session/domain/applyGameEffects.ts src/types/game.ts advanceGameTime">
+      <article class="item" data-search="src/features/session/application/use-cases/advanceGameTime.ts src/features/session/domain/applyGameEffects.ts src/types/game.ts advanceGameTime">
     <h3>src/features/session/application/use-cases/advanceGameTime.ts</h3>
     <p class="muted">Referenced module</p>
     <p><strong>Dependencies:</strong> <code>src/features/session/domain/applyGameEffects.ts</code>, <code>src/types/game.ts</code></p>
@@ -1053,9 +1048,6 @@
   package__ankhorage_game[&quot;@ankhorage/game&quot;]
   entrypoint_src_game_ts[&quot;src/game.ts&quot;]
   package__ankhorage_game --&gt; entrypoint_src_game_ts
-  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
-  package__ankhorage_game -.-&gt; module_examples_basic_usage_index_ts
-  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
   package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
@@ -1150,9 +1142,6 @@
   package__ankhorage_game[&quot;@ankhorage/game&quot;]
   entrypoint_src_game_ts[&quot;src/game.ts&quot;]
   package__ankhorage_game --&gt; entrypoint_src_game_ts
-  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
-  package__ankhorage_game -.-&gt; module_examples_basic_usage_index_ts
-  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
   package__ankhorage_game -.-&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
@@ -1246,7 +1235,6 @@
     <h3>Module relationships</h3>
     <p class="muted"><code>diagrams/module-relationships.mmd</code></p>
     <div class="mermaid">graph LR
-  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
   module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
@@ -1267,7 +1255,6 @@
   module_src_game_ts[&quot;src/game.ts&quot;]
   module_src_types_game_ts[&quot;src/types/game.ts&quot;]
   module_src_types_public_ts[&quot;src/types/public.ts&quot;]
-  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_types_game_ts
   module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
@@ -1320,7 +1307,6 @@
     <details>
       <summary>View Mermaid source</summary>
       <pre>graph LR
-  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
   module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
@@ -1341,7 +1327,6 @@
   module_src_game_ts[&quot;src/game.ts&quot;]
   module_src_types_game_ts[&quot;src/types/game.ts&quot;]
   module_src_types_public_ts[&quot;src/types/public.ts&quot;]
-  module_examples_basic_usage_index_ts --&gt; module_src_game_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_features_session_domain_applyGameEffects_ts
   module_src_features_session_application_use_cases_advanceGameTime_ts --&gt; module_src_types_game_ts
   module_src_features_session_application_use_cases_applyGameEvent_test_ts --&gt; module_src_features_session_application_use_cases_advanceGameTime_ts
@@ -1396,7 +1381,6 @@
     <h3>Export graph</h3>
     <p class="muted"><code>diagrams/export-graph.mmd</code></p>
     <div class="mermaid">graph LR
-  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
   module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]
@@ -1501,7 +1485,6 @@
     <details>
       <summary>View Mermaid source</summary>
       <pre>graph LR
-  module_examples_basic_usage_index_ts[&quot;examples/basic-usage/index.ts&quot;]
   module_src_features_session_application_use_cases_advanceGameTime_ts[&quot;src/features/session/application/use-cases/advanceGameTime.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_test_ts[&quot;src/features/session/application/use-cases/applyGameEvent.test.ts&quot;]
   module_src_features_session_application_use_cases_applyGameEvent_ts[&quot;src/features/session/application/use-cases/applyGameEvent.ts&quot;]

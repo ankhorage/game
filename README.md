@@ -3,9 +3,338 @@
 
 # @ankhorage/game
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.1.1](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.1.2](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Platform-neutral config-driven game semantics and runtime primitives for Ankhorage apps.
+
+## Usage
+
+Author games as serializable definitions: initialize state and stages, feed platform-neutral events into rules, apply declarative effects, and consume emitted outputs. Pick the example closest to the mechanic you need; combine the same primitives for larger games.
+
+### Start with the smallest config-driven game: an event matches a rule and applies an immutable
+
+state effect. Keep rules serializable; UI, timers and platform input stay outside this package.
+
+Source: `examples/basic-usage/index.ts`
+
+```ts
+import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
+
+const game: GameDefinition = {
+  id: 'orb-collector',
+  initialState: { score: 0 },
+  stages: [{ id: 'round' }],
+  rules: [
+    {
+      id: 'collect-orb',
+      event: 'orb.collect',
+      effects: [{ kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } }],
+    },
+  ],
+};
+
+const initial = createGameSession(game).session;
+const result = applyGameEvent(game, initial, { type: 'orb.collect' });
+console.log(result.session.state.score);
+```
+
+### Represent damage, hit feedback and respawn timing without browser or native timers in game logic.
+
+Scheduled effects stay in the session until the platform advances game time explicitly.
+
+Source: `examples/damage-respawn/index.ts`
+
+```ts
+import {
+  advanceGameTime,
+  applyGameEvent,
+  createGameSession,
+  type GameDefinition,
+} from '@ankhorage/game';
+
+const game: GameDefinition = {
+  id: 'damage-respawn-demo',
+  initialState: {
+    health: 3,
+    invulnerable: false,
+    playerPhase: 'active',
+  },
+  stages: [{ id: 'round' }],
+  rules: [
+    {
+      id: 'take-hit',
+      event: 'player.hit',
+      when: {
+        kind: 'not',
+        condition: {
+          kind: 'truthy',
+          value: { kind: 'reference', source: 'state', path: 'invulnerable' },
+        },
+      },
+      effects: [
+        {
+          kind: 'increment',
+          path: 'health',
+          value: { kind: 'literal', value: -1 },
+          min: { kind: 'literal', value: 0 },
+        },
+        {
+          kind: 'set',
+          path: 'invulnerable',
+          value: { kind: 'literal', value: true },
+        },
+        {
+          kind: 'set',
+          path: 'playerPhase',
+          value: { kind: 'literal', value: 'hitstop' },
+        },
+        {
+          kind: 'schedule',
+          delayMs: { kind: 'literal', value: 300 },
+          effects: [
+            {
+              kind: 'set',
+              path: 'playerPhase',
+              value: { kind: 'literal', value: 'respawning' },
+            },
+          ],
+        },
+        {
+          kind: 'schedule',
+          delayMs: { kind: 'literal', value: 600 },
+          effects: [
+            {
+              kind: 'set',
+              path: 'playerPhase',
+              value: { kind: 'literal', value: 'active' },
+            },
+            {
+              kind: 'set',
+              path: 'invulnerable',
+              value: { kind: 'literal', value: false },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+const initial = createGameSession(game).session;
+const hit = applyGameEvent(game, initial, { type: 'player.hit' });
+const respawning = advanceGameTime(game, hit.session, 300);
+const active = advanceGameTime(game, respawning.session, 300);
+
+console.log(active.session.state);
+```
+
+### Build data-driven boards from caller-owned input with deterministic entity pools.
+
+Use selectors for target/distractor-style composition and keep presentation details outside the
+runtime definition.
+
+Source: `examples/entity-pools/index.ts`
+
+```ts
+import { createGameSession, type GameDefinition, type GameInput } from '@ankhorage/game';
+
+const input: GameInput = {
+  items: [
+    { id: 'a', tag: 'target' },
+    { id: 'b', tag: 'other' },
+    { id: 'c', tag: 'other' },
+    { id: 'd', tag: 'target' },
+  ],
+};
+
+const game: GameDefinition = {
+  id: 'entity-pool-demo',
+  initialState: { targetTag: 'target' },
+  stages: [{ id: 'round' }],
+  entityTemplates: [{ id: 'token' }],
+  pools: [
+    {
+      id: 'board',
+      source: { kind: 'reference', source: 'input', path: 'items' },
+      entityTemplateId: 'token',
+      size: 3,
+      selectors: [
+        {
+          count: 1,
+          where: {
+            kind: 'equals',
+            left: { kind: 'reference', source: 'local', path: 'item.tag' },
+            right: { kind: 'reference', source: 'state', path: 'targetTag' },
+          },
+        },
+        { count: 2 },
+      ],
+      idPath: 'id',
+      entityState: {
+        data: { kind: 'reference', source: 'local', path: 'item' },
+      },
+    },
+  ],
+  rules: [],
+};
+
+const session = createGameSession(game, { input, seed: 0.25 }).session;
+console.log(Object.values(session.entities).map((entity) => entity.state.data));
+```
+
+### Model direct movement as state updates with declarative clamping.
+
+UI adapters only report the requested coordinate; the Game definition owns the legal bounds.
+
+Source: `examples/movement-bounds/index.ts`
+
+```ts
+import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
+
+const game: GameDefinition = {
+  id: 'movement-demo',
+  initialState: {
+    player: { x: 50, minX: 10, maxX: 90 },
+  },
+  stages: [{ id: 'round' }],
+  rules: [
+    {
+      id: 'move-player',
+      event: 'player.move',
+      effects: [
+        {
+          kind: 'set',
+          path: 'player.x',
+          value: {
+            kind: 'clamp',
+            value: { kind: 'reference', source: 'event', path: 'x' },
+            min: { kind: 'reference', source: 'state', path: 'player.minX' },
+            max: { kind: 'reference', source: 'state', path: 'player.maxX' },
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const initial = createGameSession(game).session;
+const moved = applyGameEvent(game, initial, {
+  type: 'player.move',
+  payload: { x: 120 },
+});
+
+console.log(moved.session.state.player);
+```
+
+### Keep projectile lifecycle and collision decisions platform-neutral.
+
+Presentation or geometry adapters report collision events; Game rules decide what those events
+mean and update entities/state without reading DOM or native layout.
+
+Source: `examples/projectile-collision/index.ts`
+
+```ts
+import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
+
+const game: GameDefinition = {
+  id: 'projectile-collision-demo',
+  initialState: { health: 3 },
+  stages: [{ id: 'round' }],
+  entityTemplates: [{ id: 'projectile' }],
+  rules: [
+    {
+      id: 'fire-projectile',
+      event: 'projectile.fire',
+      effects: [
+        {
+          kind: 'spawnEntity',
+          templateId: 'projectile',
+          id: { kind: 'reference', source: 'event', path: 'projectileId' },
+          state: {
+            glyph: { kind: 'reference', source: 'event', path: 'glyph' },
+          },
+        },
+      ],
+    },
+    {
+      id: 'projectile-hit',
+      event: 'collision.enter',
+      effects: [
+        {
+          kind: 'increment',
+          path: 'health',
+          value: { kind: 'literal', value: -1 },
+          min: { kind: 'literal', value: 0 },
+        },
+        {
+          kind: 'removeEntity',
+          entityId: { kind: 'reference', source: 'event', path: 'projectileId' },
+        },
+      ],
+    },
+  ],
+};
+
+const initial = createGameSession(game).session;
+const fired = applyGameEvent(game, initial, {
+  type: 'projectile.fire',
+  payload: { projectileId: 'shot-1', glyph: 'A' },
+});
+const hit = applyGameEvent(game, fired.session, {
+  type: 'collision.enter',
+  payload: { projectileId: 'shot-1' },
+});
+
+console.log(hit.session.state.health, Object.keys(hit.session.entities));
+```
+
+### Compose multi-stage games with explicit transition and restart rules.
+
+Stage-local initial state is layered onto the session when entering the stage, while routing and
+screens remain application concerns.
+
+Source: `examples/stage-progression/index.ts`
+
+```ts
+import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
+
+const game: GameDefinition = {
+  id: 'stage-progression-demo',
+  initialState: { score: 0 },
+  stages: [
+    { id: 'intro', initialState: { goal: 2 }, nextStageId: 'challenge' },
+    { id: 'challenge', initialState: { goal: 5 }, nextStageId: 'result' },
+    { id: 'result' },
+  ],
+  rules: [
+    {
+      id: 'complete-stage',
+      event: 'stage.complete',
+      effects: [
+        { kind: 'transitionStage' },
+        {
+          kind: 'emit',
+          type: 'game.stageChanged',
+          payload: {
+            previousStageId: { kind: 'reference', source: 'session', path: 'stageId' },
+          },
+        },
+      ],
+    },
+    {
+      id: 'restart-stage',
+      event: 'stage.restart',
+      effects: [{ kind: 'restartStage' }],
+    },
+  ],
+};
+
+const initial = createGameSession(game).session;
+const challenge = applyGameEvent(game, initial, { type: 'stage.complete' });
+const result = applyGameEvent(game, challenge.session, { type: 'stage.complete' });
+
+console.log(result.session.stageId);
+```
 
 ## Generated documentation
 

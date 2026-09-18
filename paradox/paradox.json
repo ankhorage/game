@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.1.1",
+      "value": "v0.1.2",
       "color": "cb3837"
     },
     {
@@ -61,8 +61,51 @@
     }
   ],
   "usage": null,
-  "readmeUsageDescription": null,
-  "readmeUsage": [],
+  "readmeUsageDescription": "Author games as serializable definitions: initialize state and stages, feed platform-neutral events into rules, apply declarative effects, and consume emitted outputs. Pick the example closest to the mechanic you need; combine the same primitives for larger games.",
+  "readmeUsage": [
+    {
+      "title": "Start with the smallest config-driven game: an event matches a rule and applies an immutable",
+      "description": "Start with the smallest config-driven game: an event matches a rule and applies an immutable\nstate effect. Keep rules serializable; UI, timers and platform input stay outside this package.",
+      "language": "ts",
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'orb-collector',\n  initialState: { score: 0 },\n  stages: [{ id: 'round' }],\n  rules: [\n    {\n      id: 'collect-orb',\n      event: 'orb.collect',\n      effects: [{ kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } }],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst result = applyGameEvent(game, initial, { type: 'orb.collect' });\nconsole.log(result.session.state.score);",
+      "sourcePath": "examples/basic-usage/index.ts"
+    },
+    {
+      "title": "Represent damage, hit feedback and respawn timing without browser or native timers in game logic.",
+      "description": "Represent damage, hit feedback and respawn timing without browser or native timers in game logic.\n\nScheduled effects stay in the session until the platform advances game time explicitly.",
+      "language": "ts",
+      "code": "import {\n  advanceGameTime,\n  applyGameEvent,\n  createGameSession,\n  type GameDefinition,\n} from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'damage-respawn-demo',\n  initialState: {\n    health: 3,\n    invulnerable: false,\n    playerPhase: 'active',\n  },\n  stages: [{ id: 'round' }],\n  rules: [\n    {\n      id: 'take-hit',\n      event: 'player.hit',\n      when: {\n        kind: 'not',\n        condition: {\n          kind: 'truthy',\n          value: { kind: 'reference', source: 'state', path: 'invulnerable' },\n        },\n      },\n      effects: [\n        {\n          kind: 'increment',\n          path: 'health',\n          value: { kind: 'literal', value: -1 },\n          min: { kind: 'literal', value: 0 },\n        },\n        {\n          kind: 'set',\n          path: 'invulnerable',\n          value: { kind: 'literal', value: true },\n        },\n        {\n          kind: 'set',\n          path: 'playerPhase',\n          value: { kind: 'literal', value: 'hitstop' },\n        },\n        {\n          kind: 'schedule',\n          delayMs: { kind: 'literal', value: 300 },\n          effects: [\n            {\n              kind: 'set',\n              path: 'playerPhase',\n              value: { kind: 'literal', value: 'respawning' },\n            },\n          ],\n        },\n        {\n          kind: 'schedule',\n          delayMs: { kind: 'literal', value: 600 },\n          effects: [\n            {\n              kind: 'set',\n              path: 'playerPhase',\n              value: { kind: 'literal', value: 'active' },\n            },\n            {\n              kind: 'set',\n              path: 'invulnerable',\n              value: { kind: 'literal', value: false },\n            },\n          ],\n        },\n      ],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst hit = applyGameEvent(game, initial, { type: 'player.hit' });\nconst respawning = advanceGameTime(game, hit.session, 300);\nconst active = advanceGameTime(game, respawning.session, 300);\n\nconsole.log(active.session.state);",
+      "sourcePath": "examples/damage-respawn/index.ts"
+    },
+    {
+      "title": "Build data-driven boards from caller-owned input with deterministic entity pools.",
+      "description": "Build data-driven boards from caller-owned input with deterministic entity pools.\n\nUse selectors for target/distractor-style composition and keep presentation details outside the\nruntime definition.",
+      "language": "ts",
+      "code": "import { createGameSession, type GameDefinition, type GameInput } from '@ankhorage/game';\n\nconst input: GameInput = {\n  items: [\n    { id: 'a', tag: 'target' },\n    { id: 'b', tag: 'other' },\n    { id: 'c', tag: 'other' },\n    { id: 'd', tag: 'target' },\n  ],\n};\n\nconst game: GameDefinition = {\n  id: 'entity-pool-demo',\n  initialState: { targetTag: 'target' },\n  stages: [{ id: 'round' }],\n  entityTemplates: [{ id: 'token' }],\n  pools: [\n    {\n      id: 'board',\n      source: { kind: 'reference', source: 'input', path: 'items' },\n      entityTemplateId: 'token',\n      size: 3,\n      selectors: [\n        {\n          count: 1,\n          where: {\n            kind: 'equals',\n            left: { kind: 'reference', source: 'local', path: 'item.tag' },\n            right: { kind: 'reference', source: 'state', path: 'targetTag' },\n          },\n        },\n        { count: 2 },\n      ],\n      idPath: 'id',\n      entityState: {\n        data: { kind: 'reference', source: 'local', path: 'item' },\n      },\n    },\n  ],\n  rules: [],\n};\n\nconst session = createGameSession(game, { input, seed: 0.25 }).session;\nconsole.log(Object.values(session.entities).map((entity) => entity.state.data));",
+      "sourcePath": "examples/entity-pools/index.ts"
+    },
+    {
+      "title": "Model direct movement as state updates with declarative clamping.",
+      "description": "Model direct movement as state updates with declarative clamping.\n\nUI adapters only report the requested coordinate; the Game definition owns the legal bounds.",
+      "language": "ts",
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'movement-demo',\n  initialState: {\n    player: { x: 50, minX: 10, maxX: 90 },\n  },\n  stages: [{ id: 'round' }],\n  rules: [\n    {\n      id: 'move-player',\n      event: 'player.move',\n      effects: [\n        {\n          kind: 'set',\n          path: 'player.x',\n          value: {\n            kind: 'clamp',\n            value: { kind: 'reference', source: 'event', path: 'x' },\n            min: { kind: 'reference', source: 'state', path: 'player.minX' },\n            max: { kind: 'reference', source: 'state', path: 'player.maxX' },\n          },\n        },\n      ],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst moved = applyGameEvent(game, initial, {\n  type: 'player.move',\n  payload: { x: 120 },\n});\n\nconsole.log(moved.session.state.player);",
+      "sourcePath": "examples/movement-bounds/index.ts"
+    },
+    {
+      "title": "Keep projectile lifecycle and collision decisions platform-neutral.",
+      "description": "Keep projectile lifecycle and collision decisions platform-neutral.\n\nPresentation or geometry adapters report collision events; Game rules decide what those events\nmean and update entities/state without reading DOM or native layout.",
+      "language": "ts",
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'projectile-collision-demo',\n  initialState: { health: 3 },\n  stages: [{ id: 'round' }],\n  entityTemplates: [{ id: 'projectile' }],\n  rules: [\n    {\n      id: 'fire-projectile',\n      event: 'projectile.fire',\n      effects: [\n        {\n          kind: 'spawnEntity',\n          templateId: 'projectile',\n          id: { kind: 'reference', source: 'event', path: 'projectileId' },\n          state: {\n            glyph: { kind: 'reference', source: 'event', path: 'glyph' },\n          },\n        },\n      ],\n    },\n    {\n      id: 'projectile-hit',\n      event: 'collision.enter',\n      effects: [\n        {\n          kind: 'increment',\n          path: 'health',\n          value: { kind: 'literal', value: -1 },\n          min: { kind: 'literal', value: 0 },\n        },\n        {\n          kind: 'removeEntity',\n          entityId: { kind: 'reference', source: 'event', path: 'projectileId' },\n        },\n      ],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst fired = applyGameEvent(game, initial, {\n  type: 'projectile.fire',\n  payload: { projectileId: 'shot-1', glyph: 'A' },\n});\nconst hit = applyGameEvent(game, fired.session, {\n  type: 'collision.enter',\n  payload: { projectileId: 'shot-1' },\n});\n\nconsole.log(hit.session.state.health, Object.keys(hit.session.entities));",
+      "sourcePath": "examples/projectile-collision/index.ts"
+    },
+    {
+      "title": "Compose multi-stage games with explicit transition and restart rules.",
+      "description": "Compose multi-stage games with explicit transition and restart rules.\n\nStage-local initial state is layered onto the session when entering the stage, while routing and\nscreens remain application concerns.",
+      "language": "ts",
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'stage-progression-demo',\n  initialState: { score: 0 },\n  stages: [\n    { id: 'intro', initialState: { goal: 2 }, nextStageId: 'challenge' },\n    { id: 'challenge', initialState: { goal: 5 }, nextStageId: 'result' },\n    { id: 'result' },\n  ],\n  rules: [\n    {\n      id: 'complete-stage',\n      event: 'stage.complete',\n      effects: [\n        { kind: 'transitionStage' },\n        {\n          kind: 'emit',\n          type: 'game.stageChanged',\n          payload: {\n            previousStageId: { kind: 'reference', source: 'session', path: 'stageId' },\n          },\n        },\n      ],\n    },\n    {\n      id: 'restart-stage',\n      event: 'stage.restart',\n      effects: [{ kind: 'restartStage' }],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst challenge = applyGameEvent(game, initial, { type: 'stage.complete' });\nconst result = applyGameEvent(game, challenge.session, { type: 'stage.complete' });\n\nconsole.log(result.session.stageId);",
+      "sourcePath": "examples/stage-progression/index.ts"
+    }
+  ],
   "readmeCli": null,
   "readmeConfig": null,
   "config": null,
@@ -70,14 +113,6 @@
     "src/game.ts"
   ],
   "modules": [
-    {
-      "path": "examples/basic-usage/index.ts",
-      "isEntrypoint": false,
-      "dependencies": [
-        "src/game.ts"
-      ],
-      "exports": []
-    },
     {
       "path": "src/features/session/application/use-cases/advanceGameTime.ts",
       "isEntrypoint": false,
@@ -2169,8 +2204,33 @@
       },
       {
         "fromPath": "examples/basic-usage/index.ts",
-        "toPath": "src/game.ts",
+        "toPath": "dist/game.d.ts",
         "sourcePath": "examples/basic-usage/index.ts"
+      },
+      {
+        "fromPath": "examples/damage-respawn/index.ts",
+        "toPath": "dist/game.d.ts",
+        "sourcePath": "examples/damage-respawn/index.ts"
+      },
+      {
+        "fromPath": "examples/entity-pools/index.ts",
+        "toPath": "dist/game.d.ts",
+        "sourcePath": "examples/entity-pools/index.ts"
+      },
+      {
+        "fromPath": "examples/movement-bounds/index.ts",
+        "toPath": "dist/game.d.ts",
+        "sourcePath": "examples/movement-bounds/index.ts"
+      },
+      {
+        "fromPath": "examples/projectile-collision/index.ts",
+        "toPath": "dist/game.d.ts",
+        "sourcePath": "examples/projectile-collision/index.ts"
+      },
+      {
+        "fromPath": "examples/stage-progression/index.ts",
+        "toPath": "dist/game.d.ts",
+        "sourcePath": "examples/stage-progression/index.ts"
       },
       {
         "fromPath": "src/types/public.ts",
@@ -2430,6 +2490,66 @@
         "toSymbol": "applyGameEvent",
         "callExpression": "applyGameEvent",
         "sourcePath": "examples/basic-usage/index.ts"
+      },
+      {
+        "fromSymbol": "examples/damage-respawn/index.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "examples/damage-respawn/index.ts"
+      },
+      {
+        "fromSymbol": "examples/damage-respawn/index.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "examples/damage-respawn/index.ts"
+      },
+      {
+        "fromSymbol": "examples/damage-respawn/index.ts",
+        "toSymbol": "advanceGameTime",
+        "callExpression": "advanceGameTime",
+        "sourcePath": "examples/damage-respawn/index.ts"
+      },
+      {
+        "fromSymbol": "examples/entity-pools/index.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "examples/entity-pools/index.ts"
+      },
+      {
+        "fromSymbol": "examples/movement-bounds/index.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "examples/movement-bounds/index.ts"
+      },
+      {
+        "fromSymbol": "examples/movement-bounds/index.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "examples/movement-bounds/index.ts"
+      },
+      {
+        "fromSymbol": "examples/projectile-collision/index.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "examples/projectile-collision/index.ts"
+      },
+      {
+        "fromSymbol": "examples/projectile-collision/index.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "examples/projectile-collision/index.ts"
+      },
+      {
+        "fromSymbol": "examples/stage-progression/index.ts",
+        "toSymbol": "createGameSession",
+        "callExpression": "createGameSession",
+        "sourcePath": "examples/stage-progression/index.ts"
+      },
+      {
+        "fromSymbol": "examples/stage-progression/index.ts",
+        "toSymbol": "applyGameEvent",
+        "callExpression": "applyGameEvent",
+        "sourcePath": "examples/stage-progression/index.ts"
       },
       {
         "fromSymbol": "applyEntityEffect",
