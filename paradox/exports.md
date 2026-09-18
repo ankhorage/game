@@ -63,15 +63,15 @@ Source: `src/types/game.ts:139:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| entityTemplates | property | `readonly GameEntityTemplate[]` | no |  |
-| id | property | `string` | yes |  |
-| initialPhase | property | `string` | no |  |
-| initialState | property | `Readonly<Record<string, GameValue>>` | no |  |
-| pools | property | `readonly GameEntityPoolDefinition[]` | no |  |
-| rules | property | `readonly GameRuleDefinition[]` | yes |  |
-| stages | property | `readonly GameStageDefinition[]` | yes |  |
+| Name            | Kind     | Type                                  | Required | Description |
+| --------------- | -------- | ------------------------------------- | -------- | ----------- |
+| entityTemplates | property | `readonly GameEntityTemplate[]`       | no       |             |
+| id              | property | `string`                              | yes      |             |
+| initialPhase    | property | `string`                              | no       |             |
+| initialState    | property | `Readonly<Record<string, GameValue>>` | no       |             |
+| pools           | property | `readonly GameEntityPoolDefinition[]` | no       |             |
+| rules           | property | `readonly GameRuleDefinition[]`       | yes      |             |
+| stages          | property | `readonly GameStageDefinition[]`      | yes      |             |
 
 ## GameEffect
 
@@ -87,12 +87,12 @@ Source: `src/types/game.ts:149:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| id | property | `string` | yes |  |
-| poolId | property | `string` | no |  |
-| state | property | `Readonly<Record<string, GameValue>>` | yes |  |
-| templateId | property | `string` | yes |  |
+| Name       | Kind     | Type                                  | Required | Description |
+| ---------- | -------- | ------------------------------------- | -------- | ----------- |
+| id         | property | `string`                              | yes      |             |
+| poolId     | property | `string`                              | no       |             |
+| state      | property | `Readonly<Record<string, GameValue>>` | yes      |             |
+| templateId | property | `string`                              | yes      |             |
 
 ## GameEntityPoolDefinition
 
@@ -102,17 +102,17 @@ Source: `src/types/game.ts:68:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| entityState | property | `Readonly<Record<string, GameExpression>>` | no |  |
-| entityTemplateId | property | `string` | yes |  |
-| excludeIdsFromStatePaths | property | `readonly string[]` | no |  |
-| id | property | `string` | yes |  |
-| idPath | property | `string` | no |  |
-| placement | property | `GamePoolPlacement` | no |  |
-| selectors | property | `readonly GamePoolSelector[]` | yes |  |
-| size | property | `number` | yes |  |
-| source | property | `GameExpression` | yes |  |
+| Name                     | Kind     | Type                                       | Required | Description |
+| ------------------------ | -------- | ------------------------------------------ | -------- | ----------- |
+| entityState              | property | `Readonly<Record<string, GameExpression>>` | no       |             |
+| entityTemplateId         | property | `string`                                   | yes      |             |
+| excludeIdsFromStatePaths | property | `readonly string[]`                        | no       |             |
+| id                       | property | `string`                                   | yes      |             |
+| idPath                   | property | `string`                                   | no       |             |
+| placement                | property | `GamePoolPlacement`                        | no       |             |
+| selectors                | property | `readonly GamePoolSelector[]`              | yes      |             |
+| size                     | property | `number`                                   | yes      |             |
+| source                   | property | `GameExpression`                           | yes      |             |
 
 ## GameEntityTemplate
 
@@ -122,10 +122,10 @@ Source: `src/types/game.ts:48:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| id | property | `string` | yes |  |
-| initialState | property | `Readonly<Record<string, GameValue>>` | no |  |
+| Name         | Kind     | Type                                  | Required | Description |
+| ------------ | -------- | ------------------------------------- | -------- | ----------- |
+| id           | property | `string`                              | yes      |             |
+| initialState | property | `Readonly<Record<string, GameValue>>` | no       |             |
 
 ## GameEvent
 
@@ -135,12 +135,12 @@ Source: `src/types/game.ts:179:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| entityId | property | `string` | no |  |
-| payload | property | `Readonly<Record<string, GameValue>>` | no |  |
-| seed | property | `number` | no |  |
-| type | property | `string` | yes |  |
+| Name     | Kind     | Type                                  | Required | Description |
+| -------- | -------- | ------------------------------------- | -------- | ----------- |
+| entityId | property | `string`                              | no       |             |
+| payload  | property | `Readonly<Record<string, GameValue>>` | no       |             |
+| seed     | property | `number`                              | no       |             |
+| type     | property | `string`                              | yes      |             |
 
 ## GameExecutionResult
 
@@ -150,10 +150,10 @@ Source: `src/types/game.ts:191:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| outputs | property | `readonly GameOutput[]` | yes |  |
-| session | property | `GameSession` | yes |  |
+| Name    | Kind     | Type                    | Required | Description |
+| ------- | -------- | ----------------------- | -------- | ----------- |
+| outputs | property | `readonly GameOutput[]` | yes      |             |
+| session | property | `GameSession`           | yes      |             |
 
 ## GameExpression
 
@@ -175,10 +175,10 @@ Source: `src/types/game.ts:186:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| payload | property | `Readonly<Record<string, GameValue>>` | yes |  |
-| type | property | `string` | yes |  |
+| Name    | Kind     | Type                                  | Required | Description |
+| ------- | -------- | ------------------------------------- | -------- | ----------- |
+| payload | property | `Readonly<Record<string, GameValue>>` | yes      |             |
+| type    | property | `string`                              | yes      |             |
 
 ## GamePoolPlacement
 
@@ -188,15 +188,15 @@ Source: `src/types/game.ts:58:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| minimumDistance | property | `number` | no |  |
-| xMax | property | `number` | yes |  |
-| xMin | property | `number` | yes |  |
-| xStatePath | property | `string` | yes |  |
-| yMax | property | `number` | yes |  |
-| yMin | property | `number` | yes |  |
-| yStatePath | property | `string` | yes |  |
+| Name            | Kind     | Type     | Required | Description |
+| --------------- | -------- | -------- | -------- | ----------- |
+| minimumDistance | property | `number` | no       |             |
+| xMax            | property | `number` | yes      |             |
+| xMin            | property | `number` | yes      |             |
+| xStatePath      | property | `string` | yes      |             |
+| yMax            | property | `number` | yes      |             |
+| yMin            | property | `number` | yes      |             |
+| yStatePath      | property | `string` | yes      |             |
 
 ## GamePoolSelector
 
@@ -206,10 +206,10 @@ Source: `src/types/game.ts:53:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| count | property | `number` | yes |  |
-| where | property | `GameCondition` | no |  |
+| Name  | Kind     | Type            | Required | Description |
+| ----- | -------- | --------------- | -------- | ----------- |
+| count | property | `number`        | yes      |             |
+| where | property | `GameCondition` | no       |             |
 
 ## GameRecord
 
@@ -225,12 +225,12 @@ Source: `src/types/game.ts:126:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| effects | property | `readonly GameEffect[]` | yes |  |
-| event | property | `string` | yes |  |
-| id | property | `string` | yes |  |
-| when | property | `GameCondition` | no |  |
+| Name    | Kind     | Type                    | Required | Description |
+| ------- | -------- | ----------------------- | -------- | ----------- |
+| effects | property | `readonly GameEffect[]` | yes      |             |
+| event   | property | `string`                | yes      |             |
+| id      | property | `string`                | yes      |             |
+| when    | property | `GameCondition`         | no       |             |
 
 ## GameSession
 
@@ -240,16 +240,16 @@ Source: `src/types/game.ts:168:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| definitionId | property | `string` | yes |  |
-| elapsedMs | property | `number` | yes |  |
-| entities | property | `Readonly<Record<string, GameEntity>>` | yes |  |
-| phase | property | `string` | yes |  |
-| scheduled | property | `readonly GameScheduledEffects[]` | yes |  |
-| sequence | property | `number` | yes |  |
-| stageId | property | `string` | yes |  |
-| state | property | `Readonly<Record<string, GameValue>>` | yes |  |
+| Name         | Kind     | Type                                   | Required | Description |
+| ------------ | -------- | -------------------------------------- | -------- | ----------- |
+| definitionId | property | `string`                               | yes      |             |
+| elapsedMs    | property | `number`                               | yes      |             |
+| entities     | property | `Readonly<Record<string, GameEntity>>` | yes      |             |
+| phase        | property | `string`                               | yes      |             |
+| scheduled    | property | `readonly GameScheduledEffects[]`      | yes      |             |
+| sequence     | property | `number`                               | yes      |             |
+| stageId      | property | `string`                               | yes      |             |
+| state        | property | `Readonly<Record<string, GameValue>>`  | yes      |             |
 
 ## GameSessionInitialization
 
@@ -259,10 +259,10 @@ Source: `src/types/game.ts:163:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| input | property | `Readonly<Record<string, GameValue>>` | no |  |
-| seed | property | `number` | no |  |
+| Name  | Kind     | Type                                  | Required | Description |
+| ----- | -------- | ------------------------------------- | -------- | ----------- |
+| input | property | `Readonly<Record<string, GameValue>>` | no       |             |
+| seed  | property | `number`                              | no       |             |
 
 ## GameStageDefinition
 
@@ -272,11 +272,11 @@ Source: `src/types/game.ts:133:1`
 
 ### Members
 
-| Name | Kind | Type | Required | Description |
-| --- | --- | --- | --- | --- |
-| id | property | `string` | yes |  |
-| initialState | property | `Readonly<Record<string, GameValue>>` | no |  |
-| nextStageId | property | `string` | no |  |
+| Name         | Kind     | Type                                  | Required | Description |
+| ------------ | -------- | ------------------------------------- | -------- | ----------- |
+| id           | property | `string`                              | yes      |             |
+| initialState | property | `Readonly<Record<string, GameValue>>` | no       |             |
+| nextStageId  | property | `string`                              | no       |             |
 
 ## GameValue
 

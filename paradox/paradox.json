@@ -66,28 +66,19 @@
   "readmeCli": null,
   "readmeConfig": null,
   "config": null,
-  "entrypoints": [
-    "src/game.ts"
-  ],
+  "entrypoints": ["src/game.ts"],
   "modules": [
     {
       "path": "examples/basic-usage/index.ts",
       "isEntrypoint": false,
-      "dependencies": [
-        "src/game.ts"
-      ],
+      "dependencies": ["src/game.ts"],
       "exports": []
     },
     {
       "path": "src/features/session/application/use-cases/advanceGameTime.ts",
       "isEntrypoint": false,
-      "dependencies": [
-        "src/features/session/domain/applyGameEffects.ts",
-        "src/types/game.ts"
-      ],
-      "exports": [
-        "advanceGameTime"
-      ]
+      "dependencies": ["src/features/session/domain/applyGameEffects.ts", "src/types/game.ts"],
+      "exports": ["advanceGameTime"]
     },
     {
       "path": "src/features/session/application/use-cases/applyGameEvent.test.ts",
@@ -108,9 +99,7 @@
         "src/features/session/domain/evaluateGameCondition.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "applyGameEvent"
-      ]
+      "exports": ["applyGameEvent"]
     },
     {
       "path": "src/features/session/application/use-cases/arcadeBoard.test.ts",
@@ -137,13 +126,8 @@
     {
       "path": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
       "isEntrypoint": false,
-      "dependencies": [
-        "src/types/game.ts"
-      ],
-      "exports": [
-        "arcadeDefinition",
-        "arcadeInput"
-      ]
+      "dependencies": ["src/types/game.ts"],
+      "exports": ["arcadeDefinition", "arcadeInput"]
     },
     {
       "path": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
@@ -171,9 +155,7 @@
         "src/features/session/application/use-cases/applyGameEvent.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "createGameSession"
-      ]
+      "exports": ["createGameSession"]
     },
     {
       "path": "src/features/session/domain/applyEntityEffect.ts",
@@ -182,9 +164,7 @@
         "src/features/session/domain/evaluateGameExpression.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "applyEntityEffect"
-      ]
+      "exports": ["applyEntityEffect"]
     },
     {
       "path": "src/features/session/domain/applyGameEffects.ts",
@@ -196,9 +176,7 @@
         "src/features/session/domain/evaluateGameExpression.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "applyGameEffects"
-      ]
+      "exports": ["applyGameEffects"]
     },
     {
       "path": "src/features/session/domain/applyLifecycleEffect.ts",
@@ -207,9 +185,7 @@
         "src/features/session/domain/evaluateGameExpression.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "applyLifecycleEffect"
-      ]
+      "exports": ["applyLifecycleEffect"]
     },
     {
       "path": "src/features/session/domain/applyStateEffect.ts",
@@ -220,9 +196,7 @@
         "src/features/session/utils/gamePath.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "applyStateEffect"
-      ]
+      "exports": ["applyStateEffect"]
     },
     {
       "path": "src/features/session/domain/evaluateGameCondition.ts",
@@ -231,21 +205,13 @@
         "src/features/session/domain/evaluateGameExpression.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "evaluateGameCondition"
-      ]
+      "exports": ["evaluateGameCondition"]
     },
     {
       "path": "src/features/session/domain/evaluateGameExpression.ts",
       "isEntrypoint": false,
-      "dependencies": [
-        "src/features/session/utils/gamePath.ts",
-        "src/types/game.ts"
-      ],
-      "exports": [
-        "evaluateGameExpression",
-        "GameExpressionContext"
-      ]
+      "dependencies": ["src/features/session/utils/gamePath.ts", "src/types/game.ts"],
+      "exports": ["evaluateGameExpression", "GameExpressionContext"]
     },
     {
       "path": "src/features/session/domain/refreshGamePool.ts",
@@ -256,20 +222,13 @@
         "src/features/session/utils/gamePath.ts",
         "src/types/game.ts"
       ],
-      "exports": [
-        "refreshGamePool"
-      ]
+      "exports": ["refreshGamePool"]
     },
     {
       "path": "src/features/session/utils/gamePath.ts",
       "isEntrypoint": false,
-      "dependencies": [
-        "src/types/game.ts"
-      ],
-      "exports": [
-        "readGamePath",
-        "writeGamePath"
-      ]
+      "dependencies": ["src/types/game.ts"],
+      "exports": ["readGamePath", "writeGamePath"]
     },
     {
       "path": "src/game.ts",
@@ -374,15 +333,8 @@
         "line": 11,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameDefinition",
-        "GameExecutionResult",
-        "GameSession",
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameDefinition", "GameExecutionResult", "GameSession", "GameValue"],
       "signatures": [
         {
           "label": "(definition: GameDefinition, session: GameSession, elapsedMs: number, input?: Readonly<Record<string, import(\"../../../../game\").GameValue>>) => GameExecutionResult",
@@ -431,9 +383,7 @@
         "line": 12,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [
         "GameDefinition",
         "GameEvent",
@@ -489,14 +439,8 @@
         "line": 10,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameDefinition",
-        "GameExecutionResult",
-        "GameSessionInitialization"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameDefinition", "GameExecutionResult", "GameSessionInitialization"],
       "signatures": [
         {
           "label": "(definition: GameDefinition, initialization?: GameSessionInitialization) => GameExecutionResult",
@@ -533,9 +477,7 @@
         "line": 31,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -553,9 +495,7 @@
         "line": 139,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [
         "GameEntityPoolDefinition",
         "GameEntityTemplate",
@@ -629,9 +569,7 @@
         "line": 80,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -649,12 +587,8 @@
         "line": 149,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameValue"],
       "signatures": [],
       "members": [
         {
@@ -700,14 +634,8 @@
         "line": 68,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameExpression",
-        "GamePoolPlacement",
-        "GamePoolSelector"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameExpression", "GamePoolPlacement", "GamePoolSelector"],
       "signatures": [],
       "members": [
         {
@@ -788,12 +716,8 @@
         "line": 48,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameValue"],
       "signatures": [],
       "members": [
         {
@@ -825,12 +749,8 @@
         "line": 179,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameValue"],
       "signatures": [],
       "members": [
         {
@@ -876,13 +796,8 @@
         "line": 191,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameOutput",
-        "GameSession"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameOutput", "GameSession"],
       "signatures": [],
       "members": [
         {
@@ -914,9 +829,7 @@
         "line": 9,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -934,9 +847,7 @@
         "line": 202,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -954,12 +865,8 @@
         "line": 186,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameValue"],
       "signatures": [],
       "members": [
         {
@@ -991,9 +898,7 @@
         "line": 58,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -1061,12 +966,8 @@
         "line": 53,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameCondition"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameCondition"],
       "signatures": [],
       "members": [
         {
@@ -1098,9 +999,7 @@
         "line": 6,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1118,13 +1017,8 @@
         "line": 126,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameCondition",
-        "GameEffect"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameCondition", "GameEffect"],
       "signatures": [],
       "members": [
         {
@@ -1170,13 +1064,8 @@
         "line": 168,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameEntity",
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameEntity", "GameValue"],
       "signatures": [],
       "members": [
         {
@@ -1250,12 +1139,8 @@
         "line": 163,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameValue"],
       "signatures": [],
       "members": [
         {
@@ -1287,12 +1172,8 @@
         "line": 133,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
-      "relatedSymbols": [
-        "GameValue"
-      ],
+      "exportPaths": ["src/game.ts"],
+      "relatedSymbols": ["GameValue"],
       "signatures": [],
       "members": [
         {
@@ -1331,9 +1212,7 @@
         "line": 3,
         "column": 1
       },
-      "exportPaths": [
-        "src/game.ts"
-      ],
+      "exportPaths": ["src/game.ts"],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
