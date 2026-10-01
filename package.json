@@ -72,7 +72,7 @@
     "version-packages": "ankhorage-changeset version"
   },
   "devDependencies": {
-    "@ankhorage/devtools": "^2.0.25",
+    "@ankhorage/devtools": "^2.0.27",
     "@ankhorage/paradox": "^0.2.8",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.3",
