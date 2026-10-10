@@ -49,8 +49,7 @@
   },
   "ankh": {
     "category": "game",
-    "provider": null,
-    "capabilities": []
+    "provider": null
   },
   "ankhorage": {
     "renovateSyncProtocol": 1
