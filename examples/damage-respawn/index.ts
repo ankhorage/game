@@ -4,7 +4,7 @@
  * Scheduled effects stay in the session until the platform advances game time explicitly.
  *
  * @usage
- * @readme
+ * @title Damage and Respawn
  */
 import {
   advanceGameTime,

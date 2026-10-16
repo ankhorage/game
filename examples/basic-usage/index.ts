@@ -4,6 +4,7 @@
  *
  * @usage
  * @readme
+ * @title Basic Game Rules
  */
 import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
 

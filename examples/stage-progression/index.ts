@@ -5,7 +5,7 @@
  * screens remain application concerns.
  *
  * @usage
- * @readme
+ * @title Stage Progression
  */
 import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
 

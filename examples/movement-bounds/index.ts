@@ -4,7 +4,7 @@
  * UI adapters only report the requested coordinate; the Game definition owns the legal bounds.
  *
  * @usage
- * @readme
+ * @title Bounded Movement
  */
 import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
 
