@@ -5,7 +5,7 @@
  * mean and update entities/state without reading DOM or native layout.
  *
  * @usage
- * @readme
+ * @title Projectile Collisions
  */
 import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';
 
