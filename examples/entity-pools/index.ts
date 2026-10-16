@@ -5,7 +5,7 @@
  * runtime definition.
  *
  * @usage
- * @readme
+ * @title Entity Pools
  */
 import { createGameSession, type GameDefinition, type GameInput } from '@ankhorage/game';
 
