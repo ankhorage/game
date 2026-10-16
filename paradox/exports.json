@@ -1,9 +1,11 @@
 [
   {
     "name": "advanceGameTime",
+    "title": null,
     "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/features/session/application/use-cases/advanceGameTime.ts",
     "sourceLocation": {
@@ -58,9 +60,11 @@
   },
   {
     "name": "applyGameEvent",
+    "title": null,
     "description": "Apply every matching declarative rule for one explicit game event.",
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/features/session/application/use-cases/applyGameEvent.ts",
     "sourceLocation": {
@@ -116,9 +120,11 @@
   },
   {
     "name": "createGameSession",
+    "title": null,
     "description": "Create and initialize one deterministic platform-neutral game session.",
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/features/session/application/use-cases/createGameSession.ts",
     "sourceLocation": {
@@ -160,9 +166,11 @@
   },
   {
     "name": "GameCondition",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -180,9 +188,11 @@
   },
   {
     "name": "GameDefinition",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -256,9 +266,11 @@
   },
   {
     "name": "GameEffect",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -276,9 +288,11 @@
   },
   {
     "name": "GameEntity",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -327,9 +341,11 @@
   },
   {
     "name": "GameEntityPoolDefinition",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -415,9 +431,11 @@
   },
   {
     "name": "GameEntityTemplate",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -452,9 +470,11 @@
   },
   {
     "name": "GameEvent",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -503,9 +523,11 @@
   },
   {
     "name": "GameExecutionResult",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -541,9 +563,11 @@
   },
   {
     "name": "GameExpression",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -561,9 +585,11 @@
   },
   {
     "name": "GameInput",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -581,9 +607,11 @@
   },
   {
     "name": "GameOutput",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -618,9 +646,11 @@
   },
   {
     "name": "GamePoolPlacement",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -688,9 +718,11 @@
   },
   {
     "name": "GamePoolSelector",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -725,9 +757,11 @@
   },
   {
     "name": "GameRecord",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -745,9 +779,11 @@
   },
   {
     "name": "GameRuleDefinition",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -797,9 +833,11 @@
   },
   {
     "name": "GameSession",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -877,9 +915,11 @@
   },
   {
     "name": "GameSessionInitialization",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -914,9 +954,11 @@
   },
   {
     "name": "GameStageDefinition",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -958,9 +1000,11 @@
   },
   {
     "name": "GameValue",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/game.ts",
     "sourceLocation": {
@@ -978,9 +1022,11 @@
   },
   {
     "name": "readGamePath",
+    "title": null,
     "description": "Read one dot-separated value path from a serializable game value.",
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/features/session/utils/gamePath.ts",
     "sourceLocation": {

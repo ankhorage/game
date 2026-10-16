@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.1.2",
+      "value": "v0.1.3",
       "color": "cb3837"
     },
     {
@@ -55,64 +55,138 @@
     },
     {
       "id": "docs",
-      "label": "docs",
-      "value": "paradox",
-      "color": "0f766e"
+      "label": "paradox",
+      "value": "canonical",
+      "color": "0a7f3f"
     }
   ],
-  "usage": null,
-  "readmeUsageDescription": "Author games as serializable definitions: initialize state and stages, feed platform-neutral events into rules, apply declarative effects, and consume emitted outputs. Pick the example closest to the mechanic you need; combine the same primitives for larger games.",
-  "readmeUsage": [
+  "usage": {
+    "packageName": "@ankhorage/game",
+    "command": "ankh game --help"
+  },
+  "usageEntries": [
     {
-      "title": "Start with the smallest config-driven game: an event matches a rule and applies an immutable",
+      "area": "examples",
+      "title": "Basic Game Rules",
       "description": "Start with the smallest config-driven game: an event matches a rule and applies an immutable\nstate effect. Keep rules serializable; UI, timers and platform input stay outside this package.",
       "language": "ts",
-      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'orb-collector',\n  initialState: { score: 0 },\n  stages: [{ id: 'round' }],\n  rules: [\n    {\n      id: 'collect-orb',\n      event: 'orb.collect',\n      effects: [{ kind: 'increment', path: 'score', value: { kind: 'literal', value: 1 } }],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst result = applyGameEvent(game, initial, { type: 'orb.collect' });\nconsole.log(result.session.state.score);",
-      "sourcePath": "examples/basic-usage/index.ts"
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';",
+      "sourcePath": "examples/basic-usage/index.ts",
+      "isReadme": true,
+      "see": [],
+      "security": []
     },
     {
-      "title": "Represent damage, hit feedback and respawn timing without browser or native timers in game logic.",
+      "area": "examples",
+      "title": "Damage and Respawn",
       "description": "Represent damage, hit feedback and respawn timing without browser or native timers in game logic.\n\nScheduled effects stay in the session until the platform advances game time explicitly.",
       "language": "ts",
-      "code": "import {\n  advanceGameTime,\n  applyGameEvent,\n  createGameSession,\n  type GameDefinition,\n} from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'damage-respawn-demo',\n  initialState: {\n    health: 3,\n    invulnerable: false,\n    playerPhase: 'active',\n  },\n  stages: [{ id: 'round' }],\n  rules: [\n    {\n      id: 'take-hit',\n      event: 'player.hit',\n      when: {\n        kind: 'not',\n        condition: {\n          kind: 'truthy',\n          value: { kind: 'reference', source: 'state', path: 'invulnerable' },\n        },\n      },\n      effects: [\n        {\n          kind: 'increment',\n          path: 'health',\n          value: { kind: 'literal', value: -1 },\n          min: { kind: 'literal', value: 0 },\n        },\n        {\n          kind: 'set',\n          path: 'invulnerable',\n          value: { kind: 'literal', value: true },\n        },\n        {\n          kind: 'set',\n          path: 'playerPhase',\n          value: { kind: 'literal', value: 'hitstop' },\n        },\n        {\n          kind: 'schedule',\n          delayMs: { kind: 'literal', value: 300 },\n          effects: [\n            {\n              kind: 'set',\n              path: 'playerPhase',\n              value: { kind: 'literal', value: 'respawning' },\n            },\n          ],\n        },\n        {\n          kind: 'schedule',\n          delayMs: { kind: 'literal', value: 600 },\n          effects: [\n            {\n              kind: 'set',\n              path: 'playerPhase',\n              value: { kind: 'literal', value: 'active' },\n            },\n            {\n              kind: 'set',\n              path: 'invulnerable',\n              value: { kind: 'literal', value: false },\n            },\n          ],\n        },\n      ],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst hit = applyGameEvent(game, initial, { type: 'player.hit' });\nconst respawning = advanceGameTime(game, hit.session, 300);\nconst active = advanceGameTime(game, respawning.session, 300);\n\nconsole.log(active.session.state);",
-      "sourcePath": "examples/damage-respawn/index.ts"
+      "code": "import {\n  advanceGameTime,\n  applyGameEvent,\n  createGameSession,\n  type GameDefinition,\n} from '@ankhorage/game';",
+      "sourcePath": "examples/damage-respawn/index.ts",
+      "isReadme": false,
+      "see": [],
+      "security": []
     },
     {
-      "title": "Build data-driven boards from caller-owned input with deterministic entity pools.",
+      "area": "examples",
+      "title": "Entity Pools",
       "description": "Build data-driven boards from caller-owned input with deterministic entity pools.\n\nUse selectors for target/distractor-style composition and keep presentation details outside the\nruntime definition.",
       "language": "ts",
-      "code": "import { createGameSession, type GameDefinition, type GameInput } from '@ankhorage/game';\n\nconst input: GameInput = {\n  items: [\n    { id: 'a', tag: 'target' },\n    { id: 'b', tag: 'other' },\n    { id: 'c', tag: 'other' },\n    { id: 'd', tag: 'target' },\n  ],\n};\n\nconst game: GameDefinition = {\n  id: 'entity-pool-demo',\n  initialState: { targetTag: 'target' },\n  stages: [{ id: 'round' }],\n  entityTemplates: [{ id: 'token' }],\n  pools: [\n    {\n      id: 'board',\n      source: { kind: 'reference', source: 'input', path: 'items' },\n      entityTemplateId: 'token',\n      size: 3,\n      selectors: [\n        {\n          count: 1,\n          where: {\n            kind: 'equals',\n            left: { kind: 'reference', source: 'local', path: 'item.tag' },\n            right: { kind: 'reference', source: 'state', path: 'targetTag' },\n          },\n        },\n        { count: 2 },\n      ],\n      idPath: 'id',\n      entityState: {\n        data: { kind: 'reference', source: 'local', path: 'item' },\n      },\n    },\n  ],\n  rules: [],\n};\n\nconst session = createGameSession(game, { input, seed: 0.25 }).session;\nconsole.log(Object.values(session.entities).map((entity) => entity.state.data));",
-      "sourcePath": "examples/entity-pools/index.ts"
+      "code": "import { createGameSession, type GameDefinition, type GameInput } from '@ankhorage/game';",
+      "sourcePath": "examples/entity-pools/index.ts",
+      "isReadme": false,
+      "see": [],
+      "security": []
     },
     {
-      "title": "Model direct movement as state updates with declarative clamping.",
+      "area": "examples",
+      "title": "Bounded Movement",
       "description": "Model direct movement as state updates with declarative clamping.\n\nUI adapters only report the requested coordinate; the Game definition owns the legal bounds.",
       "language": "ts",
-      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'movement-demo',\n  initialState: {\n    player: { x: 50, minX: 10, maxX: 90 },\n  },\n  stages: [{ id: 'round' }],\n  rules: [\n    {\n      id: 'move-player',\n      event: 'player.move',\n      effects: [\n        {\n          kind: 'set',\n          path: 'player.x',\n          value: {\n            kind: 'clamp',\n            value: { kind: 'reference', source: 'event', path: 'x' },\n            min: { kind: 'reference', source: 'state', path: 'player.minX' },\n            max: { kind: 'reference', source: 'state', path: 'player.maxX' },\n          },\n        },\n      ],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst moved = applyGameEvent(game, initial, {\n  type: 'player.move',\n  payload: { x: 120 },\n});\n\nconsole.log(moved.session.state.player);",
-      "sourcePath": "examples/movement-bounds/index.ts"
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';",
+      "sourcePath": "examples/movement-bounds/index.ts",
+      "isReadme": false,
+      "see": [],
+      "security": []
     },
     {
-      "title": "Keep projectile lifecycle and collision decisions platform-neutral.",
+      "area": "examples",
+      "title": "Projectile Collisions",
       "description": "Keep projectile lifecycle and collision decisions platform-neutral.\n\nPresentation or geometry adapters report collision events; Game rules decide what those events\nmean and update entities/state without reading DOM or native layout.",
       "language": "ts",
-      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'projectile-collision-demo',\n  initialState: { health: 3 },\n  stages: [{ id: 'round' }],\n  entityTemplates: [{ id: 'projectile' }],\n  rules: [\n    {\n      id: 'fire-projectile',\n      event: 'projectile.fire',\n      effects: [\n        {\n          kind: 'spawnEntity',\n          templateId: 'projectile',\n          id: { kind: 'reference', source: 'event', path: 'projectileId' },\n          state: {\n            glyph: { kind: 'reference', source: 'event', path: 'glyph' },\n          },\n        },\n      ],\n    },\n    {\n      id: 'projectile-hit',\n      event: 'collision.enter',\n      effects: [\n        {\n          kind: 'increment',\n          path: 'health',\n          value: { kind: 'literal', value: -1 },\n          min: { kind: 'literal', value: 0 },\n        },\n        {\n          kind: 'removeEntity',\n          entityId: { kind: 'reference', source: 'event', path: 'projectileId' },\n        },\n      ],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst fired = applyGameEvent(game, initial, {\n  type: 'projectile.fire',\n  payload: { projectileId: 'shot-1', glyph: 'A' },\n});\nconst hit = applyGameEvent(game, fired.session, {\n  type: 'collision.enter',\n  payload: { projectileId: 'shot-1' },\n});\n\nconsole.log(hit.session.state.health, Object.keys(hit.session.entities));",
-      "sourcePath": "examples/projectile-collision/index.ts"
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';",
+      "sourcePath": "examples/projectile-collision/index.ts",
+      "isReadme": false,
+      "see": [],
+      "security": []
     },
     {
-      "title": "Compose multi-stage games with explicit transition and restart rules.",
+      "area": "examples",
+      "title": "Stage Progression",
       "description": "Compose multi-stage games with explicit transition and restart rules.\n\nStage-local initial state is layered onto the session when entering the stage, while routing and\nscreens remain application concerns.",
       "language": "ts",
-      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';\n\nconst game: GameDefinition = {\n  id: 'stage-progression-demo',\n  initialState: { score: 0 },\n  stages: [\n    { id: 'intro', initialState: { goal: 2 }, nextStageId: 'challenge' },\n    { id: 'challenge', initialState: { goal: 5 }, nextStageId: 'result' },\n    { id: 'result' },\n  ],\n  rules: [\n    {\n      id: 'complete-stage',\n      event: 'stage.complete',\n      effects: [\n        { kind: 'transitionStage' },\n        {\n          kind: 'emit',\n          type: 'game.stageChanged',\n          payload: {\n            previousStageId: { kind: 'reference', source: 'session', path: 'stageId' },\n          },\n        },\n      ],\n    },\n    {\n      id: 'restart-stage',\n      event: 'stage.restart',\n      effects: [{ kind: 'restartStage' }],\n    },\n  ],\n};\n\nconst initial = createGameSession(game).session;\nconst challenge = applyGameEvent(game, initial, { type: 'stage.complete' });\nconst result = applyGameEvent(game, challenge.session, { type: 'stage.complete' });\n\nconsole.log(result.session.stageId);",
-      "sourcePath": "examples/stage-progression/index.ts"
+      "code": "import { applyGameEvent, createGameSession, type GameDefinition } from '@ankhorage/game';",
+      "sourcePath": "examples/stage-progression/index.ts",
+      "isReadme": false,
+      "see": [],
+      "security": []
     }
   ],
-  "readmeCli": null,
-  "readmeConfig": null,
+  "exampleCount": 6,
+  "findings": [],
   "config": null,
   "entrypoints": [
     "src/game.ts"
   ],
   "modules": [
+    {
+      "path": "examples/basic-usage/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "dist/game.d.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "examples/damage-respawn/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "dist/game.d.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "examples/entity-pools/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "dist/game.d.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "examples/movement-bounds/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "dist/game.d.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "examples/projectile-collision/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "dist/game.d.ts"
+      ],
+      "exports": []
+    },
+    {
+      "path": "examples/stage-progression/index.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "dist/game.d.ts"
+      ],
+      "exports": []
+    },
     {
       "path": "src/features/session/application/use-cases/advanceGameTime.ts",
       "isEntrypoint": false,
@@ -409,9 +483,11 @@
   "exports": [
     {
       "name": "advanceGameTime",
+      "title": null,
       "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/features/session/application/use-cases/advanceGameTime.ts",
       "sourceLocation": {
@@ -466,9 +542,11 @@
     },
     {
       "name": "applyGameEvent",
+      "title": null,
       "description": "Apply every matching declarative rule for one explicit game event.",
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/features/session/application/use-cases/applyGameEvent.ts",
       "sourceLocation": {
@@ -524,9 +602,11 @@
     },
     {
       "name": "createGameSession",
+      "title": null,
       "description": "Create and initialize one deterministic platform-neutral game session.",
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/features/session/application/use-cases/createGameSession.ts",
       "sourceLocation": {
@@ -568,9 +648,11 @@
     },
     {
       "name": "GameCondition",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -588,9 +670,11 @@
     },
     {
       "name": "GameDefinition",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -664,9 +748,11 @@
     },
     {
       "name": "GameEffect",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -684,9 +770,11 @@
     },
     {
       "name": "GameEntity",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -735,9 +823,11 @@
     },
     {
       "name": "GameEntityPoolDefinition",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -823,9 +913,11 @@
     },
     {
       "name": "GameEntityTemplate",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -860,9 +952,11 @@
     },
     {
       "name": "GameEvent",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -911,9 +1005,11 @@
     },
     {
       "name": "GameExecutionResult",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -949,9 +1045,11 @@
     },
     {
       "name": "GameExpression",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -969,9 +1067,11 @@
     },
     {
       "name": "GameInput",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -989,9 +1089,11 @@
     },
     {
       "name": "GameOutput",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1026,9 +1128,11 @@
     },
     {
       "name": "GamePoolPlacement",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1096,9 +1200,11 @@
     },
     {
       "name": "GamePoolSelector",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1133,9 +1239,11 @@
     },
     {
       "name": "GameRecord",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1153,9 +1261,11 @@
     },
     {
       "name": "GameRuleDefinition",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1205,9 +1315,11 @@
     },
     {
       "name": "GameSession",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1285,9 +1397,11 @@
     },
     {
       "name": "GameSessionInitialization",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1322,9 +1436,11 @@
     },
     {
       "name": "GameStageDefinition",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1366,9 +1482,11 @@
     },
     {
       "name": "GameValue",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/game.ts",
       "sourceLocation": {
@@ -1386,9 +1504,11 @@
     },
     {
       "name": "readGamePath",
+      "title": null,
       "description": "Read one dot-separated value path from a serializable game value.",
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/features/session/utils/gamePath.ts",
       "sourceLocation": {
@@ -1432,6 +1552,8 @@
     {
       "name": "advanceGameTime",
       "description": "Advance explicit elapsed time and execute due scheduled game effects without owning a timer.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/advanceGameTime.ts",
         "line": 11,
@@ -1441,6 +1563,8 @@
     {
       "name": "executeScheduled",
       "description": "Apply one due scheduled effect group and append its outputs.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/advanceGameTime.ts",
         "line": 39,
@@ -1450,6 +1574,8 @@
     {
       "name": "ref",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
         "line": 14,
@@ -1459,6 +1585,8 @@
     {
       "name": "literal",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
         "line": 18,
@@ -1468,6 +1596,8 @@
     {
       "name": "startGame",
       "description": "Start the generic collector with one deterministic board seed.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
         "line": 192,
@@ -1477,6 +1607,8 @@
     {
       "name": "isGameRecord",
       "description": "Narrow one serializable test value to an object record.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/applyGameEvent.test.ts",
         "line": 197,
@@ -1486,6 +1618,8 @@
     {
       "name": "applyGameEvent",
       "description": "Apply every matching declarative rule for one explicit game event.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/applyGameEvent.ts",
         "line": 12,
@@ -1495,6 +1629,8 @@
     {
       "name": "assertHitLifecycle",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeCollision.test.ts",
         "line": 56,
@@ -1504,6 +1640,8 @@
     {
       "name": "ref",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
         "line": 3,
@@ -1513,6 +1651,8 @@
     {
       "name": "literal",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.definition.ts",
         "line": 8,
@@ -1522,6 +1662,8 @@
     {
       "name": "startArcadeGame",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 7,
@@ -1531,6 +1673,8 @@
     {
       "name": "resolvePenaltyActor",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 12,
@@ -1540,6 +1684,8 @@
     {
       "name": "resolveActorEvent",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 19,
@@ -1549,6 +1695,8 @@
     {
       "name": "collisionEvent",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 24,
@@ -1558,6 +1706,8 @@
     {
       "name": "actorByTag",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 33,
@@ -1567,6 +1717,8 @@
     {
       "name": "actorDataIds",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 43,
@@ -1576,6 +1728,8 @@
     {
       "name": "projectileEntities",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 53,
@@ -1585,6 +1739,8 @@
     {
       "name": "isGameRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/arcadeMechanics.fixture.ts",
         "line": 58,
@@ -1594,6 +1750,8 @@
     {
       "name": "createGameSession",
       "description": "Create and initialize one deterministic platform-neutral game session.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/application/use-cases/createGameSession.ts",
         "line": 10,
@@ -1603,6 +1761,8 @@
     {
       "name": "applyEntityEffect",
       "description": "Apply one entity creation/removal/iteration effect.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 14,
@@ -1612,6 +1772,8 @@
     {
       "name": "spawnEntity",
       "description": "Instantiate one entity template with state expressions.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 37,
@@ -1621,6 +1783,8 @@
     {
       "name": "removeEntity",
       "description": "Remove one entity by expression-resolved scalar id.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 72,
@@ -1630,6 +1794,8 @@
     {
       "name": "forEachValue",
       "description": "Apply nested effects once per array/string item with explicit loop-local context.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 85,
@@ -1639,6 +1805,8 @@
     {
       "name": "isGameValueArray",
       "description": "Narrow a serializable game value to an array.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 110,
@@ -1648,6 +1816,8 @@
     {
       "name": "scalarId",
       "description": "Resolve one serializable value to a stable scalar entity id string.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 115,
@@ -1657,6 +1827,8 @@
     {
       "name": "withSession",
       "description": "Replace only the session while preserving already emitted outputs.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyEntityEffect.ts",
         "line": 123,
@@ -1666,6 +1838,8 @@
     {
       "name": "applyGameEffects",
       "description": "Apply a sequence of declarative effects to one immutable game session.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyGameEffects.ts",
         "line": 15,
@@ -1675,6 +1849,8 @@
     {
       "name": "applyEffect",
       "description": "Route one declarative effect to its focused state, entity, or lifecycle handler.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyGameEffects.ts",
         "line": 29,
@@ -1684,6 +1860,8 @@
     {
       "name": "createExpressionContext",
       "description": "Build expression context from one immutable session and captured event/local state.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyGameEffects.ts",
         "line": 55,
@@ -1693,6 +1871,8 @@
     {
       "name": "isEntityEffect",
       "description": "Return whether one effect belongs to entity operations.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyGameEffects.ts",
         "line": 76,
@@ -1702,6 +1882,8 @@
     {
       "name": "isLifecycleEffect",
       "description": "Return whether one effect belongs to stage lifecycle operations.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyGameEffects.ts",
         "line": 83,
@@ -1711,6 +1893,8 @@
     {
       "name": "applyLifecycleEffect",
       "description": "Apply one stage transition or restart effect.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
         "line": 12,
@@ -1720,6 +1904,8 @@
     {
       "name": "transitionStage",
       "description": "Transition to an explicit or configured next stage and apply its initial state.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
         "line": 34,
@@ -1729,6 +1915,8 @@
     {
       "name": "restartStage",
       "description": "Rebuild the current stage while preserving global session values.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
         "line": 56,
@@ -1738,6 +1926,8 @@
     {
       "name": "resetForStage",
       "description": "Reset stage-owned state and transient scheduling for one stage entry.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
         "line": 68,
@@ -1747,6 +1937,8 @@
     {
       "name": "stageById",
       "description": "Resolve one stage definition or throw a useful configuration error.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
         "line": 85,
@@ -1756,6 +1948,8 @@
     {
       "name": "withSession",
       "description": "Replace only the session while preserving already emitted outputs.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyLifecycleEffect.ts",
         "line": 92,
@@ -1765,6 +1959,8 @@
     {
       "name": "applyStateEffect",
       "description": "Apply one state/output/scheduling effect.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 18,
@@ -1774,6 +1970,8 @@
     {
       "name": "appendState",
       "description": "Append one evaluated value to an array state path with an optional bounded history.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 54,
@@ -1783,6 +1981,8 @@
     {
       "name": "isGameValueArray",
       "description": "Narrow one serializable state value to a readonly array.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 78,
@@ -1792,6 +1992,8 @@
     {
       "name": "incrementState",
       "description": "Increment one numeric state path with optional expression bounds.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 83,
@@ -1801,6 +2003,8 @@
     {
       "name": "numeric",
       "description": "Resolve one expression as a finite number.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 106,
@@ -1810,6 +2014,8 @@
     {
       "name": "setPhase",
       "description": "Set one string-valued session phase.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 115,
@@ -1819,6 +2025,8 @@
     {
       "name": "emitOutput",
       "description": "Append one normalized output event to the effect result.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 126,
@@ -1828,6 +2036,8 @@
     {
       "name": "scheduleEffects",
       "description": "Add delayed effects to the session without owning a platform timer.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 144,
@@ -1837,6 +2047,8 @@
     {
       "name": "refreshPool",
       "description": "Refresh one configured entity pool from explicit caller-owned input.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 167,
@@ -1846,6 +2058,8 @@
     {
       "name": "withSession",
       "description": "Replace only the session while preserving already emitted outputs.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/applyStateEffect.ts",
         "line": 188,
@@ -1855,6 +2069,8 @@
     {
       "name": "evaluateGameCondition",
       "description": "Evaluate one declarative game condition against explicit runtime context.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameCondition.ts",
         "line": 5,
@@ -1864,6 +2080,8 @@
     {
       "name": "deepEquals",
       "description": "Compare serializable values structurally for deterministic rule checks.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameCondition.ts",
         "line": 34,
@@ -1873,6 +2091,8 @@
     {
       "name": "includesValue",
       "description": "Check membership for arrays or substring presence for strings.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameCondition.ts",
         "line": 39,
@@ -1882,6 +2102,8 @@
     {
       "name": "numericPair",
       "description": "Require both compared values to be finite numbers.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameCondition.ts",
         "line": 46,
@@ -1891,6 +2113,8 @@
     {
       "name": "evaluateGameExpression",
       "description": "Resolve one serializable expression against explicit runtime context.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 14,
@@ -1900,6 +2124,8 @@
     {
       "name": "resolveReference",
       "description": "Resolve one reference source and optional dot-separated path.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 53,
@@ -1909,6 +2135,8 @@
     {
       "name": "referenceRoot",
       "description": "Build the serializable root value for one supported reference source.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 67,
@@ -1918,6 +2146,8 @@
     {
       "name": "entityValue",
       "description": "Expose one entity as serializable state plus stable runtime metadata.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 89,
@@ -1927,6 +2157,8 @@
     {
       "name": "eventValue",
       "description": "Expose one event payload together with stable event metadata.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 99,
@@ -1936,6 +2168,8 @@
     {
       "name": "entityValues",
       "description": "Resolve current entities as serializable snapshots, optionally filtered by pool.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 109,
@@ -1945,6 +2179,8 @@
     {
       "name": "splitValue",
       "description": "Split one string-valued expression into serializable items.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 116,
@@ -1954,6 +2190,8 @@
     {
       "name": "stringValue",
       "description": "Convert one serializable scalar into a deterministic joined string part.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 127,
@@ -1963,6 +2201,8 @@
     {
       "name": "evaluateMath",
       "description": "Evaluate one numeric expression operator without hidden coercion.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 135,
@@ -1972,6 +2212,8 @@
     {
       "name": "numberValue",
       "description": "Require one evaluated value to be a finite number.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/evaluateGameExpression.ts",
         "line": 157,
@@ -1981,6 +2223,8 @@
     {
       "name": "refreshGamePool",
       "description": "Replace one pool's entities from caller-owned data using deterministic selectors and placement.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 17,
@@ -1990,6 +2234,8 @@
     {
       "name": "collectExcludedIds",
       "description": "Collect scalar item ids excluded by configured session-state paths.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 65,
@@ -1999,6 +2245,8 @@
     {
       "name": "selectItems",
       "description": "Select each configured group without duplicating source items.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 77,
@@ -2008,6 +2256,8 @@
     {
       "name": "buildEntityState",
       "description": "Build one entity's generic state from template defaults and pool expressions.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 107,
@@ -2017,6 +2267,8 @@
     {
       "name": "placeEntity",
       "description": "Place one generated entity deterministically within optional pool bounds.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 125,
@@ -2026,6 +2278,8 @@
     {
       "name": "deterministicPoint",
       "description": "Derive one stable pseudo-random point from a normalized seed and integer sequence.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 157,
@@ -2035,6 +2289,8 @@
     {
       "name": "rotate",
       "description": "Rotate a readonly source list by a deterministic normalized seed.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 171,
@@ -2044,6 +2300,8 @@
     {
       "name": "localContext",
       "description": "Build loop-local values available to entity-state expressions.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 178,
@@ -2053,6 +2311,8 @@
     {
       "name": "readItemId",
       "description": "Read one stable scalar item id from a serializable pool item.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 183,
@@ -2062,6 +2322,8 @@
     {
       "name": "isScalarId",
       "description": "Narrow a serializable value to a scalar entity id.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 192,
@@ -2071,6 +2333,8 @@
     {
       "name": "fractional",
       "description": "Normalize arbitrary numeric input into the deterministic half-open unit interval.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/domain/refreshGamePool.ts",
         "line": 197,
@@ -2080,6 +2344,8 @@
     {
       "name": "readGamePath",
       "description": "Read one dot-separated value path from a serializable game value.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 4,
@@ -2089,6 +2355,8 @@
     {
       "name": "writeGamePath",
       "description": "Immutably write one dot-separated object path in game state.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 18,
@@ -2098,6 +2366,8 @@
     {
       "name": "readRecordEntry",
       "description": "Read one object entry without dynamic property injection syntax.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 25,
@@ -2107,6 +2377,8 @@
     {
       "name": "writeObjectPath",
       "description": "Recursively clone objects while replacing the requested nested value.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 30,
@@ -2116,6 +2388,8 @@
     {
       "name": "toRecord",
       "description": "Return one serializable value as a record or an empty record for non-object values.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 45,
@@ -2125,6 +2399,8 @@
     {
       "name": "isGameArray",
       "description": "Narrow one serializable value to a readonly game-value array.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 53,
@@ -2134,6 +2410,8 @@
     {
       "name": "replaceRecordEntry",
       "description": "Immutably replace one record key without dynamic property assignment.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/session/utils/gamePath.ts",
         "line": 58,
