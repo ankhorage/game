@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "library",
+  "title": "Ankhorage Game",
+  "summary": "Provides platform-neutral config-driven game semantics and runtime primitives.",
+  "purpose": "Give applications reusable game semantics without coupling their domain logic to a platform, rendering system, or hosting topology.",
+  "domain": "game runtime primitives",
+  "responsibilities": [
+    "Define platform-neutral configuration-driven game semantics.",
+    "Expose reusable runtime primitives for game applications."
+  ],
+  "boundaries": [
+    "Does not own a rendering engine or user interface.",
+    "Does not require a specific application, hosting provider, or deployment topology.",
+    "Does not provide deprecated compatibility paths."
+  ],
+  "audience": [
+    "Application authors building config-driven game experiences.",
+    "Package consumers that need reusable game runtime primitives."
+  ],
+  "useCases": ["Build platform-neutral mini-game and gameplay semantics from configuration."],
+  "architecture": {
+    "role": "Reusable platform-neutral game semantics and runtime library.",
+    "invariants": [
+      "The package remains standalone and consumer-agnostic.",
+      "Platform-specific behavior belongs outside the package core."
+    ]
+  },
+  "constraints": {
+    "limitations": [
+      "Rendering, hosting, and application-specific game policy are supplied by consumers."
+    ]
+  }
+}
