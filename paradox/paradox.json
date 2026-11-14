@@ -2,8 +2,10 @@
   "packageName": "@ankhorage/game",
   "packageId": "@ankhorage/game",
   "description": "Platform-neutral config-driven game semantics and runtime primitives for Ankhorage apps.",
-  "collaborators": null,
-  "donation": null,
+  "collaborators": true,
+  "donation": {
+    "account": "ankhorage"
+  },
   "badges": [
     {
       "id": "license",
@@ -14,7 +16,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.1.3",
+      "value": "v0.1.4",
       "color": "cb3837"
     },
     {
@@ -62,7 +64,7 @@
   ],
   "usage": {
     "packageName": "@ankhorage/game",
-    "command": "ankh game --help"
+    "command": null
   },
   "usageEntries": [
     {

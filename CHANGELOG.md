@@ -1,5 +1,11 @@
 # @ankhorage/game
 
+## 0.1.4
+
+### Patch Changes
+
+- afe0939: Add canonical repository metadata for package discovery and documentation.
+
 ## 0.1.3
 
 ### Patch Changes
