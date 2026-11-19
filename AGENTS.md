@@ -6,7 +6,36 @@
 
 Package: `@ankhorage/game`
 
-Platform-neutral config-driven game semantics and runtime primitives for Ankhorage apps.
+Title: Ankhorage Game
+
+Provides platform-neutral config-driven game semantics and runtime primitives.
+
+Purpose: Give applications reusable game semantics without coupling their domain logic to a platform, rendering system, or hosting topology.
+
+Audience:
+
+- Application authors building config-driven game experiences.
+- Package consumers that need reusable game runtime primitives.
+
+## Scope and boundaries
+
+Responsibilities:
+
+- Define platform-neutral configuration-driven game semantics.
+- Expose reusable runtime primitives for game applications.
+
+Boundaries:
+
+- Does not own a rendering engine or user interface.
+- Does not require a specific application, hosting provider, or deployment topology.
+- Does not provide deprecated compatibility paths.
+
+Architecture role: Reusable platform-neutral game semantics and runtime library.
+
+Architectural invariants:
+
+- The package remains standalone and consumer-agnostic.
+- Platform-specific behavior belongs outside the package core.
 
 ## Current architecture only
 
@@ -64,6 +93,26 @@ Paradox `/*** ... */` comments in `src` and leading `@usage` comments in real
 `examples/<example>/...` source files, plus any repository-owned manual documentation outside the
 generated output. The managed release workflow runs `bun run docs` after the package version bump
 and commits the regenerated artifacts in the release commit.
+
+## GitHub task lifecycle and workspace cleanup
+
+- **Start.** Treat each issue implementation, PR implementation, review, and change request (CR)
+  as an independent task. Fetch the current remote default branch and read the applicable issue,
+  PR, HEAD, review feedback, and CI state. Use a fresh, uniquely named task checkout or worktree.
+  Concurrent tasks must have distinct writable checkout, temporary, build, and cache paths.
+- **CRs.** Fetch and check out the current remote PR branch in the new workspace. Preserve PR
+  history and scope. Push corrections to the existing PR branch.
+- **Delivery.** Run applicable checks. Commit and push all intended changes, then verify that
+  GitHub has the intended commit on the correct remote branch. Report the exact HEAD, checks, CI,
+  findings, and blockers. Report acceptance that was not run as unverified. Read-only reviews hand
+  off their findings without creating a commit. Merge requires explicit authorization.
+- **Cleanup.** After handoff, resolve every candidate path and remove only task-owned directories
+  whose resolved paths are strictly under the resolved system path for `/tmp` (`/private/tmp` on
+  macOS). Refuse candidates that resolve outside that boundary, including through a symlink. Use
+  Git-aware removal for worktrees. Preserve workspaces outside the boundary, shared directories,
+  other tasks' directories, uncommitted changes, and unpushed commits. If blocked, persist
+  recoverable work first and document what must be retained. Report whether cleanup succeeded, was
+  skipped, or was blocked.
 
 ## Pull requests
 
